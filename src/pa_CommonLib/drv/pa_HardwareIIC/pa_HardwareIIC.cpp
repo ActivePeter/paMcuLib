@@ -139,7 +139,7 @@ char iic_inited = 0;
 #ifdef ESP32
 #include <wire.h>
 #include "Arduino.h"  
-
+//esp32 一般的iic是 21:sda 和22:scl
     // #include <LQ_SOFTI2C.h>
     void pa_IIC_init(){
         Wire.begin();

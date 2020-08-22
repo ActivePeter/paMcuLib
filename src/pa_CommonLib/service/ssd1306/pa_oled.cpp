@@ -18,19 +18,31 @@ Protocal OLED_chosenProtocal;
 /**********************************************
 // IIC Write Command
 **********************************************/
-//hardware//////////////////////////////////////////////////////////////////////////////
+//hardware driver//////////////////////////////////////////////////////////////////////////////
+#ifdef ESP32
+#define OLED_CS_Port 12
+#define OLED_DC_Port 14
+#define OLED_RST_Port 13
 
+// D0                         4 线 ISP 接口模式：时钟线（CLK）
+// D1                         4 线 ISP 接口模式：串行数据线（MOSI）
 void OLED_initSpiGpio(){
-    
+    pinMode(OLED_CS_Port,  OUTPUT);
+    pinMode(OLED_DC_Port,  OUTPUT);
+    pinMode(OLED_RST_Port,  OUTPUT);
 }
 
 void OLED_setCS(char state){
-    
+    digitalWrite(OLED_CS_Port, state);
 }
 
 void OLED_setDC(char state){
-    
+    digitalWrite(OLED_DC_Port, state);
 }
+void OLED_setRST(char state){
+    digitalWrite(OLED_RST_Port, state);
+}
+#endif
 ////////////////////////////////////////////////////////////////////////////////
 void OLED_Write_IIC_Command(unsigned char IIC_Command)
 {
@@ -310,16 +322,17 @@ void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned
 //初始化SSD1306
 void OLED_Init(Protocal chosenProtocal)
 {
-
-		//软降iic, 设置PB6(SCL), PB7(SDA)为输出模式
-//		GPIO_InitTypeDef GPIO_InitStruct = {0};
-//		GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-//		GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//		GPIO_InitStruct.Pull = GPIO_NOPULL;
-//		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-//		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct)
     OLED_IICSettingStruct.delay=60;
     OLED_chosenProtocal=chosenProtocal;
+
+    if(OLED_chosenProtocal==Protocal_SPI){
+        OLED_initSpiGpio();
+        OLED_setRST(1);
+        pa_delayMs(1);
+        OLED_setRST(0);
+        pa_delayMs(10);
+        OLED_setRST(1);
+    }
 
     OLED_WR_Byte(0xAE, OLED_CMD); //--display off
     OLED_WR_Byte(0x20, OLED_CMD);

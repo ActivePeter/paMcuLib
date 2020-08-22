@@ -8,6 +8,7 @@
 #ifndef __OLED_H
 #define __OLED_H
 #include "stdlib.h"
+#include "../../drv/pa_CommonDrv.h"
 #define OLED_MODE 0
 #define SIZE 8
 #define XLevelL 0x00
@@ -26,10 +27,10 @@
 #define OLED_DATA 1 //写数据
 
 //OLED控制用函数
-void OLED_WR_Byte(unsigned char dat, unsigned char cmd)
+void OLED_WR_Byte(unsigned char dat, unsigned char cmd);
 void OLED_Display_On(void);
 void OLED_Display_Off(void);
-void OLED_Init(void);
+void OLED_Init(Protocal chosenProtocal);
 void OLED_Clear(void);
 void OLED_DrawPoint(unsigned char x, unsigned char y, unsigned char t);
 void OLED_Fill(unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2, unsigned char dot);
