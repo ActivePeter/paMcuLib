@@ -1,6 +1,8 @@
 # pa_CommonLibTest
 最近在建立一个以方便移植为目的的各类外设的通用库。
 
+github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.com/ActivePeter/pa_CommonLibTest)
+
 ------
 
 ## 适配板子：
@@ -38,3 +40,5 @@
 #### 	服务层：
 
 ​		ssd1306（iic，spi）
+
+![image-20200822231413580](http://tuchuang.hanbaoaaa.xyz/image-20200822231413580.png)
