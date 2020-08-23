@@ -33,8 +33,6 @@ void pa_setupApp()
 	pa_IIC_init();
 	// ST7735_initGpio();
 	// ST7735_Init();
-	// TFTSPI_Init(0);        //LCD閸掓繂顫愰崠锟�  0:濡亜鐫�  1閿涙氨鐝仦锟�
-	// TFTSPI_CLS(u16GREEN);   //閽冩繆澹婄仦蹇撶
 
 	OLED_Init(Protocal_IIC);
 	OLED_Clear();
@@ -46,8 +44,6 @@ void pa_setupApp()
 
 	pa_Keypad::instance.init(GpioInputMode_pullup);
 	pa_Keypad::instance.keypadCallback = hhh;
-	// TFTSPI_P16x16Str(0,0,"sssss",u16RED,u16BLUE);		//鐎涙顑佹稉鍙夋▔缁€锟�
-	// TFTSPI_P8X16Str(0,1,"Long Qiu i.s.t.",u16WHITE,u16BLACK);		//鐎涙顑佹稉鍙夋▔缁€锟�
 }
 char flag = 1;
 void pa_loopApp()
