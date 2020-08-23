@@ -43,5 +43,5 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 ![image-20200822231413580](http://tuchuang.hanbaoaaa.xyz/image-20200822231413580.png)
 
-​	矩阵按键已添加。可以设置行列数量。
+​	矩阵按键已添加。可以设置行列数量
 
