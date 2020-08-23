@@ -41,6 +41,7 @@ char iic_inited = 0;
         0,                                      // No byte counter threshold
         EUSCI_B_I2C_NO_AUTO_STOP                // No Autostop
     };
+    //6.4 sda,6.5scl
     void pa_IIC_init(){
         if(i2cDeviceChosen==EUSCI_B1_BASE){
             MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6,
@@ -125,7 +126,7 @@ char iic_inited = 0;
         while (length)
         {
             length--;
-            MAP_I2C_masterSendMultiByteNext(i2cDeviceChosen, data_t);
+            MAP_I2C_masterSendMultiByteNext(i2cDeviceChosen, *data_t);
             data_t++;
             /* code */
         }

@@ -7,7 +7,7 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 ## 适配板子：
 
-​	目前已经分别在esp32 和 msp432p上进行测试了
+​	目前已经分别在esp32（platform io arduino） 和 msp432p（ccs）上进行测试了
 
 ​	后面会扩展到stm32，k210这些板子上、
 

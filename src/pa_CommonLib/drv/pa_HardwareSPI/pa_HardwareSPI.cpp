@@ -35,14 +35,15 @@ extern "C"
 /* SPI Master Configuration Parameter */
 const eUSCI_SPI_MasterConfig spiMasterConfig =
 {
-        EUSCI_B_SPI_CLOCKSOURCE_SMCLK,             // SMCLK Clock Source
-        3000000,                                   // SMCLK = DCO = 3MHZ
-        3000000,                                    // SPICLK = 500khz
-        EUSCI_B_SPI_MSB_FIRST,                     // MSB First
-        EUSCI_B_SPI_PHASE_DATA_CHANGED_ONFIRST_CAPTURED_ON_NEXT,    // Phase
-        EUSCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH, // High polarity
-        EUSCI_B_SPI_3PIN                           // 3Wire SPI Mode
+    EUSCI_B_SPI_CLOCKSOURCE_SMCLK,             // SMCLK Clock Source
+    3000000,                                   // SMCLK = DCO = 3MHZ
+    3000000,                                    // SPICLK = 500khz
+    EUSCI_B_SPI_MSB_FIRST,                     // MSB First
+    EUSCI_B_SPI_PHASE_DATA_CHANGED_ONFIRST_CAPTURED_ON_NEXT,    // Phase
+    EUSCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH, // High polarity
+    EUSCI_B_SPI_3PIN                           // 3Wire SPI Mode
 };
+//1.5clk,1.6mosi
 //![Simple SPI Config]
 void pa_spiInit(){
     GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,

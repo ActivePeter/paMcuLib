@@ -3,7 +3,7 @@
 //hasRTOS
 // #define hasRTOS
 /////////////////////////////////////////////////////
-// #define ESP32//select Board(选择板子)
+#define MSP432P//select Board(选择板子)
 /////////////////////////////////////////////////////////////////////
 // includes //////////////////
 #ifdef MSP432P
@@ -34,5 +34,11 @@ typedef enum
     Protocal_SPI=1,
     Protocal_IIC
 }Protocal;
+
+typedef enum {
+    GpioInputMode_pullup=1,
+    GpioInputMode_pulldown,
+    GpioInputMode_hang,
+}GpioInputMode;
 
 #endif
