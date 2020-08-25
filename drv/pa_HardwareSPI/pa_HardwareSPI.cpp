@@ -82,14 +82,14 @@ void pa_spiInit(){
 }
 void pa_spiTransmit(unsigned char * data,unsigned int len){
     SPI.beginTransaction(SPISettings(SPI_FREQUENCY, MSBFIRST, TFT_SPI_MODE));
-    while (len)
-    {
-        len--;
-        SPI.transfer(*data);
-        data++;
-        /* code */
-    }
-    
+    // while (len)
+    // {
+    //     len--;
+    //     SPI.transfer(*data);    
+    //     data++;
+    //     /* code */
+    // }
+    SPI.transfer(data,len);    
     
     SPI.endTransaction();
 }

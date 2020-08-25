@@ -206,17 +206,47 @@ void LCD_Init(void)
 								color       要填充的颜色
       返回值：  无
 ******************************************************************************/
+
+// unsigned char arr[240*240]={0};
+
 void LCD_Fill(unsigned short xsta,unsigned short ysta,unsigned short xend,unsigned short yend,unsigned short color)
 {          
+	char static flag=0;
 	unsigned short i,j; 
 	LCD_Address_Set(xsta,ysta,xend-1,yend-1);//设置显示范围
+	
+	int len=(xend-xsta)*2;
+	// memset(arr,0,len);
+	
 	for(i=ysta;i<yend;i++)
-	{													   	 	
+	{		
+		unsigned char arr[480];
+		// pa_spiTransmit(&dat,1);												   	 	
 		for(j=xsta;j<xend;j++)
 		{
-			LCD_WR_DATA(color);
+			
+			int index=(j)*2;
+			arr[index]=color>>8;
+			arr[index+1]=color;
+			// LCD_WR_DATA(color);
+			
 		}
-	} 					  	    
+		// for(j=xsta;j<xend;j++){
+		// 	unsigned char arr2[2];
+		// 	arr2[0]=arr[j*2];
+		// 	arr2[1]=arr[j*2+1];
+			pa_spiTransmit(arr,len);
+		// }
+		
+	} 	
+	// flag=!flag;
+	// if(flag){
+	// 	memset(arr,0x0f,len);
+	// }else{
+	// 	memset(arr,0,len);
+	// }
+
+					  	    
 }
 
 /******************************************************************************

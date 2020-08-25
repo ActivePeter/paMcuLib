@@ -22,7 +22,7 @@ private:
 	void setOutput(unsigned char index, unsigned char state);
 	unsigned char readInput(unsigned char index);
 	bool isPullup;
-	unsigned char keyStateArr[Keypad_Output_Cnt][Keypad_Input_Cnt] = { 0 };
+	unsigned char keyStateArr[Keypad_Output_Cnt][Keypad_Input_Cnt];
 };
 
 #endif

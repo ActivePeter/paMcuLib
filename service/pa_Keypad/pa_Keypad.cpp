@@ -10,7 +10,7 @@ pa_Keypad::pa_Keypad() {
 }
 
 void pa_Keypad::init(GpioInputMode mode) {
-
+	memset(keyStateArr,0,sizeof(keyStateArr));
 	//this->callback = callback;
 	isPullup = (mode == GpioInputMode_pullup);
 	hardwareInit();
