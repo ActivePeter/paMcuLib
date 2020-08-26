@@ -4,6 +4,6 @@
 
 #define Keypad_Output_Cnt 4
 #define Keypad_Input_Cnt 4
-#define Keypad_Trig_Cnt 100//修改这个来调整按键灵敏度
+#define Keypad_Trig_Cnt 100//淇敼杩欎釜鏉ヨ皟鏁存寜閿伒鏁忓害
 
 #endif
