@@ -43,6 +43,7 @@ const eUSCI_SPI_MasterConfig spiMasterConfig =
     EUSCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH, // High polarity
     EUSCI_B_SPI_3PIN                           // 3Wire SPI Mode
 };
+
 //1.5clk,1.6mosi
 //![Simple SPI Config]
 void pa_spiInit(){
