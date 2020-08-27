@@ -26,7 +26,7 @@ void Ads_112c04::init(unsigned char A0, unsigned char A1) {
 	else if (A0 == SCL && A1 == SCL) I2C_ADDRESS = 79;
 }
 
-void Ads_112c04::selectChannel(unsigned char channel, unsigned char gain, unsigned char mode)
+void Ads_112c04::configRegister0(unsigned char channel, unsigned char gain, unsigned char mode)
 {
 	unsigned char INP1 = 0, INP0 = 0;
 

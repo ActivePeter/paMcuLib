@@ -11,7 +11,9 @@ public:
 	Ads_112c04();
 	static Ads_112c04 instance;
 	void init(unsigned char A0, unsigned char A1);
-	void selectChannel(unsigned char channel, unsigned char gain, unsigned char mode);
+	void configRegister0(unsigned char channel, unsigned char gain, unsigned char mode);
+	void configRegister1(unsigned char channel, unsigned char gain, unsigned char mode);
+	void configRegister2(unsigned char channel, unsigned char gain, unsigned char mode);
 	double readADC();
 	void reset();
 	//引脚状态
