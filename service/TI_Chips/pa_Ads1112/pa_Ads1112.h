@@ -1,7 +1,7 @@
 #ifndef __pa_Ads1112_H__
 #define __pa_Ads1112_H__
 extern "C" {
-#include "../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv.h"
 
 }
 

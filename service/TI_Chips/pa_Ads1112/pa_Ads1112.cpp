@@ -55,18 +55,20 @@ void pa_Ads1112::selectChannel(unsigned char channel, unsigned char gain, unsign
 		1 << BIT_DR0 |
 		gain;
 
-	Wire.beginTransmission(I2C_ADDRESS);
-	Wire.write(reg);
-	Wire.endTransmission();
+	// Wire.beginTransmission(I2C_ADDRESS);
+	// Wire.write(reg);
+	// Wire.endTransmission();
 }
 
 double pa_Ads1112::readADC()
 {
-	Wire.requestFrom(I2C_ADDRESS, (byte)3);
-
-	int h = Wire.read();
-	int l = Wire.read();
-	int r = Wire.read();
+	// Wire.requestFrom(I2C_ADDRESS, (byte)3);
+	int h;
+int l;
+int r;
+	//  h = Wire.read();
+	//  l = Wire.read();
+	//  r = Wire.read();
 
 	long t = h << 8 | l;
 
