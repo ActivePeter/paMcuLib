@@ -1,7 +1,7 @@
 #include "pa_Keypad.h"
 
 /****************************************************
- * driver ²ã´úÂë
+ * driver å±‚ä»£ç 
  * ***************************************************/
 
 #ifdef MSP432P
@@ -14,7 +14,7 @@ uint_fast16_t Keypad_InputPins[Keypad_Input_Cnt];
 
 
 
- //³õÊ¼»¯Òı½Å
+ //åˆå§‹åŒ–å¼•è„š
 void pa_Keypad::hardwareInit() {
     {
         Keypad_OutputPorts[0] = GPIO_PORT_P3;       
@@ -63,7 +63,7 @@ void pa_Keypad::initOutput() {
     }
 }
 
-//ÉèÖÃĞĞ
+//è®¾ç½®è¡Œ
 void pa_Keypad::setOutput(unsigned char index, unsigned char state) {
     if (state) {
         MAP_GPIO_setOutputHighOnPin(Keypad_OutputPorts[index], Keypad_OutputPins[index]);
@@ -72,7 +72,7 @@ void pa_Keypad::setOutput(unsigned char index, unsigned char state) {
         MAP_GPIO_setOutputLowOnPin(Keypad_OutputPorts[index], Keypad_OutputPins[index]);
     }
 }
-//ÉèÖÃÁĞ
+//è®¾ç½®åˆ—
 unsigned char pa_Keypad::readInput(unsigned char index) {
     return MAP_GPIO_getInputPinValue(Keypad_InputPorts[index], Keypad_InputPins[index]);
 }
