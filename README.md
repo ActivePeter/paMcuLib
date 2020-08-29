@@ -17,6 +17,20 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 ------
 
+## 如何使用：
+
+1.fork这个项目。
+
+2.建立一个你的单片机项目。（由于是一个层级结构的目录。所以它不支持keil，可以使用iar，cubemx ide，gcc等编译工具）
+
+3.将你的单片机项目变为仓库
+
+4.使用指令将此库作为子模块加入你的单片机项目仓库
+
+```git
+git submodule add https://github.com/ActivePeter/pa_CommonLib.git（这个路径可以换成你fork后的路径）
+```
+
 ## 我的使用了这个库的项目：
 
 1. [绘图机械臂](https://github.com/ActivePeter/RobotArmDrawer)
@@ -45,9 +59,19 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 #### 	服务层：
 
-​		ssd1306（iic，spi）
+​		1.ssd1306（iic，spi）
 
 ![image-20200822231413580](http://tuchuang.hanbaoaaa.xyz/image-20200822231413580.png)
 
-​	矩阵按键已添加。可以设置行列数量
+​		2.矩阵按键已添加。可以设置行列数量
+
+​		3.st7789（240*240）
+
+![image-20200829145209488](http://tuchuang.hanbaoaaa.xyz/image-20200829145209488.png)
+
+​		4.ti系列芯片：（主要是为了ti邀请赛做准备的）
+
+​			ads1112，
+
+​			ads112c04
 
