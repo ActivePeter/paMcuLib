@@ -1,13 +1,18 @@
 #ifndef __ROBOTARMAPP_H__
 #define __ROBOTARMAPP_H__
-
+#include "RobotStepper.h"
 class RobotArmApp
 {
 public:
 	RobotArmApp();
 	static RobotArmApp instance;
     void onTimerTick();
+    
 private:
+    RobotStepper robotStepper1;
+    RobotStepper robotStepper2;
+    RobotStepper robotStepper3;
+
     //电机1当前步进数
     int step1=0;
     //电机2当前步进数
@@ -32,10 +37,11 @@ private:
     int totalStep3=0;
 
     //决定了完成总的步进需要花费的tick
-    int maxDeltaTickCount=0;
+    int tickCountInOneMove=0;
     //当前tick计数
     int currentTick=0;
     void prepareNextMove();
+    void doStepperEvent(RobotStepper & stepper);
 };
 
 #endif // __ROBOTARMAPP_H__
