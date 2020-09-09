@@ -17,7 +17,13 @@ Protocal OLED_chosenProtocal;
 
 /*****************************************************
 //hardware driver//
+
 *****************************************************/
+void OLED_initSpiGpio();
+void OLED_setCS(char state);
+void OLED_setDC(char state);
+void OLED_setRST(char state);
+/****************************************************/
 #ifdef ESP32
 #define OLED_CS_Port 12
 #define OLED_DC_Port 14
