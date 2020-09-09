@@ -2,7 +2,23 @@ extern "C"
 {
 #include "pa_CommonDrv.h"
 }
-#ifdef MSP432P
+#ifdef TM4C123G
+    void pa_CommonInit(){
+
+    }
+    void pa_delayMs(unsigned int ms){
+
+    } 
+
+    void pa_delayUs(unsigned int us){
+        
+    }
+
+    void pa_millis(){
+
+    }
+
+#elif MSP432P
     #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
     void pa_CommonInit(){
         Timer32_initModule(TIMER32_0_BASE, TIMER32_PRESCALER_1, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
@@ -34,9 +50,7 @@ extern "C"
 
     }
 
-#endif
-
-#ifdef ESP32
+#elif ESP32
     // #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
     void pa_CommonInit(){
         // Timer32_initModule(TIMER32_0_BASE, TIMER32_PRESCALER_1, TIMER32_32BIT, TIMER32_PERIODIC_MODE);

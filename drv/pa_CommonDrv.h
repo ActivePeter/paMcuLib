@@ -13,6 +13,12 @@
 #ifdef ESP32
 #include "esp32-hal.h"
 #endif
+#ifdef TM4C123G
+#include "inc/hw_memmap.h"
+#include "driverlib/debug.h"
+#include "driverlib/gpio.h"
+#include "driverlib/sysctl.h"
+#endif
 extern "C"
 {
 #include "pa_HardwareSPI/pa_HardwareSPI.h"
