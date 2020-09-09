@@ -42,4 +42,14 @@ typedef enum {
     GpioInputMode_hang,
 }GpioInputMode;
 
+typedef enum {
+    GpioPortOrPin_Port=1,
+    GpioPortOrPin_Pin,
+}GpioPortOrPin;
+
+typedef enum {
+    Direction_Increase=1,
+    Direction_Decrease,
+}Direction;
+
 #endif

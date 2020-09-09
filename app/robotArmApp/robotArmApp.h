@@ -1,6 +1,6 @@
 #ifndef __ROBOTARMAPP_H__
 #define __ROBOTARMAPP_H__
-#include "RobotStepper.h"
+#include "RobotStepper/RobotStepper.h"
 class RobotArmApp
 {
 public:
@@ -42,6 +42,7 @@ private:
     int currentTick=0;
     void prepareNextMove();
     void doStepperEvent(RobotStepper & stepper);
+    void calcAndSetStep(RobotStepper & stepper);
 };
 
 #endif // __ROBOTARMAPP_H__
