@@ -33,7 +33,15 @@ git submodule add https://github.com/ActivePeter/pa_CommonLib.git（这个路径
 
 ## 我的使用了这个库的项目：
 
-1. [绘图机械臂](https://github.com/ActivePeter/RobotArmDrawer)
+提供一个demo项目。分支即mcu类型。没有的需要自行适配。
+
+[https://github.com/ActivePeter/pa_CommonLib_Demos](https://github.com/ActivePeter/pa_CommonLib_Demos)
+
+![image-20200910151518159](http://tuchuang.hanbaoaaa.xyz/image-20200910151518159.png)
+
+------
+
+1. 绘图机械臂](https://github.com/ActivePeter/RobotArmDrawer)
 
 ------
 
