@@ -3,19 +3,70 @@ extern "C"
 #include "pa_CommonDrv.h"
 }
 #ifdef TM4C123G
+#define TickPerSecond (1000)                //每秒Tick数（中断次数）
+#define usPerTick (1000000 / TickPerSecond) //每个Tick对应的微秒数
+void SysTickIntHandler(void);
 void pa_CommonInit()
 {
+    {
+        //设置重装值
+        SysTickPeriodSet(SysCtlClockGet() / TickPerSecond);
+        //注册中断
+        SysTickIntRegister(SysTickIntHandler);
+        //开启CPU中断处理器
+        IntMasterEnable();
+        //使能中断
+        SysTickIntEnable();
+        //开启系统定时器
+        SysTickEnable();
+    }
+}
+/**
+ * 由于TickPerSecond = 1000，一秒恰被分为1000份，
+ * 即1Tick周期为1ms，所以取系统时间单位为ms。
+ */
+static volatile uint32_t SysTime_ms; //系统时间(ms)
+
+//【2】系统定时器中断
+void SysTickIntHandler(void)
+{
+    SysTime_ms++;
+}
+
+//【3】获取系统时间(ms)
+uint32_t GetSysTime_ms(void)
+{
+    return SysTime_ms;
+}
+
+//【4】获取系统时间(us)
+uint32_t GetSysTime_us(void)
+{
+    register uint32_t ms, us;
+
+    do
+    {
+        ms = SysTime_ms;
+        us = ((SysTickValueGet() / SysTickPeriodGet()) * usPerTick) + ms * usPerTick;
+    } while (ms != SysTime_ms);
+
+    return us;
 }
 void pa_delayMs(unsigned int ms)
 {
-    SysCtlDelay((float)SysCtlClockGet()*ms/3000);
+    uint32_t delayTime = GetSysTime_ms() + ms;
+    while (GetSysTime_ms() < delayTime)
+        ;
 }
 void pa_delayUs(unsigned int us)
 {
-    SysCtlDelay((float)SysCtlClockGet()*us/3000000);
+    uint32_t delayTime = GetSysTime_us() + us;
+    while (GetSysTime_us() < delayTime)
+        ;
 }
-void pa_millis()
+unsigned long pa_millis()
 {
+    return GetSysTime_ms();
 }
 
 #elif MSP432P

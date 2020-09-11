@@ -14,10 +14,15 @@
 #include "esp32-hal.h"
 #endif
 #ifdef TM4C123G
+#include "driverlib/pin_map.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/debug.h"
 #include "driverlib/gpio.h"
+#include "driverlib/ssi.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/systick.h"
+#include "driverlib/interrupt.h"
+#include "stdint.h"
 #endif
 extern "C"
 {
@@ -33,7 +38,7 @@ extern "C"
 
     void pa_delayUs(unsigned int us);
 
-    void pa_millis();
+    unsigned long pa_millis();
 
 /////////////////////////////////////////////////////////
 typedef enum

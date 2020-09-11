@@ -1,5 +1,5 @@
 extern "C"{
-#include "lcd_drv.h"
+#include "../lcd_drv.h"
 }
 
 //spi引脚名
@@ -46,34 +46,6 @@ void LCD_setBLK(unsigned char state){
 	}else{
 		GPIO_setOutputLowOnPin(LCD_BLK_Port,LCD_BLK_Pin);
 	}
-}
-
-#endif
-
-#ifdef ESP32
-
-#define LCD_RES_Port 13
-
-#define LCD_DC_Port 14
-
-#define LCD_BLK_Port 12
-
-void LCD_GPIO_Init(void){
-	pinMode(LCD_RES_Port,  OUTPUT);
-    pinMode(LCD_DC_Port,  OUTPUT);
-    pinMode(LCD_BLK_Port,  OUTPUT);
-}
-
-void LCD_setRes(unsigned char state){
-	digitalWrite(LCD_RES_Port, state);
-}
-
-void LCD_setDC(unsigned char state){
-	digitalWrite(LCD_DC_Port, state);
-}
-
-void LCD_setBLK(unsigned char state){
-	digitalWrite(LCD_BLK_Port, state);
 }
 
 #endif

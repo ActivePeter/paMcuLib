@@ -11,6 +11,7 @@ extern "C"
 #include "stdlib.h"
 #include "pa_oledfont.h"
 #include "../../drv/pa_HardwareIIC/pa_HardwareIIC.h"
+#include "pa_oled_drv.h"
 }
 pa_IICSettingStruct OLED_IICSettingStruct;
 Protocal OLED_chosenProtocal;
@@ -19,10 +20,7 @@ Protocal OLED_chosenProtocal;
 //hardware driver//
 
 *****************************************************/
-void OLED_initSpiGpio();
-void OLED_setCS(char state);
-void OLED_setDC(char state);
-void OLED_setRST(char state);
+
 /****************************************************/
 #ifdef ESP32
 #define OLED_CS_Port 12
@@ -371,7 +369,7 @@ void OLED_Init(Protocal chosenProtocal)
     OLED_IICSettingStruct.delay=60;
     OLED_chosenProtocal=chosenProtocal;
 
-    if(OLED_chosenProtocal==Protocal_SPI){
+    if(OLED_chosenProtocal==Protocal::Protocal_SPI){
         OLED_initSpiGpio();
         OLED_setRST(1);
         pa_delayMs(1);
