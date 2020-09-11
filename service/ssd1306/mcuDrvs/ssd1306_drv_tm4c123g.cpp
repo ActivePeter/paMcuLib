@@ -6,8 +6,8 @@ extern "C"{
 #define OLED_CS_Port GPIO_PORTD_BASE
 #define OLED_CS_Pin GPIO_PIN_0
 
-#define OLED_DC_Port GPIO_PORTE_BASE
-#define OLED_DC_Pin GPIO_PIN_5
+#define OLED_DC_Port GPIO_PORTD_BASE
+#define OLED_DC_Pin GPIO_PIN_1
 
 #define OLED_RST_Port GPIO_PORTD_BASE
 #define OLED_RST_Pin GPIO_PIN_2
@@ -22,14 +22,14 @@ void OLED_initSpiGpio(){
 }
 
 void OLED_setCS(char state){
-    GPIOPinWrite(OLED_CS_Port, OLED_CS_Pin, state);
+    GPIOPinWrite(OLED_CS_Port, OLED_CS_Pin, state*OLED_CS_Pin);
 }
 
 void OLED_setDC(char state){
-    GPIOPinWrite(OLED_DC_Port, OLED_DC_Pin, state);
+    GPIOPinWrite(OLED_DC_Port, OLED_DC_Pin, state*OLED_DC_Pin);
 }
 
 void OLED_setRST(char state){
-    GPIOPinWrite(OLED_RST_Port, OLED_RST_Pin, state);
+    GPIOPinWrite(OLED_RST_Port, OLED_RST_Pin, state*OLED_RST_Pin);
 }
 #endif
