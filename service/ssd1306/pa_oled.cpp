@@ -90,18 +90,14 @@ void OLED_setRST(char state){
 ////////////////////////////////////////////////////////////////////////////////
 void OLED_Write_IIC_Command(unsigned char IIC_Command)
 {
-    pa_IIC_write8(SSD1306_I2C_ADDRESS,0x00,IIC_Command,OLED_IICSettingStruct);
-    //pa_IIC_writeLen(SSD1306_I2C_ADDRESS, 0x00,sizeof(IIC_Command),&IIC_Command);
-    // HAL_I2C_Mem_Write(&HARD_SSD1306_I2C, SSD1306_I2C_ADDRESS, 0x00, 1, &IIC_Command, sizeof(IIC_Command), 100);
+    pa_IIC_writeLen(SSD1306_I2C_ADDRESS,0x00,1,&IIC_Command,OLED_IICSettingStruct);
 }
 /**********************************************
 // IIC Write Data
 **********************************************/
 void OLED_Write_IIC_Data(unsigned char IIC_Data)
 {
-    pa_IIC_write8(SSD1306_I2C_ADDRESS,0x40,IIC_Data,OLED_IICSettingStruct);
-    //pa_IIC_writeLen(SSD1306_I2C_ADDRESS, 0x40,sizeof(IIC_Data),&IIC_Data);
-    // HAL_I2C_Mem_Write(&HARD_SSD1306_I2C, SSD1306_I2C_ADDRESS, 0x40, 1, &IIC_Data, sizeof(IIC_Data), 100);
+    pa_IIC_writeLen(SSD1306_I2C_ADDRESS,0x40,1,&IIC_Data,OLED_IICSettingStruct);
 }
 void OLED_WR_Byte(unsigned char dat, unsigned char cmd)
 {

@@ -1,51 +1,69 @@
 #ifndef __Ads_112c04_H__
 #define __Ads_112c04_H__
-extern "C" {
+extern "C"
+{
 #include "../../../drv/pa_CommonDrv.h"
-
 }
 
 class Ads_112c04
 {
 public:
+	enum SpeedOfSample//采样速度
+	{
+		SPS_20 = 0,
+		SPS_45,
+		SPS_90,
+		SPS_175,
+		SPS_330,
+		SPS_600,
+		SPS_1000
+	};
+	enum Mode//倍频模式
+	{
+		Mode_Normal = 0,
+		Mode_Turbo
+	};
+	enum ConvMode //转换模式
+	{
+		Singleshot = 0,
+		Continuous
+	};
+	enum Gain//增益
+	{
+		GAIN_1 = 0,
+		GAIN_2,
+		GAIN_4,
+		GAIN_8,
+		GAIN_16,
+		GAIN_32,
+		GAIN_64,
+		GAIN_128
+	};
+	enum AxState//地址选择脚状态
+	{
+		DGND = 0,
+		DVDD,
+		SDA,
+		SCL,
+	};
+	enum CMD{
+		CMD_RESET=0x06,
+		CMD_START=0x08,
+		CMD_RDATA=0x10,
+		CMD_RREG=0x20,
+		CMD_WREG=0x40
+	};
 	Ads_112c04();
 	static Ads_112c04 instance;
-	void init(unsigned char A0, unsigned char A1);
-	void configRegister0(unsigned char channel, unsigned char gain, unsigned char mode);
-	void configRegister1(unsigned char channel, unsigned char gain, unsigned char mode);
-	void configRegister2(unsigned char channel, unsigned char gain, unsigned char mode);
+	void init(AxState A0, AxState A1);
+	void configRegister0(Gain gain);//配置寄存器0
+	void configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMode convMode);//配置寄存器1
 	double readADC();
 	void reset();
 	//引脚状态
-	static const unsigned char DGND = 0;
-	static const unsigned char DVDD = 1;
-	static const unsigned char SDA = 2;
-	static const unsigned char SCL = 3;
-
-	static const unsigned char CHANNEL_0 = 0;
-	static const unsigned char CHANNEL_1 = 1;
-	static const unsigned char CHANNEL_2 = 2;
-
-	static const unsigned char GAIN_1 = 0;
-	static const unsigned char GAIN_2 = 1;
-	static const unsigned char GAIN_4 = 2;
-	static const unsigned char GAIN_8 = 3;
-	static const unsigned char GAIN_16 = 4;
-	static const unsigned char GAIN_32 = 5;
-	static const unsigned char GAIN_64 = 6;
-	static const unsigned char GAIN_128 = 7;
 
 	/*void setKeypadCallback(void (*keypadCallback)(unsigned char x, unsigned char y));*/
 private:
-	static const unsigned char BIT_ST_DRDY = 7; //data ready
-	static const unsigned char BIT_INP1 = 6; //input channel select
-	static const unsigned char BIT_INP0 = 5; //input channel select
-	static const unsigned char BIT_SC = 4; //conversion mode (single/continuous)
-	static const unsigned char BIT_DR1 = 3; //data rate
-	static const unsigned char BIT_DR0 = 2; //data rate
-	static const unsigned char BIT_PGA1 = 1; //gain
-	static const unsigned char BIT_PGA0 = 0; //gain
-
 	char I2C_ADDRESS;
 };
 

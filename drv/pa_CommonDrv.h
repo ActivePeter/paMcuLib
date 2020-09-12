@@ -22,6 +22,7 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
+#include "driverlib/i2c.h"
 #include "stdint.h"
 #endif
 extern "C"

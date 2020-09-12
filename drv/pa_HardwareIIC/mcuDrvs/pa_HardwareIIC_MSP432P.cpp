@@ -72,22 +72,6 @@ extern "C"
 
     }
 
-    void pa_IIC_write8(unsigned char addr,unsigned char reg,unsigned char value,pa_IICSettingStruct pa_IICSettingStruct){
-        if(currentSlaveAddress!=addr){
-            currentSlaveAddress=addr;
-            MAP_I2C_setSlaveAddress(i2cDeviceChosen, currentSlaveAddress);
-        }
-        // MAP_I2C_masterSendStart(i2cDeviceChosen);
-        MAP_I2C_masterSendMultiByteStart(i2cDeviceChosen, reg);
-        MAP_I2C_masterSendMultiByteNext(i2cDeviceChosen, value);
-        MAP_I2C_masterSendMultiByteStop(i2cDeviceChosen);
-        // IIC_WriteByteToSlave(addr, reg, value,pa_IICSettingStruct.delay);
-    }
-    unsigned char pa_IIC_read8(unsigned char addr,unsigned char reg,pa_IICSettingStruct pa_IICSettingStruct){
-        unsigned char value[1];
-        // IIC_ReadMultByteFromSlave(addr, reg, 1, value,pa_IICSettingStruct.delay);
-        return value[0];
-    }
     void pa_IIC_writeLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char* data_t,pa_IICSettingStruct pa_IICSettingStruct){
         // IIC_WriteMultByteToSlave( addr,  reg,  length, data_t,pa_IICSettingStruct.delay);
         if(currentSlaveAddress!=addr){
