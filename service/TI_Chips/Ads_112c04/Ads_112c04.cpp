@@ -40,7 +40,8 @@ void Ads_112c04::configRegister0(Gain gain)
 	unsigned char reg = 0 ;
 	reg|=gain<<1;
 	pa_IICSettingStruct a;
-	pa_IIC_writeLen(I2C_ADDRESS,reg,0,0,a);
+	// pa_IIC_writeLen(I2C_ADDRESS,reg,0,0,a);
+	pa_IIC_writeLen(I2C_ADDRESS,CMD_RREG|(0 << 2),1,&reg,a);
 	// Wire.beginTransmission(I2C_ADDRESS);
 	// Wire.write(reg);
 	// Wire.endTransmission();
@@ -58,8 +59,8 @@ void Ads_112c04::configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMod
 	unsigned char reg = 0 ;
 	reg|=speedOfSample<<5|mode<<4|convMode<<3;
 	pa_IICSettingStruct a;
-	
-	pa_IIC_writeLen(I2C_ADDRESS,reg,0,0,a);
+
+	pa_IIC_writeLen(I2C_ADDRESS,CMD_RREG|(1 << 2),1,&reg,a);
 }
 
 double Ads_112c04::readADC()
