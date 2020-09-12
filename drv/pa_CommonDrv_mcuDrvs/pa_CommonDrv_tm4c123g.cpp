@@ -1,7 +1,11 @@
 extern "C"
 {
-#include "pa_CommonDrv.h"
+#include "../pa_CommonDrv.h"
+#include "stdarg.h"
+#include <stdio.h>
+#include <stdlib.h>
 }
+
 #ifdef TM4C123G
 #define TickPerSecond (1000)                //每秒Tick数（中断次数）
 #define usPerTick (1000000 / TickPerSecond) //每个Tick对应的微秒数
@@ -19,7 +23,37 @@ void pa_CommonInit()
         SysTickIntEnable();
         //开启系统定时器
         SysTickEnable();
-    }
+    } //
+    // Enable GPIO port A which is used for UART0 pins.
+    // TODO: change this to whichever GPIO port you are using.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+
+    //
+    // Configure the pin muxing for UART0 functions on port A0 and A1.
+    // This step is not necessary if your part does not support pin muxing.
+    // TODO: change this to select the port/pin you are using.
+    //
+    GPIOPinConfigure(GPIO_PA0_U0RX);
+    GPIOPinConfigure(GPIO_PA1_U0TX);
+
+    //
+    // Enable UART0 so that we can configure the clock.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+
+    //
+    // Use the internal 16MHz oscillator as the UART clock source.
+    //
+    UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
+
+    //
+    // Select the alternate (UART) function for these pins.
+    // TODO: change this to select the port/pin you are using.
+    //
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+    UARTStdioConfig(0, 115200, 16000000);
 }
 /**
  * 由于TickPerSecond = 1000，一秒恰被分为1000份，
@@ -68,6 +102,38 @@ unsigned long pa_millis()
 {
     return GetSysTime_ms();
 }
+void pa_printf(const char *format,...) 
+{
+    char loc_buf[64];
+    char * temp = loc_buf;
+    va_list arg;
+    va_list copy;
+    va_start(arg, format);
+    va_copy(copy, arg);
+    int len = vsnprintf(temp, sizeof(loc_buf), format, copy);
+    va_end(copy);
+    if(len < 0) {
+        va_end(arg);
+        return;
+    };
+    if(len >= sizeof(loc_buf)){
+        temp = (char*) malloc(len+1);
+        if(temp == NULL) {
+            va_end(arg);
+            return;
+        }
+        len = vsnprintf(temp, len+1, format, arg);
+    }
+    va_end(arg);
+    UARTwrite(temp, len);
+    // len = write((uint8_t*)temp, len);
+    if(temp != loc_buf){
+        free(temp);
+    }
+    // return len;
+}
+
+////////////////////////////////////////////////////////////////////////////
 uint32_t getSyscylOfGpioPort(uint32_t port)
 {
     switch (port)
@@ -86,74 +152,4 @@ uint32_t getSyscylOfGpioPort(uint32_t port)
         return SYSCTL_PERIPH_GPIOF;
     }
 }
-#elif MSP432P
-#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-void pa_CommonInit()
-{
-    Timer32_initModule(TIMER32_0_BASE, TIMER32_PRESCALER_1, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
-
-    Timer32_disableInterrupt(TIMER32_0_BASE);
-}
-void pa_delayMs(unsigned int ms)
-{
-// delayms(ms);
-#ifdef hasRTOS
-
-#else
-    pa_delayUs(ms * 1000);
-#endif
-}
-
-void pa_delayUs(unsigned int us)
-{
-    // STM_DelayUs(STM0, us);
-    Timer32_haltTimer(TIMER32_0_BASE);
-
-    Timer32_setCount(TIMER32_0_BASE, 3 * us);
-
-    Timer32_startTimer(TIMER32_0_BASE, true);
-
-    while (Timer32_getValue(TIMER32_0_BASE) > 0)
-        ;
-}
-
-void pa_millis()
-{
-}
-
-#elif ESP32
-// #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-void pa_CommonInit()
-{
-    // Timer32_initModule(TIMER32_0_BASE, TIMER32_PRESCALER_1, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
-
-    // Timer32_disableInterrupt(TIMER32_0_BASE);
-}
-void pa_delayMs(unsigned int ms)
-{
-// delayms(ms);
-#ifdef hasRTOS
-
-#else
-    delay(ms);
-    // pa_delayUs(ms*1000);
-#endif
-}
-
-void pa_delayUs(unsigned int us)
-{
-    // // STM_DelayUs(STM0, us);
-    // Timer32_haltTimer (TIMER32_0_BASE);
-
-    // Timer32_setCount  (TIMER32_0_BASE, 3 * us);
-
-    // Timer32_startTimer(TIMER32_0_BASE, true);
-
-    // while (Timer32_getValue(TIMER32_0_BASE) > 0);
-}
-
-void pa_millis()
-{
-}
-
 #endif

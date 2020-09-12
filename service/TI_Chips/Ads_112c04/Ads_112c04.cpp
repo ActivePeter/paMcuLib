@@ -13,7 +13,7 @@ Ads_112c04::Ads_112c04() {}
 void Ads_112c04::init(AxState A0, AxState A1) {
 	I2C_ADDRESS = 64;
 	I2C_ADDRESS+=(char)A0+(char)A1<<2;
-	this->initHardware();`
+	this->initHardware();
 	// if (A0 == DGND && A1 == DGND) 
 	// else if (A0 == DVDD && A1 == DGND) I2C_ADDRESS = 65;
 	// else if (A0 == SDA && A1 == DGND) I2C_ADDRESS = 66;
@@ -47,8 +47,8 @@ void Ads_112c04::configRegister0(Gain gain)
 /** 
  * @brief 配置ads112c04寄存器1
  * @param speedOfSample   采样速率
- * @param mode 模式：速度是否翻倍  
- * @param convMode 转换模式  
+ * @param mode 模式：速度是否翻倍
+ * @param convMode 转换模式
  */
 void Ads_112c04::configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMode convMode) 
 {

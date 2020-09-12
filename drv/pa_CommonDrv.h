@@ -23,6 +23,8 @@
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
 #include "driverlib/i2c.h"
+#include "driverlib/uart.h"
+#include "utils/uartstdio.h"
 #include "stdint.h"
 #endif
 extern "C"
@@ -40,6 +42,8 @@ void pa_delayMs(unsigned int ms);
 void pa_delayUs(unsigned int us);
 
 unsigned long pa_millis();
+
+void pa_printf(const char *format,...);
 
 #ifdef TM4C123G
 uint32_t getSyscylOfGpioPort(uint32_t port);
@@ -69,5 +73,6 @@ typedef enum
     Direction_Increase = 1,
     Direction_Decrease,
 } Direction;
+
 
 #endif
