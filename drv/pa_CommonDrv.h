@@ -33,35 +33,41 @@ extern "C"
 ////////////////////////
 
 //common Funcs（通用函数）/////////////////////////////////////////////
-    void pa_CommonInit();
-    
-    void pa_delayMs(unsigned int ms);
+void pa_CommonInit();
 
-    void pa_delayUs(unsigned int us);
+void pa_delayMs(unsigned int ms);
 
-    unsigned long pa_millis();
+void pa_delayUs(unsigned int us);
 
+unsigned long pa_millis();
+
+#ifdef TM4C123G
+uint32_t getSyscylOfGpioPort(uint32_t port);
+#endif
 /////////////////////////////////////////////////////////
 typedef enum
 {
-    Protocal_SPI=1,
+    Protocal_SPI = 1,
     Protocal_IIC
-}Protocal;
+} Protocal;
 
-typedef enum {
-    GpioInputMode_pullup=1,
+typedef enum
+{
+    GpioInputMode_pullup = 1,
     GpioInputMode_pulldown,
     GpioInputMode_hang,
-}GpioInputMode;
+} GpioInputMode;
 
-typedef enum {
-    GpioPortOrPin_Port=1,
+typedef enum
+{
+    GpioPortOrPin_Port = 1,
     GpioPortOrPin_Pin,
-}GpioPortOrPin;
+} GpioPortOrPin;
 
-typedef enum {
-    Direction_Increase=1,
+typedef enum
+{
+    Direction_Increase = 1,
     Direction_Decrease,
-}Direction;
+} Direction;
 
 #endif

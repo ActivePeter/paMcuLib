@@ -56,13 +56,16 @@ public:
 	Ads_112c04();
 	static Ads_112c04 instance;
 	void init(AxState A0, AxState A1);
-	void configRegister0(Gain gain);//配置寄存器0
-	void configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMode convMode);//配置寄存器1
+	//配置寄存器0
+	void configRegister0(Gain gain);
+	//配置寄存器1
+	void configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMode convMode);
 	double readADC();
 	void reset();
-	//引脚状态
-
-	/*void setKeypadCallback(void (*keypadCallback)(unsigned char x, unsigned char y));*/
+	//开始转换
+	void startConv();
+	void initHardware();
+	char getDrdyState();
 private:
 	char I2C_ADDRESS;
 };

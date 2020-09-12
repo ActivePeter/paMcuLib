@@ -11,7 +11,9 @@ Ads_112c04::Ads_112c04() {}
  * @param A0_A1_   用于选择设备地址，手动接，需要与实际相符
  */
 void Ads_112c04::init(AxState A0, AxState A1) {
-	I2C_ADDRESS = 64+A0+A1<<2;
+	I2C_ADDRESS = 64;
+	I2C_ADDRESS+=(char)A0+(char)A1<<2;
+	this->initHardware();`
 	// if (A0 == DGND && A1 == DGND) 
 	// else if (A0 == DVDD && A1 == DGND) I2C_ADDRESS = 65;
 	// else if (A0 == SDA && A1 == DGND) I2C_ADDRESS = 66;
@@ -35,16 +37,10 @@ void Ads_112c04::init(AxState A0, AxState A1) {
  */
 void Ads_112c04::configRegister0(Gain gain)
 {
-	
-	//configuration register, assuming 16 bit resolution
 	unsigned char reg = 0 ;
 	reg|=gain<<1;
 	pa_IICSettingStruct a;
-	// pa_IIC_writeLen(I2C_ADDRESS,reg,0,0,a);
 	pa_IIC_writeLen(I2C_ADDRESS,CMD_RREG|(0 << 2),1,&reg,a);
-	// Wire.beginTransmission(I2C_ADDRESS);
-	// Wire.write(reg);
-	// Wire.endTransmission();
 }
 
 
@@ -65,10 +61,9 @@ void Ads_112c04::configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMod
 
 double Ads_112c04::readADC()
 {
-	unsigned char a;
 	pa_IICSettingStruct b;
-	pa_IIC_writeLen(I2C_ADDRESS,0x80,0,&a,b);
-	pa_IIC_readLen(I2C_ADDRESS,0x80,0,&a,b);
+	unsigned char arr[2];
+	pa_IIC_readLen(I2C_ADDRESS,CMD::CMD_RDATA,2,arr,b);
 	// Wire.requestFrom(I2C_ADDRESS, (byte)3);
 	int h;
 	int l;
@@ -88,7 +83,12 @@ double Ads_112c04::readADC()
 
 void Ads_112c04::reset() 
 {
-	unsigned char a;
 	pa_IICSettingStruct b;
-	pa_IIC_writeLen(I2C_ADDRESS,0x06,0,&a,b);
+	pa_IIC_writeLen(I2C_ADDRESS,CMD::CMD_RESET,0,0,b);
+}
+
+void Ads_112c04::startConv() 
+{
+	pa_IICSettingStruct b;
+	pa_IIC_writeLen(I2C_ADDRESS,CMD::CMD_START,0,0,b);
 }

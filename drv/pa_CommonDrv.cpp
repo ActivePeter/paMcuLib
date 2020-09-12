@@ -68,7 +68,24 @@ unsigned long pa_millis()
 {
     return GetSysTime_ms();
 }
-
+uint32_t getSyscylOfGpioPort(uint32_t port)
+{
+    switch (port)
+    {
+    case GPIO_PORTA_BASE:
+        return SYSCTL_PERIPH_GPIOA;
+    case GPIO_PORTB_BASE:
+        return SYSCTL_PERIPH_GPIOB;
+    case GPIO_PORTC_BASE:
+        return SYSCTL_PERIPH_GPIOC;
+    case GPIO_PORTD_BASE:
+        return SYSCTL_PERIPH_GPIOD;
+    case GPIO_PORTE_BASE:
+        return SYSCTL_PERIPH_GPIOE;
+    case GPIO_PORTF_BASE:
+        return SYSCTL_PERIPH_GPIOF;
+    }
+}
 #elif MSP432P
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 void pa_CommonInit()
