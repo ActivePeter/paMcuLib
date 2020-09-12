@@ -38,9 +38,9 @@ void Ads_112c04::init(AxState A0, AxState A1) {
 void Ads_112c04::configRegister0(Gain gain)
 {
 	unsigned char reg = 0 ;
-	reg|=gain<<1;
+	reg=(char)gain<<1;
 	pa_IICSettingStruct a;
-	pa_IIC_writeLen(I2C_ADDRESS,CMD_RREG|(0 << 2),1,&reg,a);
+	pa_IIC_writeLen(I2C_ADDRESS,CMD_WREG|(0 << 2),1,&reg,a);
 }
 
 
@@ -53,10 +53,10 @@ void Ads_112c04::configRegister0(Gain gain)
 void Ads_112c04::configRegister1(SpeedOfSample speedOfSample, Mode mode, ConvMode convMode) 
 {
 	unsigned char reg = 0 ;
-	reg|=speedOfSample<<5|mode<<4|convMode<<3;
+	reg=(char)speedOfSample<<5|(char)mode<<4|(char)convMode<<3;
 	pa_IICSettingStruct a;
 
-	pa_IIC_writeLen(I2C_ADDRESS,CMD_RREG|(1 << 2),1,&reg,a);
+	pa_IIC_writeLen(I2C_ADDRESS,CMD_WREG|(1 << 2),1,&reg,a);
 }
 
 double Ads_112c04::readADC()
@@ -65,20 +65,20 @@ double Ads_112c04::readADC()
 	unsigned char arr[2];
 	pa_IIC_readLen(I2C_ADDRESS,CMD::CMD_RDATA,2,arr,b);
 	// Wire.requestFrom(I2C_ADDRESS, (byte)3);
-	int h;
-	int l;
-	int r;
-	//  h = Wire.read();
-	//  l = Wire.read();
-	//  r = Wire.read();
+	// int h;
+	// int l;
+	// int r;
+	// //  h = Wire.read();
+	// //  l = Wire.read();
+	// //  r = Wire.read();
 
-	long t = h << 8 | l;
+	// long t = h << 8 | l;
 
-	if (t >= 32768) t -= 65536l;
+	// if (t >= 32768) t -= 65536l;
 
-	double v = (double)t * 2.048 / 32768.0;
+	// double v = (double)t * 2.048 / 32768.0;
 
-	return v;
+	return 1;
 }
 
 void Ads_112c04::reset() 
