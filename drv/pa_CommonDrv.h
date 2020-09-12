@@ -27,6 +27,9 @@
 #include "utils/uartstdio.h"
 #include "stdint.h"
 #endif
+#ifdef STM32_F4
+#include "stm32f4xx_hal.h"
+#endif
 extern "C"
 {
 #include "pa_HardwareSPI/pa_HardwareSPI.h"
