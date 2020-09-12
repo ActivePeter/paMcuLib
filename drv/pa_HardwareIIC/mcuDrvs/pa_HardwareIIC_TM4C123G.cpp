@@ -46,7 +46,7 @@ void pa_IIC_init()
 void pa_IIC_writeLen(unsigned char addr, unsigned char headByte, unsigned char length, unsigned char *data_t, pa_IICSettingStruct pa_IICSettingStruct)
 {
     pa_IIC_setAddr(addr);
-    I2CMasterDataPut(I2C0_BASE, reg);
+    I2CMasterDataPut(I2C0_BASE, headByte);
     if(length==0){
         I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_SINGLE_SEND);
         while (I2CMasterBusy(I2C0_BASE))
