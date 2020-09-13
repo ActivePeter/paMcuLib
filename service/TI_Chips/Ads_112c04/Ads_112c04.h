@@ -21,12 +21,12 @@ public:
 	enum Mode//倍频模式
 	{
 		Mode_Normal = 0,
-		Mode_Turbo
+		Mode_Turbo//速度翻倍
 	};
 	enum ConvMode //转换模式
 	{
 		Singleshot = 0,
-		Continuous
+		Continuous//持续转换
 	};
 	enum Gain//增益
 	{
