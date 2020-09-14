@@ -7,8 +7,12 @@ extern "C"
 }
 
 #ifdef STM32_F4
+// #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 void pa_CommonInit()
 {
+    // Timer32_initModule(TIMER32_0_BASE, TIMER32_PRESCALER_1, TIMER32_32BIT, TIMER32_PERIODIC_MODE);
+
+    // Timer32_disableInterrupt(TIMER32_0_BASE);
 }
 void pa_delayMs(unsigned int ms)
 {
@@ -16,47 +20,19 @@ void pa_delayMs(unsigned int ms)
 #ifdef hasRTOS
 
 #else
-    
+    HAL_Delay(ms);
 #endif
 }
 
 void pa_delayUs(unsigned int us)
 {
+    
 }
 
-void pa_millis()
+unsigned long pa_millis()
 {
 }
 
-void pa_printf(const char *format,...) 
-{
-    char loc_buf[64];
-    char * temp = loc_buf;
-    va_list arg;
-    va_list copy;
-    va_start(arg, format);
-    va_copy(copy, arg);
-    int len = vsnprintf(temp, sizeof(loc_buf), format, copy);
-    va_end(copy);
-    if(len < 0) {
-        va_end(arg);
-        return;
-    };
-    if(len >= sizeof(loc_buf)){
-        temp = (char*) malloc(len+1);
-        if(temp == NULL) {
-            va_end(arg);
-            return;
-        }
-        len = vsnprintf(temp, len+1, format, arg);
-    }
-    va_end(arg);
-    // UARTwrite(temp, len);
-    // len = write((uint8_t*)temp, len);
-    if(temp != loc_buf){
-        free(temp);
-    }
-    // return len;
-}
+
 
 #endif
