@@ -83,7 +83,7 @@ double Ads_112c04::readADC()
 
 	// double v = (double)t * 2.048 / 32768.0;
 
-	return data;
+	return data/16384.0;
 }
 
 void Ads_112c04::reset() 
