@@ -98,8 +98,6 @@ void pa_Keypad::initInput()
         uint32_t pin=pa_Keypad_getInputPortOrPinByIndex(i,GpioPortOrPin_Pin);
         uint32_t port=pa_Keypad_getInputPortOrPinByIndex(i,GpioPortOrPin_Port);
         GPIOPinTypeGPIOInput(port,pin);
-        // GPIOPUR
-                     
     }
 }
 void pa_Keypad::initOutput()
@@ -108,8 +106,7 @@ void pa_Keypad::initOutput()
     {
         uint32_t pin=pa_Keypad_getOutputPortOrPinByIndex(i,GpioPortOrPin_Pin);
         uint32_t port=pa_Keypad_getOutputPortOrPinByIndex(i,GpioPortOrPin_Port);
-        GPIOPinTypeGPIOInput(port,pin);
-
+        GPIOPinTypeGPIOOutput(port,pin);
     }
 }
 
