@@ -16,6 +16,8 @@
 #ifdef TM4C123G
 #include "driverlib/pin_map.h"
 #include "inc/hw_memmap.h"
+#include "inc/hw_gpio.h"
+#include "inc/hw_types.h"
 #include "driverlib/debug.h"
 #include "driverlib/gpio.h"
 #include "driverlib/ssi.h"
@@ -46,9 +48,7 @@ void pa_delayUs(unsigned int us);
 
 unsigned long pa_millis();
 
-
-
-void pa_printf(const char *format,...);
+void pa_printf(const char *format, ...);
 
 #ifdef TM4C123G
 uint32_t getSyscylOfGpioPort(uint32_t port);
@@ -78,6 +78,5 @@ typedef enum
     Direction_Increase = 1,
     Direction_Decrease,
 } Direction;
-
 
 #endif
