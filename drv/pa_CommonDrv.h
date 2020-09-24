@@ -24,8 +24,12 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
+#include "driverlib/rom.h"
+#include "driverlib/pwm.h"
+#include "driverlib/rom_map.h"
 #include "driverlib/i2c.h"
 #include "driverlib/uart.h"
+#include "driverlib/eeprom.h"
 #include "utils/uartstdio.h"
 #include "stdint.h"
 #endif

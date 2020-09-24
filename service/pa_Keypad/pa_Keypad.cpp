@@ -29,11 +29,15 @@ void pa_Keypad::init(GpioInputMode mode) {
 void pa_Keypad::loop() {
 	if (isPullup) {
 		for (int i = 0; i < Keypad_Output_Cnt; i++) {
-			setOutput(i, 0);
+			// setOutput(i, 0);
 			for (int j = 0; j < Keypad_Input_Cnt; j++) {
 				if (!readInput(j)) {
-					if (keyStateArr[i][j] < 200) {
+					if (keyStateArr[i][j] < 15000) {
+						
 						keyStateArr[i][j]++;
+					}
+					if(keyStateArr[i][j]>400&&keyStateArr[i][j]%5==0){
+						this->keypadLongCallback(i,j);
 					}
 					if (keyStateArr[i][j] == Keypad_Trig_Cnt) {
 						this->keypadCallback(i, j);
@@ -44,7 +48,7 @@ void pa_Keypad::loop() {
 					keyStateArr[i][j] = 0;
 				}
 			}
-			setOutput(i, 1);
+			// setOutput(i, 1);
 		}
 	}
 	else {

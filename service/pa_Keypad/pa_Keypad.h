@@ -14,6 +14,7 @@ public:
 	void init(GpioInputMode mode);
 	void loop();
 	void (*keypadCallback)(unsigned char x, unsigned char y);
+	void (*keypadLongCallback)(unsigned char x, unsigned char y);
 	/*void setKeypadCallback(void (*keypadCallback)(unsigned char x, unsigned char y));*/
 private:
 	void hardwareInit();
@@ -22,7 +23,7 @@ private:
 	void setOutput(unsigned char index, unsigned char state);
 	unsigned char readInput(unsigned char index);
 	bool isPullup;
-	unsigned char keyStateArr[Keypad_Output_Cnt][Keypad_Input_Cnt];
+	unsigned int keyStateArr[Keypad_Output_Cnt][Keypad_Input_Cnt];
 };
 
 #endif

@@ -10,6 +10,66 @@ extern "C"
 #define TickPerSecond (1000)                //每秒Tick数（中断次数）
 #define usPerTick (1000000 / TickPerSecond) //每个Tick对应的微秒数
 void SysTickIntHandler(void);
+
+void pwmInit()
+{
+    //PWM//////////////////////////////////////////////////////////
+    //
+    // The PWM peripheral must be enabled for use.
+    //
+    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
+
+    //
+    // Enable the GPIO port that is used for the PWM output.
+    //
+    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+
+    //
+    // Configure the PWM function for this pin.
+    //
+    MAP_GPIOPinConfigure(GPIO_PB6_M0PWM0);
+    MAP_GPIOPinConfigure(GPIO_PB7_M0PWM1);
+
+    MAP_GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_6);
+    MAP_GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_7);
+
+    //
+    // Configure PWM0 to count up/down without synchronization.
+    //
+    MAP_PWMGenConfigure(PWM0_BASE, PWM_GEN_0, PWM_GEN_MODE_UP_DOWN | PWM_GEN_MODE_NO_SYNC);
+
+    //
+    // Set the PWM period to 250Hz.  To calculate the appropriate parameter
+    // use the following equation: N = (1 / f) * SysClk.  Where N is the
+    // function parameter, f is the desired frequency, and SysClk is the
+    // system clock frequency.
+    //
+    MAP_PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, (SysCtlClockGet() / 250));
+    MAP_PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, (SysCtlClockGet() / 250));
+
+    //
+    // Set PWM0 to a duty cycle of 25%.  You set the duty cycle as a function
+    // of the period.  Since the period was set above, you can use the
+    // PWMGenPeriodGet() function.  For this example the PWM will be high for
+    // 25% of the time or (PWM Period / 4).
+    //
+    MAP_PWMPulseWidthSet(PWM0_BASE, PWM_OUT_0,
+                        0);// MAP_PWMGenPeriodGet(PWM0_BASE, PWM_GEN_0) / 4);
+    MAP_PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1,
+                         0);//MAP_PWMGenPeriodGet(PWM0_BASE, PWM_GEN_0) / 4);
+
+    //
+    // Enable PWM Out Bit 0 (PB6) output signal.
+    //
+    MAP_PWMOutputState(PWM0_BASE, PWM_OUT_0_BIT, true);
+    MAP_PWMOutputState(PWM0_BASE, PWM_OUT_1_BIT, true);
+
+    //
+    // Enable the PWM generator block.
+    //
+    MAP_PWMGenEnable(PWM0_BASE, PWM_GEN_0);
+}
+
 void pa_CommonInit()
 {
     {
@@ -46,7 +106,7 @@ void pa_CommonInit()
     // Use the internal 16MHz oscillator as the UART clock source.
     //
     UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
-
+    
     //
     // Select the alternate (UART) function for these pins.
     // TODO: change this to select the port/pin you are using.
@@ -54,6 +114,8 @@ void pa_CommonInit()
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
     UARTStdioConfig(0, 115200, 16000000);
+    ///////////////////////////////////////////////
+    pwmInit();
 }
 /**
  * 由于TickPerSecond = 1000，一秒恰被分为1000份，
@@ -102,32 +164,36 @@ unsigned long pa_millis()
 {
     return GetSysTime_ms();
 }
-void pa_printf(const char *format,...) 
+void pa_printf(const char *format, ...)
 {
     char loc_buf[64];
-    char * temp = loc_buf;
+    char *temp = loc_buf;
     va_list arg;
     va_list copy;
     va_start(arg, format);
     va_copy(copy, arg);
     int len = vsnprintf(temp, sizeof(loc_buf), format, copy);
     va_end(copy);
-    if(len < 0) {
+    if (len < 0)
+    {
         va_end(arg);
         return;
     };
-    if(len >= sizeof(loc_buf)){
-        temp = (char*) malloc(len+1);
-        if(temp == NULL) {
+    if (len >= sizeof(loc_buf))
+    {
+        temp = (char *)malloc(len + 1);
+        if (temp == NULL)
+        {
             va_end(arg);
             return;
         }
-        len = vsnprintf(temp, len+1, format, arg);
+        len = vsnprintf(temp, len + 1, format, arg);
     }
     va_end(arg);
     UARTwrite(temp, len);
     // len = write((uint8_t*)temp, len);
-    if(temp != loc_buf){
+    if (temp != loc_buf)
+    {
         free(temp);
     }
     // return len;

@@ -29,7 +29,7 @@ uint32_t pa_Keypad_getInputPortOrPinByIndex(int index, GpioPortOrPin gpioPortOrP
         switch (gpioPortOrPin)
         {
         case GpioPortOrPin_Port:
-            return GPIO_PORTA_BASE;
+            return GPIO_PORTD_BASE;
         case GpioPortOrPin_Pin:
             return GPIO_PIN_6;
         }
@@ -37,7 +37,7 @@ uint32_t pa_Keypad_getInputPortOrPinByIndex(int index, GpioPortOrPin gpioPortOrP
         switch (gpioPortOrPin)
         {
         case GpioPortOrPin_Port:
-            return GPIO_PORTB_BASE;
+            return GPIO_PORTF_BASE;
         case GpioPortOrPin_Pin:
             return GPIO_PIN_4;
         }
@@ -87,7 +87,7 @@ uint32_t pa_Keypad_getOutputPortOrPinByIndex(int index, GpioPortOrPin gpioPortOr
 void pa_Keypad::hardwareInit()
 {
     initInput();
-    initOutput();
+    // initOutput();
 }
 
 void pa_Keypad::initInput()
