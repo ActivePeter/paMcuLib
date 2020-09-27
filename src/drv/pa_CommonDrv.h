@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__

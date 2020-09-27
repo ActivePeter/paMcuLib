@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 #ifndef __ROBOTSTEPPER_H__
 #define __ROBOTSTEPPER_H__
 #include "../../../drv/pa_CommonDrv.h"

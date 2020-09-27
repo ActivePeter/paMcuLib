@@ -1,5 +1,6 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
+#ifdef INPUT_USE_KEYPAD
 #include "../pa_Keypad.h"
 
 /****************************************************
@@ -30,3 +31,5 @@ unsigned char pa_Keypad::readInput(unsigned char index)
 }
 
 #endif // MSP432P
+
+#endif
