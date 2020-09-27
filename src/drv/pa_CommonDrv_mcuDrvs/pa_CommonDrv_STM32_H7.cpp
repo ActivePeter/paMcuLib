@@ -12,7 +12,8 @@ void pa_CommonInit()
 }
 void pa_delayMs(unsigned int ms)
 {
-    osDelay(ms);
+     osDelay(ms);
+//    HAL_Delay(ms);
 }
 
 void pa_delayUs(unsigned int us)
