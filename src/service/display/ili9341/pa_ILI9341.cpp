@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifdef DISPLAY_USE_ILI9341
 
@@ -29,7 +29,7 @@ void pa_ILI9341::enable()
 	this->setRST(1);
 }
 
-void pa_ILI9341::init()
+void pa_ILI9341::init(Rotation Rotation)
 {
 	enable();
 	reset();
@@ -162,13 +162,17 @@ void pa_ILI9341::init()
 	this->writeCommand(0x29);
 
 	//STARTING ROTATION
-	setRotation(Rotation_VERTICAL_1);
+	setRotation(Rotation);
 }
 
 void pa_ILI9341::flush(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t Colour) 
 {
+	if(x1<0)x1=0;
+	if(y1<0)y1=0;
+	if(x2>this->LCD_WIDTH)x2=LCD_WIDTH;
+	if(y2>this->LCD_HEIGHT)y2=LCD_HEIGHT;
 	setAddress(x1,y1,x2,y2);
-	burst(Colour,(x2-x1)*(y2-y1));
+	burst(Colour,(x2-x1+1)*(y2-y1+1));
 }
 
 void pa_ILI9341::burst(uint16_t Colour, uint32_t Size) 
@@ -191,11 +195,11 @@ void pa_ILI9341::burst(uint16_t Colour, uint32_t Size)
 
 	unsigned char chifted = Colour >> 8;
 	;
-	unsigned char * burst_buffer=new unsigned char[Buffer_Size];
+	//=new unsigned char[Buffer_Size];
 	for (uint32_t j = 0; j < Buffer_Size; j += 2)
 	{
-		burst_buffer[j] = chifted;
-		burst_buffer[j + 1] = Colour;
+		pa_ILI9341_burst_buffer[j] = chifted;
+		pa_ILI9341_burst_buffer[j + 1] = Colour;
 	}
 
 	uint32_t Sending_Size = Size * 2;
@@ -206,12 +210,12 @@ void pa_ILI9341::burst(uint16_t Colour, uint32_t Size)
 	{
 		for (uint32_t j = 0; j < (Sending_in_Block); j++)
 		{
-			pa_spiTransmit((unsigned char *)burst_buffer, Buffer_Size);
+			pa_spiTransmit(pa_ILI9341_burst_buffer, Buffer_Size);
 			// HAL_SPI_Transmit(HSPI_INSTANCE, (unsigned char *)burst_buffer, Buffer_Size, 10);
 		}
 	}
 
-	pa_spiTransmit((unsigned char *)burst_buffer, Remainder_from_block);
+	pa_spiTransmit(pa_ILI9341_burst_buffer, Remainder_from_block);
 	//REMAINDER!
 	// HAL_SPI_Transmit(HSPI_INSTANCE, (unsigned char *)burst_buffer, Remainder_from_block, 10);
 
@@ -245,6 +249,11 @@ void pa_ILI9341::writeData(uint8_t Command)
 
 void pa_ILI9341::setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
 {
+	if(X1<0)X1=0;
+	if(Y1<0)Y1=0;
+	if(X2>this->LCD_WIDTH)X2=LCD_WIDTH;
+	if(Y2>this->LCD_HEIGHT)Y2=LCD_HEIGHT;
+
 	this->writeCommand(0x2A);
 	this->writeData(X1 >> 8);
 	this->writeData(X1);
@@ -260,14 +269,14 @@ void pa_ILI9341::setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
 	this->writeCommand(0x2C);
 }
 
-void pa_ILI9341::setRotation(uint8_t Rotation)
+void pa_ILI9341::setRotation(Rotation Rotation)
 {
-	uint8_t screen_rotation = Rotation;
+	// uint8_t screen_rotation = Rotation;
 
 	this->writeCommand(0x36);
 	pa_delayMs(1);
 
-	switch (screen_rotation)
+	switch (Rotation)
 	{
 	case Rotation_VERTICAL_1:
 		this->writeData(0x40 | 0x08);

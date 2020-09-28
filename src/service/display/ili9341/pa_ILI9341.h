@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifdef DISPLAY_USE_ILI9341
 
@@ -6,11 +6,12 @@
 #define __ILI9341_H__
 extern "C"
 {
-#include "../../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 }
 class pa_ILI9341
 {
 
+public:
   enum Rotation
   {
     Rotation_VERTICAL_1 = 0,
@@ -18,13 +19,17 @@ class pa_ILI9341
     Rotation_VERTICAL_2,
     Rotation_HORIZONTAL_2
   };
-
-public:
   pa_ILI9341();
   static pa_ILI9341 instance;
-  void init();
+  void init(Rotation Rotation);
   void flush(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t Colour);
   void burst(uint16_t Colour, uint32_t Size);
+  void setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2);
+
+  void setCS(uint8_t state);
+  void setDC(uint8_t state);
+  void setRST(uint8_t state);
+  unsigned char pa_ILI9341_burst_buffer[500];
 
 private:
   short LCD_WIDTH;
@@ -34,15 +39,11 @@ private:
 
   void reset();
   void enable();
-  
+
   void writeCommand(uint8_t Command);
   void writeData(uint8_t Command);
-  void setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2);
-  void setRotation(uint8_t Rotation);
 
-  void setCS(uint8_t state);
-  void setDC(uint8_t state);
-  void setRST(uint8_t state);
+  void setRotation(Rotation Rotation);
 };
 
 #endif // __ILI9341_H__

@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifdef DISPLAY_USE_ST7789
 extern "C"{
@@ -210,7 +210,7 @@ void LCD_Init(void)
       返回值：  无
 ******************************************************************************/
 
-unsigned char arr2[200*200]={0};
+// unsigned char arr2[200*200]={0};
 
 void LCD_Fill(unsigned short xsta,unsigned short ysta,unsigned short xend,unsigned short yend,unsigned short color)
 {          
@@ -237,17 +237,17 @@ void LCD_Fill(unsigned short xsta,unsigned short ysta,unsigned short xend,unsign
 		for(j=xsta;j<xend;j++)
 		{
 			
-			int index=(j+(yend-ysta)*i)*2;
-			arr2[index]=color>>8;
-			arr2[index+1]=color;
-			// LCD_WR_DATA(color);
+			// int index=(j+(yend-ysta)*i)*2;
+			// arr2[index]=color>>8;
+			// arr2[index+1]=color;
+			LCD_WR_DATA(color);
 			
 		}
 			
 		
 		
 	} 	
-	pa_spiTransmit(arr2,len);
+	// pa_spiTransmit(arr2,len);
 	// flag=!flag;
 	// if(flag){
 	// 	memset(arr,0x0f,len);

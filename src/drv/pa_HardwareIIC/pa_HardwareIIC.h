@@ -1,10 +1,10 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifndef _pa_IIC_H
 #define _pa_IIC_H
 extern "C"
 {
-#include "../pa_CommonDrv.h"
+#include "../pa_CommonDrv/pa_CommonDrv.h"
 }
     typedef struct{
         unsigned short delay;

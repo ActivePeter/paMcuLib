@@ -1,9 +1,9 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifndef __pa_Ads1112_H__
 #define __pa_Ads1112_H__
 extern "C" {
-#include "../../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 
 }
 

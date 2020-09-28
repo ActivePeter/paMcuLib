@@ -23,6 +23,11 @@ void pa_spiInit(){
 }
 // #include <ti/devices/msp432p4xx/driverlib/eusci.h>
 void pa_spiTransmit(unsigned char * data,unsigned int len){
-    HAL_SPI_Transmit(&hspi1, data,len, 10);
+    HAL_SPI_Transmit(&hspi1, data,len, 100);
+    // HAL_SPI_Transmit_DMA(&hspi1, data,len);
+    // hal_spi
+}
+void pa_spiReceive(unsigned char * data,unsigned int len){
+    HAL_SPI_Receive(&hspi1, data,len, 100);
 }
 #endif

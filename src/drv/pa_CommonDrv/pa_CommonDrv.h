@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__
@@ -40,11 +40,12 @@
 #include "stm32h7xx_hal.h"
 #include "cmsis_os.h"
 #endif
-extern "C"
-{
-#include "pa_HardwareSPI/pa_HardwareSPI.h"
-#include "pa_HardwareIIC/pa_HardwareIIC.h"
-}
+
+#include "../pa_HardwareSPI/pa_HardwareSPI.h"
+#include "../pa_HardwareIIC/pa_HardwareIIC.h"
+#include pa_MEM_CUSTOM_INCLUDE
+
+
 ////////////////////////
 
 //common Funcs（通用函数）/////////////////////////////////////////////
