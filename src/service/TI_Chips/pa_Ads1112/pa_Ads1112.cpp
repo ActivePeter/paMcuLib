@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/pa_Defines.h"
+#include "pa_Defines.h"
 
 #include "pa_Ads1112.h"
 #include "string.h"

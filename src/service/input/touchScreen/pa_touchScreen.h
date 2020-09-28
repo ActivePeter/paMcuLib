@@ -1,51 +1,62 @@
+
 #include "pa_Defines.h"
 
-#ifdef DISPLAY_USE_ILI9341
+#ifdef INPUT_USE_TOUCHSCREEN
 
-#ifndef __ILI9341_H__
-#define __ILI9341_H__
+#ifndef __PA_TOUCHSCREEN_H__
+#define __PA_TOUCHSCREEN_H__
+
 extern "C"
 {
-#include "../../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 }
-class pa_ILI9341
+class pa_touchScreen
 {
 
 public:
-  enum Rotation
+  static pa_touchScreen instance;
+  pa_touchScreen();
+  void init(uint16_t screenWidth, uint16_t screenHeight);
+  uint8_t readCoordinates(uint16_t Coordinates[2]);
+  uint8_t isPressed();
+  struct ConfigModel
   {
-    Rotation_VERTICAL_1 = 0,
-    Rotation_HORIZONTAL_1,
-    Rotation_VERTICAL_2,
-    Rotation_HORIZONTAL_2
+    uint16_t SampleCount;
+    uint16_t X_OFFSET;
+    uint16_t Y_OFFSET;
+    float X_MAGNITUDE;
+    float Y_MAGNITUDE;
+    uint16_t X_TRANSLATION;
+    uint16_t Y_TRANSLATION;
   };
-  pa_ILI9341();
-  static pa_ILI9341 instance;
-  void init(Rotation Rotation);
-  void flush(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t Colour);
-  void burst(uint16_t Colour, uint32_t Size);
-  void setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2);
-
-  void setCS(uint8_t state);
-  void setDC(uint8_t state);
-  void setRST(uint8_t state);
-  unsigned char pa_ILI9341_burst_buffer[500];
-
+  //不要修改此处的数据。因为只是个默认值
+  ConfigModel config = {
+      1000, //SampleCount
+      13,   //X_OFFSET
+      15,   //Y_OFFSET
+      1.16, //X_MAGNITUDE
+      1.16, //Y_MAGNITUDE
+      //CONVERTING 16bit Value to Screen coordinates
+      // 65535/273 = 240!
+      // 65535/204 = 320!
+      273, //X_TRANSLATION  (will be replaced
+      204  //Y_TRANSLATION   (will be replaced
+  };
+  void Hardware_SetCS(uint8_t state);
 private:
-  short LCD_WIDTH;
-  short LCD_HEIGHT;
+  enum CMDs
+  {
+    CMD_RDY = 0X90,
+    CMD_RDX = 0XD0
+  };
 
-  const short BURST_MAX_SIZE = 500;
+  void Hardware_Init();
+  uint8_t Hardware_ReadIRQ();
+  
 
-  void reset();
-  void enable();
-
-  void writeCommand(uint8_t Command);
-  void writeData(uint8_t Command);
-
-  void setRotation(Rotation Rotation);
+  uint16_t spiRead();
+  void spiWrite(uint8_t value);
 };
 
-#endif // __ILI9341_H__
-
 #endif
+#endif // __PA_TOUCHSCREEN_H__

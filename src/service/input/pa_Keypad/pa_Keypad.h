@@ -5,7 +5,7 @@
 #ifndef __pa_Keypad_H__
 #define __pa_Keypad_H__
 extern "C" {
-#include "../../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 
 }
 // #include "pa_Keypad_drv.h"

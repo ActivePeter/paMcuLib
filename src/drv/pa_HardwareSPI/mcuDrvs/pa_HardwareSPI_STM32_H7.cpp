@@ -27,4 +27,7 @@ void pa_spiTransmit(unsigned char * data,unsigned int len){
     // HAL_SPI_Transmit_DMA(&hspi1, data,len);
     // hal_spi
 }
+void pa_spiReceive(unsigned char * data,unsigned int len){
+    HAL_SPI_Receive(&hspi1, data,len, 100);
+}
 #endif

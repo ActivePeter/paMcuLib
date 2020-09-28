@@ -40,11 +40,12 @@
 #include "stm32h7xx_hal.h"
 #include "cmsis_os.h"
 #endif
-extern "C"
-{
-#include "pa_HardwareSPI/pa_HardwareSPI.h"
-#include "pa_HardwareIIC/pa_HardwareIIC.h"
-}
+
+#include "../pa_HardwareSPI/pa_HardwareSPI.h"
+#include "../pa_HardwareIIC/pa_HardwareIIC.h"
+#include pa_MEM_CUSTOM_INCLUDE
+
+
 ////////////////////////
 
 //common Funcs（通用函数）/////////////////////////////////////////////

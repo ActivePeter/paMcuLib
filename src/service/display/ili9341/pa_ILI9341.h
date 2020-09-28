@@ -6,7 +6,7 @@
 #define __ILI9341_H__
 extern "C"
 {
-#include "../../../drv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 }
 class pa_ILI9341
 {

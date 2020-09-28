@@ -1,6 +1,6 @@
 #include "pa_Defines.h"
 
-#ifdef DISPLAY_USE_ILI9341
+#ifdef INPUT_USE_TOUCHSCREEN
 
 
 #include "../pa_touchScreen.h"
@@ -11,21 +11,22 @@
 
 #ifdef MODULE
     
-void pa_ILI9341::setCS(uint8_t state) 
+void pa_touchScreen::Hardware_Init() 
 {
 
 }
 
-void pa_ILI9341::setDC(uint8_t state) 
+uint8_t pa_touchScreen::Hardware_ReadIRQ() 
 {
 
 }
 
-void pa_ILI9341::setRST(uint8_t state) 
+void pa_touchScreen::Hardware_SetCS(uint8_t state) 
 {
 
 }
 
-#endif // MSP432P
+
+#endif
 
 #endif
