@@ -43,7 +43,7 @@
 
 #include "../pa_HardwareSPI/pa_HardwareSPI.h"
 #include "../pa_HardwareIIC/pa_HardwareIIC.h"
-#include pa_MEM_CUSTOM_INCLUDE
+// #include pa_MEM_CUSTOM_INCLUDE l    .
 
 
 ////////////////////////
