@@ -45,7 +45,7 @@
 #ifdef MSP432E
     #include <ti/drivers/GPIO.h>
     #include <ti/drivers/SPI.h>
-    #include <ti/display/Display.h>
+    // #include <ti/display/Display.h>
     /* Driver configuration */
     #include "ti_drivers_config.h"
     /* POSIX Header files */
@@ -58,10 +58,7 @@
 
 #include "../pa_HardwareSPI/pa_HardwareSPI.h"
 #include "../pa_HardwareIIC/pa_HardwareIIC.h"
-
-// #ifdef pa_MEM_CUSTOM_INCLUDE
-// #include pa_MEM_CUSTOM_INCLUDE
-// #endif
+// #include pa_MEM_CUSTOM_INCLUDE l    .
 
 
 ////////////////////////
