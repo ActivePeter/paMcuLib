@@ -45,7 +45,7 @@
 #ifdef MSP432E
     #include <ti/drivers/GPIO.h>
     #include <ti/drivers/SPI.h>
-    #include <ti/display/Display.h>
+    // #include <ti/display/Display.h>
     /* Driver configuration */
     #include "ti_drivers_config.h"
     /* POSIX Header files */
