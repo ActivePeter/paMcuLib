@@ -18,7 +18,7 @@ void pa_delayMs(unsigned int ms)
 
 void pa_delayUs(unsigned int us)
 {
-
+    osDelay(us);
 }
 
 uint64_t pa_millis()
