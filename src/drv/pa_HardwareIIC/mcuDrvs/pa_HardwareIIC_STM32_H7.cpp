@@ -3,12 +3,27 @@ extern "C"
 #include "../pa_HardwareIIC.h"
 }
 #ifdef STM32_H7
-    void pa_IIC_init(){
-        
+extern I2C_HandleTypeDef hi2c1;
+void pa_IIC_init()
+{
+}
+void pa_IIC_writeLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char *data_t, pa_IICSettingStruct pa_IICSettingStruct)
+{
+    if (length == 1)
+    {
+        unsigned char a[2];
+        a[0] = reg;
+        a[1] = data_t[0];
+        HAL_I2C_Master_Transmit(&hi2c1, addr, a, 2, 10);
+        return;
     }
-    void pa_IIC_writeLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char* data_t,pa_IICSettingStruct pa_IICSettingStruct){
-
-    }
-    void pa_IIC_readLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char* data_t,pa_IICSettingStruct pa_IICSettingStruct){
-    }
+    HAL_I2C_Master_Transmit(&hi2c1, addr, &reg, 1, 10);
+    HAL_I2C_Master_Transmit(&hi2c1, addr, data_t, length, 10);
+}
+void pa_IIC_readLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char *data_t, pa_IICSettingStruct pa_IICSettingStruct)
+{
+    HAL_I2C_Master_Transmit(&hi2c1, addr, &reg, 1, 1000);
+    HAL_I2C_Master_Receive(&hi2c1, addr, data_t, length, 1000);
+    HAL_I2C_Mem_Read(&hi2c1, addr, reg, I2C_MEMADD_SIZE_8BIT, data_t, length, 1000);
+}
 #endif
