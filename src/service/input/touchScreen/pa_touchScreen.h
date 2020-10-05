@@ -16,34 +16,40 @@ class pa_touchScreen
 public:
   static pa_touchScreen instance;
   pa_touchScreen();
-  void init(uint16_t screenWidth, uint16_t screenHeight);
-  uint8_t readCoordinates(uint16_t Coordinates[2]);
+  void init(
+      int screenW,
+      int screenH,
+      int xBeginRaw,
+      int xEndRaw,
+      int yBeginRaw,
+      int yEndRaw,
+      int sampleTime);
+  uint8_t readRaw(uint16_t Coordinates[2]);
+  void turnRawToScreen(uint16_t Coordinates[2]);
   uint8_t isPressed();
+
+  void Hardware_SetCS(uint8_t state);
+
+private:
   struct ConfigModel
   {
-    uint16_t SampleCount;
-    uint16_t X_OFFSET;
-    uint16_t Y_OFFSET;
-    float X_MAGNITUDE;
-    float Y_MAGNITUDE;
-    uint16_t X_TRANSLATION;
-    uint16_t Y_TRANSLATION;
+    int screenW;
+    int screenH;
+    int SampleCount;
+    int xBeginRaw;
+    int xEndRaw;
+    int yBeginRaw;
+    int yEndRaw;
   };
   //不要修改此处的数据。因为只是个默认值
   ConfigModel config = {
-      1000, //SampleCount
-      13,   //X_OFFSET
-      15,   //Y_OFFSET
-      1.16, //X_MAGNITUDE
-      1.16, //Y_MAGNITUDE
-      //CONVERTING 16bit Value to Screen coordinates
-      // 65535/273 = 240!
-      // 65535/204 = 320!
-      273, //X_TRANSLATION  (will be replaced
-      204  //Y_TRANSLATION   (will be replaced
-  };
-  void Hardware_SetCS(uint8_t state);
-private:
+      0,
+      0,
+      2, //SampleCount,
+      0,
+      0,
+      0,
+      0};
   enum CMDs
   {
     CMD_RDY = 0X90,
@@ -52,7 +58,9 @@ private:
 
   void Hardware_Init();
   uint8_t Hardware_ReadIRQ();
-  
+  void Hardware_setMOSI(uint8_t state);
+  uint8_t Hardware_ReadMISO();
+  void Hardware_setCLK(uint8_t state);
 
   uint16_t spiRead();
   void spiWrite(uint8_t value);
