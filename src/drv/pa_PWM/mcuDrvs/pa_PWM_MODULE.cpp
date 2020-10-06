@@ -1,4 +1,6 @@
-#include "../pa_PWM.h"
+extern "C"{
+    #include "../pa_PWM.h"
+}
 
 #ifdef MODULE
 namespace pa_PWM
