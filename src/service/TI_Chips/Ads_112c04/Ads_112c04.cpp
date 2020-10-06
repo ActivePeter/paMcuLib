@@ -67,9 +67,10 @@ double Ads_112c04::readADC()
 	unsigned char arr[2];
 	pa_IIC_readLen(I2C_ADDRESS,CMD::CMD_RDATA,2,arr,b);
 
-	int data=arr[0]<<8|arr[1];
 
+	short data=arr[0]<<8|arr[1];
 
+	// int data=(short)data1
 
 	// Wire.requestFrom(I2C_ADDRESS, (byte)3);
 	// int h;
@@ -85,7 +86,7 @@ double Ads_112c04::readADC()
 
 	// double v = (double)t * 2.048 / 32768.0;
 
-	return data/16384.0;
+	return data;
 }
 
 void Ads_112c04::reset() 

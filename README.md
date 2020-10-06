@@ -5,15 +5,17 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 ------
 
-## 适配板子：
+## 已经适配的单片机：
 
-​	目前已经分别在esp32（platform io arduino） 和 msp432p（ccs）上进行测试了
+demo项目汇总：[https://github.com/pa-CommonLib-series](https://github.com/pa-CommonLib-series)
 
-​	后面会扩展到stm32，k210这些板子上、
+1. #### stm32h743，之前用的h750 结果发现flash不够
 
-​	基本上就以上四种板子。
+2. #### stm32f407，没有太大的性能要求可以选择这个
 
-​	其他板子不会去做适配了。（除非比赛使用
+3. #### msp432e，因为一些学习需求所以适配了这个板子
+
+4. ###### 后期计划适配：k210
 
 ------
 
@@ -21,7 +23,7 @@ github地址：[https://github.com/ActivePeter/pa_CommonLibTest](https://github.
 
 1.fork这个项目。
 
-2.建立一个你的单片机项目。（由于是一个层级结构的目录。所以它不支持keil，可以使用iar，cubemx ide，gcc等编译工具）
+2.建立一个你的单片机项目。（由于是一个层级结构的目录。所以它不支持keil，可以使用ccs,cubeide，gcc等编译工具）
 
 3.将你的单片机项目变为仓库
 
@@ -33,14 +35,6 @@ git submodule add https://github.com/ActivePeter/pa_CommonLib.git（这个路径
 
 ## 我的使用了这个库的项目：
 
-提供一个demo项目。分支即mcu类型。没有的需要自行适配。
-
-[https://github.com/ActivePeter/pa_CommonLib_Demos](https://github.com/ActivePeter/pa_CommonLib_Demos)
-
-![image-20200910151518159](http://tuchuang.hanbaoaaa.xyz/image-20200910151518159.png)
-
-------
-
 1. 绘图机械臂](https://github.com/ActivePeter/RobotArmDrawer)
 
 ------
@@ -49,7 +43,7 @@ git submodule add https://github.com/ActivePeter/pa_CommonLib.git（这个路径
 
 ​	每一种外设都有分层。逻辑和驱动分开。
 
-​	驱动层函数。使用宏定义来分别指定不同板子的具体操作。
+​	驱动层函数。使用宏定义来分别指定不同板子的型号。
 
 ------
 
@@ -63,7 +57,7 @@ git submodule add https://github.com/ActivePeter/pa_CommonLib.git（这个路径
 
 #### 	驱动层：
 
-​		spi，iic，ms、us延时
+​		spi，iic，ms、us延时,
 
 #### 	服务层：
 

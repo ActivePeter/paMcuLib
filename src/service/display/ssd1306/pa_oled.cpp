@@ -14,7 +14,7 @@ extern "C"
 #include "pa_oled.h"
 #include "stdlib.h"
 #include "pa_oledfont.h"
-#include "../../drv/pa_HardwareIIC/pa_HardwareIIC.h"
+#include "pa_CommonLib/src/drv/pa_HardwareIIC/pa_HardwareIIC.h"
 #include "pa_oled_drv.h"
 }
 pa_IICSettingStruct OLED_IICSettingStruct;
@@ -310,7 +310,7 @@ void OLED_ShowNum(unsigned char x, unsigned char y, unsigned int num, unsigned c
         OLED_ShowChar(x + (size2 / 2) * t, y, temp + '0', size2);
     }
 }
-//显示一个字符号串
+//显示一个字符号串,suze:12/16
 void OLED_ShowString(unsigned char x, unsigned char y, char *chr, unsigned char Char_Size)
 {
     unsigned char j = 0;
