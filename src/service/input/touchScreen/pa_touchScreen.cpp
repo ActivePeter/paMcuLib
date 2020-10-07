@@ -86,6 +86,10 @@ uint8_t pa_touchScreen::readRaw(uint16_t Coordinates[2])
 		return 0;
 	}
 	Hardware_SetCS(0);
+	spiWrite(CMDs::CMD_RDY);
+	spiRead();
+	spiWrite(CMDs::CMD_RDX);
+	spiRead();
 	while ((samples > 0) && isPressed())
 	{
 		spiWrite(CMDs::CMD_RDY);
@@ -148,10 +152,12 @@ void pa_touchScreen::turnRawToScreen(uint16_t Coordinates[2])
 	y = 1.0 * config.screenH * (y - config.yBeginRaw) / (config.yEndRaw - config.yBeginRaw);
 	if (x < 0)
 		x = 0;
-	if(x>config.screenW)x=config.screenW;
+	if (x > config.screenW)
+		x = config.screenW;
 	if (y < 0)
 		y = 0;
-	if(y>config.screenH)y=config.screenH;
+	if (y > config.screenH)
+		y = config.screenH;
 	Coordinates[0] = x;
 	Coordinates[1] = y;
 }

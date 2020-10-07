@@ -16,12 +16,13 @@ void pa_CommonInit()
 }
 void pa_delayMs(unsigned int ms)
 {
-// delayms(ms);
-#ifdef hasRTOS
+    osDelay(ms);
+// // delayms(ms);
+// #ifdef hasRTOS
 
-#else
-    HAL_Delay(ms);
-#endif
+// #else
+//     HAL_Delay(ms);
+// #endif
 }
 
 void pa_delayUs(unsigned int us)
@@ -29,7 +30,7 @@ void pa_delayUs(unsigned int us)
     
 }
 
-unsigned long pa_millis()
+uint64_t pa_millis()
 {
 }
 

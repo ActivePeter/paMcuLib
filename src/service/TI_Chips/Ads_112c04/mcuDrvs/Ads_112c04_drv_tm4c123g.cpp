@@ -34,7 +34,7 @@ void Ads_112c04::initHardware()
 }
 
 char Ads_112c04::getDrdyState()
-{
+{ 
 	uint32_t port = Ads_112c04_getPinOrPortByAdd(GpioPortOrPin_Port, this->I2C_ADDRESS);
 	uint32_t pin = Ads_112c04_getPinOrPortByAdd(GpioPortOrPin_Pin, this->I2C_ADDRESS);
 	return GPIOPinRead(port,pin)>0;

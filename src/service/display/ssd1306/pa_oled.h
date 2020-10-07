@@ -12,7 +12,7 @@
 #ifndef __OLED_H
 #define __OLED_H
 #include "stdlib.h"
-#include "../../drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 #define OLED_MODE 0
 #define SIZE 8
 #define XLevelL 0x00

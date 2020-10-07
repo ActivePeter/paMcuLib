@@ -67,7 +67,7 @@ public:
 	void reset();
 	//开始转换
 	void startConv();
-
+	//为0时表示转换完成
 	char getDrdyState();
 
 private:
