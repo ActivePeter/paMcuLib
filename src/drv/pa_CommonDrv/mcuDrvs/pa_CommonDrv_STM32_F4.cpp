@@ -29,9 +29,10 @@ void pa_delayUs(unsigned int us)
 {
     
 }
-
+uint64_t pa_milliCnt=0;
 uint64_t pa_millis()
 {
+    return pa_milliCnt;
 }
 
 

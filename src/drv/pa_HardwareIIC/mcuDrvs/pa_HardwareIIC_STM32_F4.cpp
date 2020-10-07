@@ -9,15 +9,16 @@ extern "C"
     }
     void pa_IIC_writeLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char* data_t,pa_IICSettingStruct pa_IICSettingStruct){
         addr<<=1;
-        if(length==1){
-            unsigned char a[2];
-            a[0]=reg;
-            a[1]=data_t[0];
-            HAL_I2C_Master_Transmit(&hi2c1, addr, a, 2, 100);
-            return;
-        }
-        HAL_I2C_Master_Transmit(&hi2c1, addr, &reg, 1, 100);
-        HAL_I2C_Master_Transmit(&hi2c1, addr, data_t, length, 100);
+        HAL_I2C_Mem_Write(&hi2c1,addr,reg,1,data_t,length,100);
+        // if(length==1){
+        //     unsigned char a[2];
+        //     a[0]=reg;
+        //     a[1]=data_t[0];
+        //     HAL_I2C_Master_Transmit(&hi2c1, addr, a, 2, 100);
+        //     return;
+        // }
+        // HAL_I2C_Master_Transmit(&hi2c1, addr, &reg, 1, 100);
+        // HAL_I2C_Master_Transmit(&hi2c1, addr, data_t, length, 100);
     }
     void pa_IIC_readLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char* data_t,pa_IICSettingStruct pa_IICSettingStruct){
         addr<<=1;
