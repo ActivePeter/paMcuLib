@@ -25,7 +25,7 @@ void pa_spiInit(){
      
     SPI_Params_init(&spiParams);
     spiParams.frameFormat = SPI_FrameFormat::SPI_POL1_PHA0;
-    spiParams.bitRate = 1500000;
+    spiParams.bitRate = 25000000;
     spiParams.dataSize=8;
     spiParams.mode=SPI_Mode::SPI_MASTER;
     spiParams.transferMode=SPI_TransferMode::SPI_MODE_BLOCKING;

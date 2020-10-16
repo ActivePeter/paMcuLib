@@ -1,8 +1,9 @@
-#include "pa_Defines.h"
-
+extern "C"{
+    #include "pa_Defines.h"
+}
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__
-
+extern "C"{
 #include "stdint.h"
 //hasRTOS
 // #define hasRTOS
@@ -46,6 +47,7 @@
 #ifdef MSP432E
     #include <ti/drivers/GPIO.h>
     #include <ti/drivers/SPI.h>
+    #include <ti/drivers/Timer.h>
     // #include <ti/display/Display.h>
     /* Driver configuration */
     #include "ti_drivers_config.h"
@@ -60,15 +62,14 @@
 #include "../pa_HardwareSPI/pa_HardwareSPI.h"
 #include "../pa_HardwareIIC/pa_HardwareIIC.h"
 // #include pa_MEM_CUSTOM_INCLUDE l    .
-
+}
 
 ////////////////////////
 
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
-
 void pa_delayMs(unsigned int ms);
-
+void pa_set1MsCallback(void (*callback)(void));
 void pa_delayUs(unsigned int us);
 
 uint64_t pa_millis();

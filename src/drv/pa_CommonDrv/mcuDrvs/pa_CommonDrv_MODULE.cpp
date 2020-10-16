@@ -7,6 +7,10 @@ extern "C"
 }
 
 #ifdef MODULE
+void pa_set1MsCallback(void (*callback)(void)){
+
+}
+
 void pa_CommonInit()
 {
 }
