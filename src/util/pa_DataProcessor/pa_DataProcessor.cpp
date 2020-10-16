@@ -426,6 +426,7 @@ int uvsnprintf(char *s, size_t n, const char *format,
     *s = 0;
     return (iConvertCount);
 }
+//重写的低资源消耗的的snprintf
 int pa_snprintf(char *s, int n, const char *format, ...)
 {
     va_list arg;
