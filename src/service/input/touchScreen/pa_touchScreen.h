@@ -1,15 +1,11 @@
 
-#include "pa_Defines.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 
 #ifdef INPUT_USE_TOUCHSCREEN
 
 #ifndef __PA_TOUCHSCREEN_H__
 #define __PA_TOUCHSCREEN_H__
 
-extern "C"
-{
-#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
-}
 class pa_touchScreen
 {
 
