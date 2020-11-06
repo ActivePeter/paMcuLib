@@ -9,10 +9,11 @@ public:
     SvpwmFoc();
     static SvpwmFoc instance;
     void controlTick();
-    void openLoopPlusAngleTest();
+    void SvpwmFoc::plusAngleTest(float callRate_UsPerTime, float msPerRound);
     float getCurEularAngle();
+
 private:
-    float curAngle;
+    float curEularAngle;
     void updateMotor(float a, float b, float c);
 };
 #endif // __SVPWMFOC_H__

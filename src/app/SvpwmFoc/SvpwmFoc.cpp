@@ -7,8 +7,10 @@ SvpwmFoc::SvpwmFoc()
 //循环调用。用于更新pwm状态
 void SvpwmFoc::controlTick()
 {
-    float angleInPhase = fmodf(curAngle, PI_3);
-    int phase = curAngle / PI_3;
+    float angleInPhase = fmodf(curEularAngle, 60);
+    int phase = curEularAngle / 60;
+
+    angleInPhase = angleInPhase / 180 * PI;
 
     float T1 = sinf(angleInPhase);
     float T2 = sinf(PI_3 - angleInPhase);
@@ -34,7 +36,7 @@ void SvpwmFoc::controlTick()
         PWMC = T3 + T2;
         break;
     case 3:
-        PWMA = T3 + T1 + T2;                       
+        PWMA = T3 + T1 + T2;
         PWMB = T3 + T1;
         PWMC = T3;
         break;
@@ -53,19 +55,26 @@ void SvpwmFoc::controlTick()
     }
     updateMotor(PWMA, PWMB, PWMC);
 }
-
-void SvpwmFoc::openLoopPlusAngleTest()
+/** 
+ * @brief 测试函数.以固定频率调用，实现固定转速。
+ * @param callRate_UsPerTime    调用此函数的实践间隔us
+ * @param msPerRound    每圈几毫秒        
+ */
+void SvpwmFoc::plusAngleTest(float callRate_UsPerTime, float msPerRound)
 {
-
-    // curAngle+=PI/
-}                             
+    float dAngle = 2 * 360 / (msPerRound * 1000 / callRate_UsPerTime);
+    curEularAngle += dAngle;
+    if (curEularAngle > 360)
+    {
+        curEularAngle -= 360;
+    }
+}
 
 float SvpwmFoc::getCurEularAngle()
 {
-    return curAngle / PI * 180;
+    return curEularAngle;
 }
 
 void SvpwmFoc::updateMotor(float a, float b, float c)
 {
-
 }
