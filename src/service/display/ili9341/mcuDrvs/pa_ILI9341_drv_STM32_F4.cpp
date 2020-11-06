@@ -1,16 +1,13 @@
-#include "pa_Defines.h"
+#include "../pa_ILI9341.h"
 
 #ifdef DISPLAY_USE_ILI9341
-
-
-#include "../pa_ILI9341.h"
 
 /****************************************************
  * driver 层代码
  * ***************************************************/
 
 #ifdef STM32_F4
-    
+
 #define pa_ILI9341_CS_GPIO GPIOB
 #define pa_ILI9341_CS_PIN GPIO_PIN_0
 

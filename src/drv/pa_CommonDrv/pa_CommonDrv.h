@@ -1,9 +1,11 @@
-extern "C"{
-    #include "pa_Defines.h"
+extern "C"
+{
+#include "pa_Defines.h"
 }
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__
-extern "C"{
+extern "C"
+{
 #include "stdint.h"
 //hasRTOS
 // #define hasRTOS
@@ -43,25 +45,22 @@ extern "C"{
 #include "cmsis_os.h"
 #endif
 
-
 #ifdef MSP432E
-    #include <ti/drivers/GPIO.h>
-    #include <ti/drivers/SPI.h>
-    #include <ti/drivers/Timer.h>
-    // #include <ti/display/Display.h>
-    /* Driver configuration */
-    #include "ti_drivers_config.h"
-    /* POSIX Header files */
-    #include <pthread.h>
-    #include <semaphore.h>
-    #include <unistd.h>
+#include <ti/drivers/GPIO.h>
+#include <ti/drivers/SPI.h>
+#include <ti/drivers/Timer.h>
+// #include <ti/display/Display.h>
+/* Driver configuration */
+#include "ti_drivers_config.h"
+/* POSIX Header files */
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
 #endif
-
-
 
 #include "../pa_HardwareSPI/pa_HardwareSPI.h"
 #include "../pa_HardwareIIC/pa_HardwareIIC.h"
-// #include pa_MEM_CUSTOM_INCLUDE l    .
+    // #include pa_MEM_CUSTOM_INCLUDE l    .
 }
 
 ////////////////////////

@@ -1,11 +1,9 @@
-#include "pa_Defines.h"
+#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 
 #ifdef DISPLAY_USE_ILI9341
 
 #ifndef __ILI9341_H__
 #define __ILI9341_H__
-
-#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
 
 class pa_ILI9341
 {

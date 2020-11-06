@@ -1,8 +1,5 @@
-#include "pa_Defines.h"
-
-#ifdef DISPLAY_USE_ILI9341
-
 #include "pa_ILI9341.h"
+#ifdef DISPLAY_USE_ILI9341
 
 pa_ILI9341 pa_ILI9341::instance = pa_ILI9341();
 
@@ -38,6 +35,11 @@ void pa_ILI9341::init(Rotation Rotation)
 	this->writeCommand(0x01);
 	pa_delayMs(1000);
 
+	writeCommand(0xEF);
+	writeData(0x03);
+	writeData(0x80);
+	writeData(0x02);
+
 	//POWER CONTROL A
 	this->writeCommand(0xCB);
 	this->writeData(0x39);
@@ -63,7 +65,7 @@ void pa_ILI9341::init(Rotation Rotation)
 	this->writeData(0x00);
 	this->writeData(0x00);
 
-	//POWER ON SEQUENCE CONTROL
+	//POWER ON SEQUENCE CONTROL   ok
 	this->writeCommand(0xED);
 	this->writeData(0x64);
 	this->writeData(0x03);
@@ -75,20 +77,20 @@ void pa_ILI9341::init(Rotation Rotation)
 	this->writeData(0x20);
 
 	//POWER CONTROL,VRH[5:0]
-	this->writeCommand(0xC0);
+	this->writeCommand(0xC0); //
 	this->writeData(0x23);
 
 	//POWER CONTROL,SAP[2:0];BT[3:0]
-	this->writeCommand(0xC1);
+	this->writeCommand(0xC1); //
 	this->writeData(0x10);
 
 	//VCM CONTROL
-	this->writeCommand(0xC5);
+	this->writeCommand(0xC5); //
 	this->writeData(0x3E);
 	this->writeData(0x28);
 
 	//VCM CONTROL 2
-	this->writeCommand(0xC7);
+	this->writeCommand(0xC7); //
 	this->writeData(0x86);
 
 	//MEMORY ACCESS CONTROL
@@ -165,17 +167,21 @@ void pa_ILI9341::init(Rotation Rotation)
 	setRotation(Rotation);
 }
 
-void pa_ILI9341::flush(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t Colour) 
+void pa_ILI9341::flush(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t Colour)
 {
-	if(x1<0)x1=0;
-	if(y1<0)y1=0;
-	if(x2>this->LCD_WIDTH)x2=LCD_WIDTH;
-	if(y2>this->LCD_HEIGHT)y2=LCD_HEIGHT;
-	setAddress(x1,y1,x2,y2);
-	burst(Colour,(x2-x1+1)*(y2-y1+1));
+	if (x1 < 0)
+		x1 = 0;
+	if (y1 < 0)
+		y1 = 0;
+	if (x2 > this->LCD_WIDTH)
+		x2 = LCD_WIDTH;
+	if (y2 > this->LCD_HEIGHT)
+		y2 = LCD_HEIGHT;
+	setAddress(x1, y1, x2, y2);
+	burst(Colour, (x2 - x1 + 1) * (y2 - y1 + 1));
 }
 
-void pa_ILI9341::burst(uint16_t Colour, uint32_t Size) 
+void pa_ILI9341::burst(uint16_t Colour, uint32_t Size)
 {
 	//SENDS COLOUR
 	uint32_t Buffer_Size = 0;
@@ -249,10 +255,14 @@ void pa_ILI9341::writeData(uint8_t Command)
 
 void pa_ILI9341::setAddress(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
 {
-	if(X1<0)X1=0;
-	if(Y1<0)Y1=0;
-	if(X2>this->LCD_WIDTH)X2=LCD_WIDTH;
-	if(Y2>this->LCD_HEIGHT)Y2=LCD_HEIGHT;
+	if (X1 < 0)
+		X1 = 0;
+	if (Y1 < 0)
+		Y1 = 0;
+	if (X2 > this->LCD_WIDTH)
+		X2 = LCD_WIDTH;
+	if (Y2 > this->LCD_HEIGHT)
+		Y2 = LCD_HEIGHT;
 
 	this->writeCommand(0x2A);
 	this->writeData(X1 >> 8);

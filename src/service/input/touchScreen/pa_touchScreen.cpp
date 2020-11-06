@@ -1,8 +1,6 @@
-#include "pa_Defines.h"
+#include "pa_touchScreen.h"
 
 #ifdef INPUT_USE_TOUCHSCREEN
-
-#include "pa_touchScreen.h"
 
 pa_touchScreen pa_touchScreen::instance = pa_touchScreen();
 

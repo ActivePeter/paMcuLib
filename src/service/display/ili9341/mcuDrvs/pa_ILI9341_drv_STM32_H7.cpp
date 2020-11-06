@@ -1,8 +1,6 @@
-#include "pa_Defines.h"
+#include "../pa_ILI9341.h"
 
 #ifdef DISPLAY_USE_ILI9341
-
-#include "../pa_ILI9341.h"
 
 /****************************************************
  * driver 层代码
