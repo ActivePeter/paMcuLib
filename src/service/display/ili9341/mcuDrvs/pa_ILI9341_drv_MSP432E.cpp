@@ -12,7 +12,7 @@ void pa_ILI9341::setCS(uint8_t state)
 {
     GPIO_write(ILI9341_CS, state > 0);
 }
-
+ 
 void pa_ILI9341::setDC(uint8_t state)
 {
     GPIO_write(ILI9341_DC, state > 0);
