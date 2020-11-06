@@ -12,32 +12,27 @@ void pa_CommonInit()
 {
 }
 extern TIM_HandleTypeDef htim2;
-void pa_set1MsCallback(void (*callback)(void))
+static void (*ptr_CallBack_1ms)(void);
+static void (*ptr_CallBack_100us)(void);
+
+//设置1ms的回调函数
+void pa_setTimerCallback(void (*CallBack_100us)(void), void (*CallBack_1ms)(void))
 {
+    ptr_CallBack_1ms = CallBack_1ms;
+    ptr_CallBack_100us = CallBack_100us;
     HAL_TIM_Base_Start_IT(&htim2);
-    // Timer_init();
-    // callback_1ms = callback;
-    // Timer_Handle handle;
-    // Timer_Params params;
-    // Timer_Params_init(&params);
-    // params.periodUnits = Timer_PERIOD_HZ;
-    // params.period = 1000;
-    // params.timerMode = Timer_CONTINUOUS_CALLBACK;
-    // params.timerCallback = timerCallback;
-    // handle = Timer_open(CONFIG_TIMER_0, &params);
-    // if (handle == NULL)
-    // {
-    //     // Timer_open() failed
-    //     while (1)
-    //         ;
-    // }
-    // int32_t status = Timer_start(handle);
-    // if (status == Timer_STATUS_ERROR)
-    // {
-    //     //Timer_start() failed
-    //     while (1)
-    //         ;
-    // }
+}
+//必须设置一个100us定时器中断 并调用此函数
+void pa_CallBack_100us()
+{
+    static char cnt = 0;
+    ptr_CallBack_100us();
+    cnt++;
+    if (cnt == 10)
+    {
+        ptr_CallBack_1ms();
+        cnt = 0;
+    }
 }
 void pa_delayMs(unsigned int ms)
 {

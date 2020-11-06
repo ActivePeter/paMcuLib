@@ -7,12 +7,13 @@ class SvpwmFoc
 {
 public:
     SvpwmFoc();
-    static SvpwmFoc instance;
+    void init(char pwmId_A, char pwmId_B, char pwmId_C);
     void controlTick();
-    void SvpwmFoc::plusAngleTest(float callRate_UsPerTime, float msPerRound);
+    void plusAngleTest(float callRate_UsPerTime, float msPerRound);
     float getCurEularAngle();
 
 private:
+    char pwmIds[3];
     float curEularAngle;
     void updateMotor(float a, float b, float c);
 };

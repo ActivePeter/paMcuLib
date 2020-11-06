@@ -1,6 +1,4 @@
-extern "C"{
-    #include "../pa_PWM.h"
-}
+#include "../pa_PWM.h"
 
 #ifdef STM32_H7
 extern TIM_HandleTypeDef htim3;
@@ -21,12 +19,16 @@ namespace pa_PWM
             value = PWMCount;
         switch (index)
         {
-        case 0://pc7
+        case 0: //pc7
             __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, value);
             /* code */
             break;
-        case 1://pc8
+        case 1: //pc8
             __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, value);
+            /* code */
+            break;
+        case 2: //pc9
+            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_4, value);
             /* code */
             break;
         }

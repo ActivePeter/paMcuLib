@@ -1,11 +1,15 @@
-extern "C"
-{
+//extern "C"
+//{
 #include "pa_Defines.h"
-}
+
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__
+
+#ifdef __cplusplus
 extern "C"
 {
+#endif
+
 #include "stdint.h"
 //hasRTOS
 // #define hasRTOS
@@ -61,14 +65,16 @@ extern "C"
 #include "../pa_HardwareSPI/pa_HardwareSPI.h"
 #include "../pa_HardwareIIC/pa_HardwareIIC.h"
     // #include pa_MEM_CUSTOM_INCLUDE l    .
+    //【必须】系统配置一个100us定时器来调用
+    void pa_CallBack_100us();
+#ifdef __cplusplus
 }
-
-////////////////////////
+#endif
 
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
 void pa_delayMs(unsigned int ms);
-void pa_set1MsCallback(void (*callback)(void));
+void pa_setTimerCallback(void (*CallBack_100us)(void), void (*CallBack_1ms)(void));
 void pa_delayUs(unsigned int us);
 
 uint64_t pa_millis();

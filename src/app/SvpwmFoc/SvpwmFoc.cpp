@@ -1,7 +1,14 @@
 #include "SvpwmFoc.h"
-
+#include "pa_CommonLib/src/drv/pa_PWM/pa_PWM.h"
 SvpwmFoc::SvpwmFoc()
 {
+}
+
+void SvpwmFoc::init(char pwmId_A, char pwmId_B, char pwmId_C)
+{
+    pwmIds[0] = pwmId_A;
+    pwmIds[1] = pwmId_B;
+    pwmIds[2] = pwmId_C;
 }
 
 //循环调用。用于更新pwm状态
@@ -77,4 +84,7 @@ float SvpwmFoc::getCurEularAngle()
 
 void SvpwmFoc::updateMotor(float a, float b, float c)
 {
+    pa_PWM::setPWMDuty(pwmIds[0], a);
+    pa_PWM::setPWMDuty(pwmIds[1], b);
+    pa_PWM::setPWMDuty(pwmIds[2], c);
 }
