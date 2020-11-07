@@ -13,4 +13,7 @@ extern "C"
 #define PI_3 1.0471975511965
 #endif
 
+#ifndef PI_2_3
+#define PI_2_3 2.09439510239319549
+#endif
 #endif // __PA_MATH_H__

@@ -21,8 +21,8 @@ void SvpwmFoc::controlTick()
 
     float T1 = sinf(angleInPhase);
     float T2 = sinf(PI_3 - angleInPhase);
-    // float T3 = 1 - T1 - T2;
-    float T3 = 0; //零向量维持时间，可以调整。对整体不会产生影响。无非是全开通和全关断的区别
+    float T3 = 1 - T1 - T2;
+    // float T3 = 0; //零向量维持时间，可以调整。对整体不会产生影响。无非是全开通和全关断的区别
     float PWMA, PWMB, PWMC;
 
     switch (phase)
@@ -60,6 +60,47 @@ void SvpwmFoc::controlTick()
     default:
         PWMA = PWMB = PWMC = 0;
     }
+
+    // switch (phase)
+    // {
+    // case 0:
+    //     PWMA = 0;
+    //     PWMB = 0;
+    //     PWMC = 0.86602540378;
+    //     break;
+    // case 1:
+    //     PWMA = 0;
+    //     PWMB = 0.86602540378;
+    //     PWMC = 0.86602540378;
+    //     break;
+    // case 2:
+    //     PWMA = 0;
+    //     PWMB = 0.86602540378;
+    //     PWMC = 0;
+    //     break;
+    // case 3:
+    //     PWMA = 0.86602540378;
+    //     PWMB = 0.86602540378;
+    //     PWMC = 0;
+    //     break;
+    // case 4:
+    //     PWMA = 0.86602540378;
+    //     PWMB = 0;
+    //     PWMC = 0;
+    //     break;
+    // case 5:
+    //     PWMA = 0.86602540378;
+    //     PWMB = 0;
+    //     PWMC = 0.86602540378;
+    //     break;
+    // default:
+    //     PWMA = PWMB = PWMC = 0;
+    // }
+    // T1=;
+    // T2=;
+    // PWMA = 0;
+    // PWMB = 0;
+    // PWMC = 0.86602540378;
     updateMotor(PWMA, PWMB, PWMC);
 }
 /** 
@@ -69,6 +110,7 @@ void SvpwmFoc::controlTick()
  */
 void SvpwmFoc::plusAngleTest(float callRate_UsPerTime, float msPerRound)
 {
+    // curEularAngle = 15;
     float dAngle = 2 * 360 / (msPerRound * 1000 / callRate_UsPerTime);
     curEularAngle += dAngle;
     if (curEularAngle > 360)
