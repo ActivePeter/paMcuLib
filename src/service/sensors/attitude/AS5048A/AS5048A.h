@@ -15,8 +15,6 @@ class AS5048A
 	uint16_t position;
 	uint16_t transaction(uint16_t data);
 
-	SPISettings settings;
-
 public:
 	/**
 	 *	Constructor
