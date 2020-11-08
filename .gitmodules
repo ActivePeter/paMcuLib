@@ -13,3 +13,6 @@
 [submodule "src/service/sensors/attitude/AS5048A"]
 	path = src/service/sensors/attitude/AS5048A
 	url = https://github.com/pa-CommonLib-parts/AS5048A_pa_CommonLib.git
+[submodule "src/service/sensors/attitude/bno055"]
+	path = src/service/sensors/attitude/bno055
+	url = https://github.com/pa-CommonLib-parts/bno055_pa_CommonLib.git
