@@ -22,3 +22,6 @@
 [submodule "src/service/sensors/other/GY906"]
 	path = src/service/sensors/other/GY906
 	url = https://github.com/pa-CommonLib-parts/GY906_pa_CommonLib.git
+[submodule "src/service/input/pa_Keypad"]
+	path = src/service/input/pa_Keypad
+	url = https://github.com/pa-CommonLib-parts/Keypad_pa_CommonLib.git
