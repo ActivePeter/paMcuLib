@@ -1,0 +1,3 @@
+[submodule "app/SvpwmFoc"]
+	path = app/SvpwmFoc
+	url = https://github.com/pa-CommonLib-parts/SvpwmFoc_pa_CommonLib.git
