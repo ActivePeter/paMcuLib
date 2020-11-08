@@ -4,3 +4,6 @@
 [submodule "src/service/display/ili9341"]
 	path = src/service/display/ili9341
 	url = https://github.com/pa-CommonLib-parts/ili9341_pa_CommonLib.git
+[submodule "src/service/display/ssd1306"]
+	path = src/service/display/ssd1306
+	url = https://github.com/pa-CommonLib-parts/ssd1306_pa_CommonLib.git
