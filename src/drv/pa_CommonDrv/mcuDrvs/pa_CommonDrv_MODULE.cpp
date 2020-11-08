@@ -67,4 +67,8 @@ void pa_printf(const char *format, ...)
     // return len;
 }
 
+void pa_Debug(const char *data)
+{
+}
+
 #endif

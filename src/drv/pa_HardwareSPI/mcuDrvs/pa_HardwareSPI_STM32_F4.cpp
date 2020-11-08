@@ -1,6 +1,6 @@
 extern "C"
 {
-    #include "../pa_HardwareSPI.h"
+#include "../pa_HardwareSPI.h"
 }
 #ifdef STM32_F4
 //![Simple SPI Config]
@@ -18,13 +18,19 @@ extern "C"
 extern SPI_HandleTypeDef hspi1;
 //1.5clk,1.6mosi
 //![Simple SPI Config]
-void pa_spiInit(){
+void pa_spiInit()
+{
 }
 // #include <ti/devices/msp432p4xx/driverlib/eusci.h>
-void pa_spiTransmit(unsigned char * data,unsigned int len){
-    HAL_SPI_Transmit(&hspi1, data,len, 100);
+void pa_spiTransmit(unsigned char *data, unsigned int len)
+{
+    HAL_SPI_Transmit(&hspi1, data, len, 100);
 }
-void pa_spiReceive(unsigned char * data,unsigned int len){
-    HAL_SPI_Receive(&hspi1, data,len, 100);
+void pa_spiReceive(unsigned char *data, unsigned int len)
+{
+    HAL_SPI_Receive(&hspi1, data, len, 100);
+}
+void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSpeed speed)
+{
 }
 #endif

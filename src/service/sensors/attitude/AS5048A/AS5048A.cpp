@@ -1,4 +1,4 @@
-#include <AS5048A.h>
+#include "AS5048A.h"
 
 //#define AS5048A_DEBUG
 
@@ -26,14 +26,15 @@ AS5048A::AS5048A(uint8_t arg_cs)
  */
 void AS5048A::init()
 {
-	// 1MHz clock (AMS should be able to accept up to 10MHz)
-	settings = SPISettings(1000000, MSBFIRST, SPI_MODE1);
 
-	//setup pins
-	pinMode(_cs, OUTPUT);
+	// // 1MHz clock (AMS should be able to accept up to 10MHz)
+	// settings = SPISettings(1000000, MSBFIRST, SPI_MODE1);
 
-	//SPI has an internal SPI-device counter, it is possible to call "begin()" from different devices
-	SPI.begin();
+	// //setup pins
+	// pinMode(_cs, OUTPUT);
+
+	// //SPI has an internal SPI-device counter, it is possible to call "begin()" from different devices
+	// SPI.begin();
 }
 
 /**
@@ -42,7 +43,7 @@ void AS5048A::init()
  */
 void AS5048A::close()
 {
-	SPI.end();
+	// SPI.end();
 }
 
 /**
@@ -110,9 +111,9 @@ void AS5048A::printState()
 	data = AS5048A::getState();
 	if (AS5048A::error())
 	{
-		Serial.print("Error bit was set!");
+		// Serial.print("Error bit was set!");
 	}
-	Serial.println(data, BIN);
+	// Serial.println(data, BIN);
 }
 
 /**
@@ -170,9 +171,11 @@ uint16_t AS5048A::read(uint16_t registerAddress)
 	//Add a parity bit on the the MSB
 	command |= ((uint16_t)spiCalcEvenParity(command) << 15);
 
+	uint8_t dataSet[2];
+
 	//Split the command into two uint8_ts
-	uint8_t right_uint8_t = command & 0xFF;
-	uint8_t left_uint8_t = (command >> 8) & 0xFF;
+	dataSet[1] = command & 0xFF;
+	dataSet[0] = (command >> 8) & 0xFF;
 
 #ifdef AS5048A_DEBUG
 	Serial.print("Read (0x");
@@ -182,22 +185,29 @@ uint16_t AS5048A::read(uint16_t registerAddress)
 #endif
 
 	//SPI - begin transaction
-	SPI.beginTransaction(settings);
+	// SPI.beginTransaction(settings);
 
 	//Send the command
-	digitalWrite(_cs, LOW);
-	SPI.transfer(left_uint8_t);
-	SPI.transfer(right_uint8_t);
-	digitalWrite(_cs, HIGH);
+	setCS(0);
+	// digitalWrite(_cs, LOW);
+	pa_spiTransmitInSpecialSpeed(dataSet, 2, pa_SpiSpeed::SpiSpeed_About1mhz);
+	// SPI.transfer(left_uint8_t);
+	// SPI.transfer(right_uint8_t);
+	// digitalWrite(_cs, HIGH);
+	setCS(1);
 
 	//Now read the response
-	digitalWrite(_cs, LOW);
-	left_uint8_t = SPI.transfer(0x00);
-	right_uint8_t = SPI.transfer(0x00);
-	digitalWrite(_cs, HIGH);
+	// digitalWrite(_cs, LOW);
+	setCS(0);
+	pa_spiReceiveInSpecialSpeed(dataSet, 2, pa_SpiSpeed::SpiSpeed_About1mhz);
+	// pa_spiReceiveInSpecialSpeed(dataSet + 1, 1, pa_SpiSpeed::SpiSpeed_About1mhz);
+	// left_uint8_t = SPI.transfer(0x00);
+	// right_uint8_t = SPI.transfer(0x00);
+	// digitalWrite(_cs, HIGH);
+	setCS(1);
 
 	//SPI - end transaction
-	SPI.endTransaction();
+	// SPI.endTransaction();
 
 #ifdef AS5048A_DEBUG
 	Serial.print("Read returned: ");
@@ -207,7 +217,7 @@ uint16_t AS5048A::read(uint16_t registerAddress)
 #endif
 
 	//Check if the error bit is set
-	if (left_uint8_t & 0x40)
+	if (dataSet[0] & 0x40)
 	{
 #ifdef AS5048A_DEBUG
 		Serial.println("Setting error bit");
@@ -220,73 +230,82 @@ uint16_t AS5048A::read(uint16_t registerAddress)
 	}
 
 	//Return the data, stripping the parity and error bits
-	return (((left_uint8_t & 0xFF) << 8) | (right_uint8_t & 0xFF)) & ~0xC000;
+	return (((dataSet[0] & 0xFF) << 8) | (dataSet[1] & 0xFF)) & ~0xC000;
 }
 
-/*
- * Write to a register
- * Takes the 16-bit  address of the target register and the 16 bit uint16_t of data
- * to be written to that register
- * Returns the value of the register after the write has been performed. This
- * is read back from the sensor to ensure a sucessful write.
- */
-uint16_t AS5048A::write(uint16_t registerAddress, uint16_t data)
-{
+// /*
+//  * Write to a register
+//  * Takes the 16-bit  address of the target register and the 16 bit uint16_t of data
+//  * to be written to that register
+//  * Returns the value of the register after the write has been performed. This
+//  * is read back from the sensor to ensure a sucessful write.
+//  */
+// uint16_t AS5048A::write(uint16_t registerAddress, uint16_t data)
+// {
 
-	uint16_t command = 0b0000000000000000; // PAR=0 R/W=W
-	command |= registerAddress;
+// 	uint16_t command = 0b0000000000000000; // PAR=0 R/W=W
+// 	command |= registerAddress;
 
-	//Add a parity bit on the the MSB
-	command |= ((uint16_t)spiCalcEvenParity(command) << 15);
+// 	//Add a parity bit on the the MSB
+// 	command |= ((uint16_t)spiCalcEvenParity(command) << 15);
 
-	//Split the command into two uint8_ts
-	uint8_t right_uint8_t = command & 0xFF;
-	uint8_t left_uint8_t = (command >> 8) & 0xFF;
+// 	uint8_t dataSet[2];
+// 	//Split the command into two uint8_ts
+// 	dataSet[1] = command & 0xFF;
+// 	dataSet[0] = (command >> 8) & 0xFF;
 
-#ifdef AS5048A_DEBUG
-	Serial.print("Write (0x");
-	Serial.print(registerAddress, HEX);
-	Serial.print(") with command: 0b");
-	Serial.println(command, BIN);
-#endif
+// #ifdef AS5048A_DEBUG
+// 	Serial.print("Write (0x");
+// 	Serial.print(registerAddress, HEX);
+// 	Serial.print(") with command: 0b");
+// 	Serial.println(command, BIN);
+// #endif
 
-	//SPI - begin transaction
-	SPI.beginTransaction(settings);
+// 	//SPI - begin transaction
+// 	// SPI.beginTransaction(settings);
 
-	//Start the write command with the target address
-	digitalWrite(_cs, LOW);
-	SPI.transfer(left_uint8_t);
-	SPI.transfer(right_uint8_t);
-	digitalWrite(_cs, HIGH);
+// 	//Start the write command with the target address
+// 	setCS(0);
+// 	// digitalWrite(_cs, LOW);
+// 	pa_spiTransmitInSpecialSpeed(dataSet, 2, pa_SpiSpeed::SpiSpeed_About1mhz); //这个芯片支持的spi频率相对较低
+// 	// SPI.transfer(left_uint8_t);
+// 	// SPI.transfer(right_uint8_t);
+// 	// digitalWrite(_cs, HIGH);
+// 	setCS(1);
 
-	uint16_t dataToSend = 0b0000000000000000;
-	dataToSend |= data;
+// 	uint16_t dataToSend = 0b0000000000000000;
+// 	dataToSend |= data;
 
-	//Craft another packet including the data and parity
-	dataToSend |= ((uint16_t)spiCalcEvenParity(dataToSend) << 15);
-	right_uint8_t = dataToSend & 0xFF;
-	left_uint8_t = (dataToSend >> 8) & 0xFF;
+// 	//Craft another packet including the data and parity
+// 	dataToSend |= ((uint16_t)spiCalcEvenParity(dataToSend) << 15);
+// 	dataSet[1] = dataToSend & 0xFF;
+// 	dataSet[0] = (dataToSend >> 8) & 0xFF;
 
-#ifdef AS5048A_DEBUG
-	Serial.print("Sending data to write: ");
-	Serial.println(dataToSend, BIN);
-#endif
+// #ifdef AS5048A_DEBUG
+// 	Serial.print("Sending data to write: ");
+// 	Serial.println(dataToSend, BIN);
+// #endif
 
-	//Now send the data packet
-	digitalWrite(_cs, LOW);
-	SPI.transfer(left_uint8_t);
-	SPI.transfer(right_uint8_t);
-	digitalWrite(_cs, HIGH);
+// 	//Now send the data packet
+// 	// digitalWrite(_cs, LOW);
+// 	setCS(0);
+// 	pa_spiTransmitInSpecialSpeed(dataSet, 2, pa_SpiSpeed::SpiSpeed_About1mhz);
+// 	// SPI.transfer(left_uint8_t);
+// 	// SPI.transfer(right_uint8_t);
+// 	// digitalWrite(_cs, HIGH);
+// 	setCS(1);
 
-	//Send a NOP to get the new data in the register
-	digitalWrite(_cs, LOW);
-	left_uint8_t = -SPI.transfer(0x00);
-	right_uint8_t = SPI.transfer(0x00);
-	digitalWrite(_cs, HIGH);
+// 	//Send a NOP to get the new data in the register
+// 	// digitalWrite(_cs, LOW);
+// 	setCS(0);
+// 	left_uint8_t = -SPI.transfer(0x00);
+// 	right_uint8_t = SPI.transfer(0x00);
+// 	// digitalWrite(_cs, HIGH);
+// 	setCS(1);
 
-	//SPI - end transaction
-	SPI.endTransaction();
+// 	//SPI - end transaction
+// 	SPI.endTransaction();
 
-	//Return the data, stripping the parity and error bits
-	return (((left_uint8_t & 0xFF) << 8) | (right_uint8_t & 0xFF)) & ~0xC000;
-}
+// 	//Return the data, stripping the parity and error bits
+// 	return (((left_uint8_t & 0xFF) << 8) | (right_uint8_t & 0xFF)) & ~0xC000;
+// }

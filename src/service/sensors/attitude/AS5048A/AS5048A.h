@@ -46,7 +46,7 @@ public:
 	 * Returns the value of the register after the write has been performed. This
 	 * is read back from the sensor to ensure a sucessful write.
 	 */
-	uint16_t write(uint16_t registerAddress, uint16_t data);
+	// uint16_t write(uint16_t registerAddress, uint16_t data);
 
 	/**
 	 * Get the rotation of the sensor relative to the zero position.
@@ -96,6 +96,10 @@ public:
 	 * Check if an error has been encountered.
 	 */
 	bool error();
+	//硬件层////////////////////////////////////////////////////////////////////////////////////
+	void Hardware_init();
+
+	void setCS(char state);
 
 private:
 	uint8_t spiCalcEvenParity(uint16_t);

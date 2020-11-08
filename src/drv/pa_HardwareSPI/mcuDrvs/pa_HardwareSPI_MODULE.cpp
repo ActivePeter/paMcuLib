@@ -1,6 +1,6 @@
 extern "C"
 {
-    #include "../pa_HardwareSPI.h"
+#include "../pa_HardwareSPI.h"
 }
 #ifdef MODULE
 //![Simple SPI Config]
@@ -18,11 +18,17 @@ extern "C"
 
 //1.5clk,1.6mosi
 //![Simple SPI Config]
-void pa_spiInit(){
+void pa_spiInit()
+{
 }
 // #include <ti/devices/msp432p4xx/driverlib/eusci.h>
-void pa_spiTransmit(unsigned char * data,unsigned int len){
+void pa_spiTransmit(unsigned char *data, unsigned int len)
+{
 }
-void pa_spiReceive(unsigned char * data,unsigned int len){
+void pa_spiReceive(unsigned char *data, unsigned int len)
+{
+}
+void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSpeed speed)
+{
 }
 #endif

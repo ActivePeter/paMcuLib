@@ -80,6 +80,8 @@ void pa_delayUs(unsigned int us);
 uint64_t pa_millis();
 
 void pa_printf(const char *format, ...);
+void pa_Debug(const char *data);
+void pa_Debug_len(const char *data, int len);
 
 #ifdef TM4C123G
 uint32_t getSyscylOfGpioPort(uint32_t port);
