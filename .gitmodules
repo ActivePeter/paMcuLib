@@ -10,3 +10,6 @@
 [submodule "src/service/TI_Chips/Ads_112c04"]
 	path = src/service/TI_Chips/Ads_112c04
 	url = https://github.com/pa-CommonLib-parts/Ads_112c04_pa_CommonLib.git
+[submodule "src/service/sensors/attitude/AS5048A"]
+	path = src/service/sensors/attitude/AS5048A
+	url = https://github.com/pa-CommonLib-parts/AS5048A_pa_CommonLib.git
