@@ -86,7 +86,11 @@
 > > >
 > > > ​				void pa_setTimerCallback(void (*CallBack_100us)(void), void (*CallBack_1ms)(void));   
 > > >
-> > > ​				（设置定时器应用层回调函数。一些需要高频稳定调用的
+> > > ​					（设置定时器应用层回调函数。一些需要高频稳定调用的
+> > >
+> > > ​				void pa_Debug(const char *data);	(串口调试，stm32使用 cdc
+> > >
+> > > ​				void pa_Debug_len(const char *data, int len)	(
 > > >
 > > > ###### 6.1.5.pa_PWM
 > > >
@@ -98,9 +102,9 @@
 > > > typedef enum
 > > > {
 > > > 
-> > >   Protocal_SPI = 1,
+> > > Protocal_SPI = 1,
 > > > 
-> > >   Protocal_IIC
+> > > Protocal_IIC
 > > > 
 > > > } Protocal;
 > > > 
@@ -109,11 +113,11 @@
 > > > typedef enum
 > > > {
 > > > 
-> > >   GpioInputMode_pullup = 1,
+> > > GpioInputMode_pullup = 1,
 > > > 
-> > >   GpioInputMode_pulldown,
+> > > GpioInputMode_pulldown,
 > > > 
-> > >   GpioInputMode_hang,
+> > > GpioInputMode_hang,
 > > > 
 > > > } GpioInputMode;
 > > > 
@@ -123,9 +127,9 @@
 > > > 
 > > > {
 > > > 
-> > >   GpioPortOrPin_Port = 1,
+> > > GpioPortOrPin_Port = 1,
 > > > 
-> > >   GpioPortOrPin_Pin,
+> > > GpioPortOrPin_Pin,
 > > > 
 > > > } GpioPortOrPin;
 > > > 
@@ -135,9 +139,9 @@
 > > > 
 > > > {
 > > > 
-> > >   Direction_Increase = 1,
+> > > Direction_Increase = 1,
 > > > 
-> > >   Direction_Decrease,
+> > > Direction_Decrease,
 > > > 
 > > > } Direction;
 > > > ```

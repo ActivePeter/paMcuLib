@@ -13,9 +13,8 @@ const int AS5048A_ANGLE = 0x3FFF;
 /**
  * Constructor
  */
-AS5048A::AS5048A(uint8_t arg_cs)
+AS5048A::AS5048A()
 {
-	_cs = arg_cs;
 	errorFlag = false;
 	position = 0;
 }
@@ -24,9 +23,9 @@ AS5048A::AS5048A(uint8_t arg_cs)
  * Initialiser
  * Sets up the SPI interface
  */
-void AS5048A::init()
+void AS5048A::init(uint8_t id1)
 {
-
+	id = id1;
 	// // 1MHz clock (AMS should be able to accept up to 10MHz)
 	// settings = SPISettings(1000000, MSBFIRST, SPI_MODE1);
 

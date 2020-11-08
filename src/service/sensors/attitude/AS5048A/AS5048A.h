@@ -7,8 +7,6 @@ class AS5048A
 {
 
 	bool errorFlag;
-	uint8_t _cs;
-	uint8_t cs;
 	uint8_t dout;
 	uint8_t din;
 	uint8_t clk;
@@ -19,13 +17,13 @@ public:
 	/**
 	 *	Constructor
 	 */
-	AS5048A(uint8_t arg_cs);
+	AS5048A();
 
 	/**
 	 * Initialiser
 	 * Sets up the SPI interface
 	 */
-	void init();
+	void init(uint8_t id);
 
 	/**
 	 * Closes the SPI connection
@@ -103,6 +101,7 @@ public:
 
 private:
 	uint8_t spiCalcEvenParity(uint16_t);
+	uint8_t id;
 };
 
 #endif // __AS5048A_H__
