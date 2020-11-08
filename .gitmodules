@@ -16,3 +16,6 @@
 [submodule "src/service/sensors/attitude/bno055"]
 	path = src/service/sensors/attitude/bno055
 	url = https://github.com/pa-CommonLib-parts/bno055_pa_CommonLib.git
+[submodule "src/service/sensors/distance/VL53L0X"]
+	path = src/service/sensors/distance/VL53L0X
+	url = https://github.com/pa-CommonLib-parts/VL53L0X_pa_CommonLib.git
