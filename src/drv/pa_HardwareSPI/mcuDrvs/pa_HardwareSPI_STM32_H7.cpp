@@ -1,7 +1,6 @@
-extern "C"
-{
+
 #include "../pa_HardwareSPI.h"
-}
+
 #ifdef STM32_H7
 //![Simple SPI Config]
 /* SPI Master Configuration Parameter */
@@ -39,11 +38,24 @@ void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiS
     switch (speed)
     {
     case pa_SpiSpeed::SpiSpeed_About1mhz:
-        HAL_SPI_Transmit(&hspi2, data, len, 100);
+    {
+        HAL_StatusTypeDef hst = HAL_SPI_Transmit(&hspi2, data, len, 100);
+        if (hst != HAL_StatusTypeDef::HAL_OK)
+        {
+            pa_Debug("spi tran error\r\n");
+        }
+        else
+        {
+            pa_Debug("spi tran succ\r\n");
+        }
         break;
+    }
+
     default:
+    {
         pa_spiTransmit(data, len);
         break;
+    }
     }
 }
 
@@ -52,8 +64,21 @@ void pa_spiReceiveInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSp
     switch (speed)
     {
     case pa_SpiSpeed::SpiSpeed_About1mhz:
-        HAL_SPI_Receive(&hspi2, data, len, 100);
+    {
+        HAL_StatusTypeDef hst = HAL_SPI_TransmitReceive(&hspi2, data, data, len, 100);
+        if (hst != HAL_StatusTypeDef::HAL_OK)
+        {
+
+            pa_Debug("spi rec error\r\n");
+        }
+        else
+        {
+
+            pa_Debug("spi tran succ\r\n");
+        }
         break;
+    }
+
     default:
         pa_spiReceive(data, len);
         break;

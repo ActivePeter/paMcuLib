@@ -1,10 +1,9 @@
 extern "C"
 {
-#include "pa_DataProcessor.h"
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
 #include "stdarg.h"
 }
-
+#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "pa_DataProcessor.h"
 static const char *const g_pcHex = "0123456789abcdef";
 
 //*****************************************************************************
@@ -187,7 +186,9 @@ int uvsnprintf(char *s, size_t n, const char *format,
                     }
                     ulCount *= 10;
                     ulCount += format[-1] - '0';
-                }else{
+                }
+                else
+                {
                     LimitFCnt *= 10;
                     LimitFCnt += format[-1] - '0';
                 }
@@ -301,11 +302,12 @@ int uvsnprintf(char *s, size_t n, const char *format,
                 }
 
                 ulfloat = aInt;
-                if(LimitFCnt){
-                    ulfloatCnt=1;
+                if (LimitFCnt)
+                {
+                    ulfloatCnt = 1;
                     while (LimitFCnt)
                     {
-                        ulfloatCnt*=10;
+                        ulfloatCnt *= 10;
                         LimitFCnt--;
                     }
                 }
@@ -350,18 +352,15 @@ int uvsnprintf(char *s, size_t n, const char *format,
                     }
                 }
 
-                
                 if (ulNeg && (n != 0))
                 {
-                   
+
                     *s++ = '-';
                     n--;
 
-                    
                     iConvertCount++;
                 }
 
-                
                 for (; ulIdx; ulIdx /= ulBase)
                 {
                     if (n != 0)
