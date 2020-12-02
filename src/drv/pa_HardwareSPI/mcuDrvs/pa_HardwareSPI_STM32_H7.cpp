@@ -28,9 +28,9 @@ void pa_spiTransmit(unsigned char *data, unsigned int len)
     // HAL_SPI_Transmit_DMA(&hspi1, data,len);
     // hal_spi
 }
-void pa_spiReceive(unsigned char *data, unsigned int len)
+void pa_spiReceive(unsigned char *transData, unsigned char *recData, unsigned int len)
 {
-    HAL_SPI_Receive(&hspi1, data, len, 100);
+    HAL_SPI_TransmitReceive(&hspi1, transData, recData, len, 100);
 }
 
 void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSpeed speed)
@@ -59,13 +59,13 @@ void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiS
     }
 }
 
-void pa_spiReceiveInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSpeed speed)
+void pa_spiReceiveInSpecialSpeed(unsigned char *transData, unsigned char *recData, unsigned int len, pa_SpiSpeed speed)
 {
     switch (speed)
     {
     case pa_SpiSpeed::SpiSpeed_About1mhz:
     {
-        HAL_StatusTypeDef hst = HAL_SPI_TransmitReceive(&hspi2, data, data, len, 100);
+        HAL_StatusTypeDef hst = HAL_SPI_TransmitReceive(&hspi2, transData, recData, len, 100);
         if (hst != HAL_StatusTypeDef::HAL_OK)
         {
 
@@ -80,7 +80,7 @@ void pa_spiReceiveInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSp
     }
 
     default:
-        pa_spiReceive(data, len);
+        pa_spiReceive(transData, recData, len);
         break;
     }
 }

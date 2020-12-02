@@ -6,8 +6,8 @@ extern "C"
 }
 namespace pa_PWM
 {
-    void initPWMs();
-    void setPWMDuty(char index,float duty);
-} // namespace PWM
+    void initPWM(char index);
+    void setPWMDuty(char index, float duty);
+} // namespace pa_PWM
 
 #endif // __PA_PWMCONTROL_H__
