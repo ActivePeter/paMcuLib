@@ -23,8 +23,37 @@ namespace GUI
 
     lv_obj_t *countlabel; /*Add a label to the button*/
 
-    lv_obj_t *curPage;
+    lv_obj_t *curPage = 0;
 
+    void addMenuBtn(lv_event_cb_t pressEventHandler, const char *text)
+    {
+        static int cnt = 0;
+
+        btn_SelectMode_PinMap = lv_btn_create(menuPage, NULL); /*Add a button the current screen*/
+        lv_obj_set_pos(btn_SelectMode_PinMap, 0, cnt * 30);    /*Set its position*/
+        lv_obj_set_size(btn_SelectMode_PinMap, 130, 20);       /*Set its size*/
+        // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
+        lv_obj_set_event_cb(btn_SelectMode_PinMap, pressEventHandler);
+        lv_obj_t *label2 = lv_label_create(btn_SelectMode_PinMap, NULL); /*Add a label to the button*/
+        lv_label_set_text(label2, text);
+        cnt++;
+    }
+    void switchPage(lv_obj_t *page)
+    {
+        if (curPage != page)
+        {
+            lv_obj_set_hidden(curPage, true);
+
+            lv_obj_set_hidden(page, false);
+            curPage = page;
+        }
+    }
+    void initPage(lv_obj_t *&page)
+    {
+        page = lv_page_create(lv_scr_act(), NULL);
+        lv_obj_set_size(page, 230, 285);
+        lv_obj_set_pos(page, 5, 30);
+    }
     void initMenu();
     void initPinMapPage();
     void initValuePage();
@@ -32,9 +61,9 @@ namespace GUI
     {
         if (event == LV_EVENT_PRESSED)
         {
-
-            lv_obj_set_hidden(curPage, true);
-            lv_obj_set_hidden(menuPage, false);
+            switchPage(menuPage);
+            // lv_obj_set_hidden(curPage, true);
+            // lv_obj_set_hidden(menuPage, false);
             // if (lv_obj_is_visible(menuPage))
             // {
             //     lv_obj_set_hidden(menuPage, true);
@@ -50,19 +79,20 @@ namespace GUI
     {
         if (event == LV_EVENT_PRESSED)
         {
-
-            lv_obj_set_hidden(menuPage, true);
-            lv_obj_set_hidden(pinmapPage, false);
-            curPage = pinmapPage;
+            switchPage(pinmapPage);
+            // lv_obj_set_hidden(menuPage, true);
+            // lv_obj_set_hidden(pinmapPage, false);
+            // curPage = pinmapPage;
         }
     }
     static void btn_SelectMode_values_event_handler(lv_obj_t *obj, lv_event_t event)
     {
         if (event == LV_EVENT_PRESSED)
         {
-            lv_obj_set_hidden(menuPage, true);
-            lv_obj_set_hidden(valuePage, false);
-            curPage = valuePage;
+            switchPage(valuePage);
+            // lv_obj_set_hidden(menuPage, true);
+            // lv_obj_set_hidden(valuePage, false);
+            // curPage = valuePage;
         }
     }
     void initMainGUI()
@@ -97,17 +127,19 @@ namespace GUI
     }
     void initPinMapPage()
     {
-        btn_SelectMode_PinMap = lv_btn_create(menuPage, NULL); /*Add a button the current screen*/
-        lv_obj_set_pos(btn_SelectMode_PinMap, 0, 0);           /*Set its position*/
-        lv_obj_set_size(btn_SelectMode_PinMap, 130, 20);       /*Set its size*/
-        // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
-        lv_obj_set_event_cb(btn_SelectMode_PinMap, btn_SelectMode_PinMap_event_handler);
-        lv_obj_t *label2 = lv_label_create(btn_SelectMode_PinMap, NULL); /*Add a label to the button*/
-        lv_label_set_text(label2, "PinMap");
+        addMenuBtn(btn_SelectMode_PinMap_event_handler, "PinMap");
+        // btn_SelectMode_PinMap = lv_btn_create(menuPage, NULL); /*Add a button the current screen*/
+        // lv_obj_set_pos(btn_SelectMode_PinMap, 0, 0);           /*Set its position*/
+        // lv_obj_set_size(btn_SelectMode_PinMap, 130, 20);       /*Set its size*/
+        // // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
+        // lv_obj_set_event_cb(btn_SelectMode_PinMap, btn_SelectMode_PinMap_event_handler);
+        // lv_obj_t *label2 = lv_label_create(btn_SelectMode_PinMap, NULL); /*Add a label to the button*/
+        // lv_label_set_text(label2, "PinMap");
 
-        pinmapPage = lv_page_create(lv_scr_act(), NULL);
-        lv_obj_set_size(pinmapPage, 230, 285);
-        lv_obj_set_pos(pinmapPage, 5, 30); /*Set its position*/
+        initPage(pinmapPage);
+        //pinmapPage = lv_page_create(lv_scr_act(), NULL);
+        //lv_obj_set_size(pinmapPage, 230, 285);
+        //lv_obj_set_pos(pinmapPage, 5, 30); /*Set its position*/
         // lv_obj_align(page, NULL, LV_ALIGN_CENTER, 0, 0);
 
         lv_obj_t *pinmap1 = lv_label_create(pinmapPage, NULL); /*Add a label to the button*/
@@ -126,17 +158,19 @@ namespace GUI
     }
     void initValuePage()
     {
-        btn_SelectMode_values = lv_btn_create(menuPage, NULL); /*Add a button the current screen*/
-        lv_obj_set_pos(btn_SelectMode_values, 0, 30);          /*Set its position*/
-        lv_obj_set_size(btn_SelectMode_values, 130, 20);       /*Set its size*/
-        // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
-        lv_obj_set_event_cb(btn_SelectMode_values, btn_SelectMode_values_event_handler);
-        lv_obj_t *label2 = lv_label_create(btn_SelectMode_values, NULL); /*Add a label to the button*/
-        lv_label_set_text(label2, "Values");
+        addMenuBtn(btn_SelectMode_values_event_handler, "Values");
+        // btn_SelectMode_values = lv_btn_create(menuPage, NULL); /*Add a button the current screen*/
+        // lv_obj_set_pos(btn_SelectMode_values, 0, 30);          /*Set its position*/
+        // lv_obj_set_size(btn_SelectMode_values, 130, 20);       /*Set its size*/
+        // // lv_obj_set_event_cb(btn, btn_event_cb);                 /*Assign a callback to the button*/
+        // lv_obj_set_event_cb(btn_SelectMode_values, btn_SelectMode_values_event_handler);
+        // lv_obj_t *label2 = lv_label_create(btn_SelectMode_values, NULL); /*Add a label to the button*/
+        // lv_label_set_text(label2, "Values");
 
-        valuePage = lv_page_create(lv_scr_act(), NULL);
-        lv_obj_set_size(valuePage, 230, 285);
-        lv_obj_set_pos(valuePage, 5, 30); /*Set its position*/
+        initPage(valuePage);
+        // valuePage = lv_page_create(lv_scr_act(), NULL);
+        // lv_obj_set_size(valuePage, 230, 285);
+        // lv_obj_set_pos(valuePage, 5, 30); /*Set its position*/
         // lv_obj_align(page, NULL, LV_ALIGN_CENTER, 0, 0);
 
         lv_obj_t *pinmap1 = lv_label_create(valuePage, NULL); /*Add a label to the button*/
