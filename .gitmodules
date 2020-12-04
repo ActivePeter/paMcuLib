@@ -25,3 +25,6 @@
 [submodule "src/service/input/pa_Keypad"]
 	path = src/service/input/pa_Keypad
 	url = https://github.com/pa-CommonLib-parts/Keypad_pa_CommonLib.git
+[submodule "src/app/RobotArmApp"]
+	path = src/app/RobotArmApp
+	url = https://github.com/pa-CommonLib-parts/pa_RobotArm.git
