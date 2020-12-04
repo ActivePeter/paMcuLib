@@ -90,27 +90,21 @@ uint32_t getSyscylOfGpioPort(uint32_t port);
 /////////////////////////////////////////////////////////
 typedef enum
 {
-    Protocal_SPI = 1,
-    Protocal_IIC
+    protocal_SPI = 1,
+    protocal_IIC
 } Protocal;
 
 typedef enum
 {
-    GpioInputMode_pullup = 1,
-    GpioInputMode_pulldown,
-    GpioInputMode_hang,
+    gpioInputMode_pullup = 1,
+    gpioInputMode_pulldown,
+    gpioInputMode_hang,
 } GpioInputMode;
 
 typedef enum
 {
-    GpioPortOrPin_Port = 1,
-    GpioPortOrPin_Pin,
-} GpioPortOrPin;
-
-typedef enum
-{
-    Direction_Increase = 1,
-    Direction_Decrease,
+    direction_increase = 1,
+    direction_decrease = 0,
 } Direction;
 
 #endif
