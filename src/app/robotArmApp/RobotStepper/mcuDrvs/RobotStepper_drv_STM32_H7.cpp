@@ -1,25 +1,7 @@
 #include "../RobotStepper.h"
 #include "pa_CommonLib/src/util/pa_DataProcessor/pa_DataProcessor.h"
 #ifdef STM32_H7
-//引脚映射函数。没用数组是为了省内存
-int RobotStepper_getStepGpioById(char id, GPIO_TypeDef *&port, uint16_t &pin)
-{
-    switch (id)
-    {
-    case 0:
-        port = GPIOD;
-        pin = GPIO_PIN_0;
-        break;
-    case 1:
-        port = GPIOD;
-        pin = GPIO_PIN_1;
-        break;
-    case 2:
-        port = GPIOD;
-        pin = GPIO_PIN_2;
-        break;
-    }
-}
+
 int RobotStepper_getDirGpioById(char id, GPIO_TypeDef *&port, uint16_t &pin)
 {
     switch (id)
@@ -56,6 +38,25 @@ int RobotStepper_getEnGpioById(char id, GPIO_TypeDef *&port, uint16_t &pin)
         break;
     }
 }
+//引脚映射函数。没用数组是为了省内存
+int RobotStepper_getStepGpioById(char id, GPIO_TypeDef *&port, uint16_t &pin)
+{
+    switch (id)
+    {
+    case 0:
+        port = GPIOD;
+        pin = GPIO_PIN_0;
+        break;
+    case 1:
+        port = GPIOD;
+        pin = GPIO_PIN_1;
+        break;
+    case 2:
+        port = GPIOD;
+        pin = GPIO_PIN_2;
+        break;
+    }
+}
 void RobotStepper::setStepPin(char state)
 {
     GPIO_TypeDef *gpio;
@@ -82,5 +83,19 @@ void RobotStepper::setEnPin(char state)
     //     pa_Debug(buf);
     // }
 }
+#ifdef RobotStepper_Use_A4988
+#define RobotStepper_a4988_ms1_Port GPIOE
+#define RobotStepper_a4988_ms1_Pin GPIO_PIN_2
+#define RobotStepper_a4988_ms2_Port GPIOE
+#define RobotStepper_a4988_ms2_Pin GPIO_PIN_3
+#define RobotStepper_a4988_ms3_Port GPIOE
+#define RobotStepper_a4988_ms3_Pin GPIO_PIN_4
+void RobotStepper::setDividePin(bool ms1, bool ms2, bool ms3)
+{
+    HAL_GPIO_WritePin(RobotStepper_a4988_ms1_Port, RobotStepper_a4988_ms1_Pin, (GPIO_PinState)ms1);
+    HAL_GPIO_WritePin(RobotStepper_a4988_ms2_Port, RobotStepper_a4988_ms2_Pin, (GPIO_PinState)ms2);
+    HAL_GPIO_WritePin(RobotStepper_a4988_ms3_Port, RobotStepper_a4988_ms3_Pin, (GPIO_PinState)ms3);
+}
+#endif
 
 #endif

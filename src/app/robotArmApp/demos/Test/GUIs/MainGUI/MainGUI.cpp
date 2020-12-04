@@ -8,6 +8,7 @@ extern "C"
 #include "stdio.h"
 }
 
+#include "../RobotArmPage/RobotArmPage.h"
 namespace GUI
 {
     lv_obj_t *btn_SelectMode_PinMap;
@@ -100,6 +101,8 @@ namespace GUI
         initMenu();
         initPinMapPage();
         initValuePage();
+        RobotArmPage_init();
+
         //label
 
         countlabel = lv_label_create(lv_scr_act(), NULL);

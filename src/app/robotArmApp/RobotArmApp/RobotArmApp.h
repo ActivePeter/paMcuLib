@@ -3,6 +3,20 @@
 #ifndef __ROBOTARMAPP_H__
 #define __ROBOTARMAPP_H__
 #include "../RobotStepper/RobotStepper.h"
+class RobotArmModel
+{
+public:
+    RobotArmModel();
+    const float l1 = 1;   //left motor connected arm len (arm1)
+    const float l2_y = 1; //right motor connectd arm len (arm2)
+    const float l2_x = 1; //the xoffset of head to arm2
+    float l2;             //modeled arm len, calc from l2_y & l2_x
+    float theata3;        //in model angle fix, calc from 12_y & 12_x
+    float theata1;        //(arm1 angle)
+    float theata2;        //(arm2 angle)
+    void recalcVeticalPlane(float x, float y);
+    void initDatas();
+};
 class RobotArmApp
 {
 public:
@@ -17,6 +31,15 @@ public:
     };
     void setMode(Mode mode);
     void init();
+
+    /**************************************
+     * 
+     *      硬件层
+     * 
+     **************************************/
+    char getLimitSwitch_LeftArm();
+    char getLimitSwitch_RightArm();
+    void setMotorEnable(char enable);
 
 private:
     Mode curMode;

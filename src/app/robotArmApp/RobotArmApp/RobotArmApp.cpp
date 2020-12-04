@@ -5,6 +5,7 @@ RobotArmApp::RobotArmApp() {}
 
 void RobotArmApp::onTimerTick()
 {
+    pinStateOnBackupMode = !pinStateOnBackupMode;
     for (int i = 0; i < 3; i++)
     {
         doStepperEvent(robotSteppers[i]);
@@ -38,6 +39,17 @@ void RobotArmApp::init()
         robotSteppers[i].setId(i);
         robotSteppers[i].setEnPin(0);
     }
+#ifdef RobotStepper_Use_A4988
+    RobotStepper::setDivide(RobotStepper::Divide_a4988_8);
+#endif
+}
+
+void RobotArmApp::setMotorEnable(char enable)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        robotSteppers[i].setEnPin(!enable);
+    }
 }
 //一段路程切片走完后准备下一段路径
 void RobotArmApp::prepareNextMove()
@@ -60,11 +72,29 @@ void RobotArmApp::prepareNextMove()
 
 void RobotArmApp::doStepperEvent(RobotStepper &stepper)
 {
+
     switch (curMode)
     {
     case Mode::mode_backup:
-        stepper.setStepPin(pinStateOnBackupMode);
-        pinStateOnBackupMode = !pinStateOnBackupMode;
+        switch (stepper.getId())
+        {
+        case 0:
+            if (!getLimitSwitch_LeftArm())
+            {
+                stepper.setStepPin((char)pinStateOnBackupMode);
+            }
+            break;
+        case 1:
+            // if (!getLimitSwitch_RightArm())
+            {
+                stepper.setStepPin((char)pinStateOnBackupMode);
+                // pinStateOnBackupMode = !pinStateOnBackupMode;
+            }
+            break;
+        default:
+            break;
+        }
+
         break;
     case Mode::mode_running:
         if (stepper.curStepInOneMove != stepper.totalStepInOneMove)

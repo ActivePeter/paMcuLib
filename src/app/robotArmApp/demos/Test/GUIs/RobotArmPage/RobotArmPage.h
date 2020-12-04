@@ -7,7 +7,7 @@
 namespace GUI
 {
     void RobotArmPage_init();
-
+    void RobotArmPage_update(char l, char r);
 } // namespace GUI
 #endif // __MAINGUI_H__
 
