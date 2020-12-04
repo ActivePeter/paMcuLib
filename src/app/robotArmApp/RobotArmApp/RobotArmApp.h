@@ -16,6 +16,10 @@ public:
     float theata2;        //(arm2 angle)
     void recalcVeticalPlane(float x, float y);
     void initDatas();
+
+private:
+    float l2Square;
+    float l1Square;
 };
 class RobotArmApp
 {

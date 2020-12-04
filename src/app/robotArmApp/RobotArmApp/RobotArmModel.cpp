@@ -4,16 +4,23 @@ RobotArmModel::RobotArmModel()
 {
 }
 
+//detailed model please check model_describe.md
 void RobotArmModel::recalcVeticalPlane(float x, float y)
 {
-    float cos_theata2plus3 = cosf(theata3 + theata2);
-    float sin_theata2plus3 = sqrtf(1 - cos_theata2plus3);
-    float l3 = sqrt(l2 * l2 + l1 * l1 - 2 * cos_theata2plus3 * l1 * l2);
-    float theata4 = asinf(sin_theata2plus3 * l2 / l3);
+    float theata4plus1 = atan2f(y, x);
+
+    float l3Square = x * x + y * y;
+    float l3 = sqrtf(l3Square);
+    float theata3plus2 = acosf((l2Square + l1Square - l3Square) / (2 * l1 * l2));
+    float theata4 = acosf(l1Square + l3Square - l2Square / (2 * l1 * l3));
+    theata2 = theata3plus2 - theata3;
+    theata1 = theata4plus1 - theata4;
 }
 
 void RobotArmModel::initDatas()
 {
-    l2 = sqrtf(l2_y * l2_y + l2_x + l2_x);
+    l2Square = l2_y * l2_y + l2_x + l2_x;
+    l2 = sqrtf(l2Square);
+    l1Square = l1 * l1;
     theata3 = atan2f(l2_x, l2_y);
 }
