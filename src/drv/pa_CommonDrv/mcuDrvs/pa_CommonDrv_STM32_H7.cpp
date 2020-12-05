@@ -96,8 +96,8 @@ void pa_Debug(const char *data)
         len++;
         cntPtr++;
     }
-    while (CDC_Transmit_FS((uint8_t *)data, len))
-        ;
+//    while (CDC_Transmit_FS((uint8_t *)data, len))
+//        ;
 }
 void pa_Debug_len(const char *data, int len)
 {
