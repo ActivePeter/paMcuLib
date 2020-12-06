@@ -7,7 +7,7 @@
 >
 > ## Part1  已经适配的单片机：
 >
-> > demo项目汇总：[https://github.com/pa-CommonLib-series](https://github.com/pa-CommonLib-series)
+> > demo项目汇总：[pa-CommonLib-demos (github.com)](https://github.com/pa-CommonLib-demos)
 > >
 > > > 1. #### stm32h743，之前用的h750 结果发现flash不够
 > > >
@@ -35,7 +35,7 @@
 >
 > ## Part3  我的使用了这个库的项目：
 >
-> > 1. 绘图机械臂](https://github.com/ActivePeter/RobotArmDrawer)
+> > 1. 绘图机械臂 [pa-CommonLib-parts/pa_RobotArm (github.com)](https://github.com/pa-CommonLib-parts/pa_RobotArm)
 > >
 >
 > ------
