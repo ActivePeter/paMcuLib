@@ -69,11 +69,11 @@ uint8_t pa_touchScreen::isPressed()
 {
 	return !Hardware_ReadIRQ();
 }
-
-uint8_t pa_touchScreen::readRaw(uint16_t Coordinates[2])
+uint8_t
+pa_touchScreen::readRaw(uint16_t Coordinates[2])
 {
 	uint16_t rawx, rawy = 0;
-	uint32_t calculating_x, calculating_y = 0;
+	uint32_t calculating_x = 0, calculating_y = 0;
 
 	uint32_t samples = config.SampleCount;
 	uint32_t counted_samples = 0;
@@ -84,6 +84,8 @@ uint8_t pa_touchScreen::readRaw(uint16_t Coordinates[2])
 		return 0;
 	}
 	Hardware_SetCS(0);
+	spiWrite(CMDs::CMD_RDY);
+	spiRead();
 	spiWrite(CMDs::CMD_RDY);
 	spiRead();
 	spiWrite(CMDs::CMD_RDX);

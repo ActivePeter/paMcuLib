@@ -8,22 +8,32 @@ extern "C"
 
 #ifdef MSP432E
 
-void (*callback_1ms)(void);
-void timerCallback(Timer_Handle myHandle)
+static void (*ptr_CallBack_1ms)(void);
+static void (*ptr_CallBack_100us)(void);
+void timer100usCallback(Timer_Handle myHandle)
 {
-    callback_1ms();
+    static char cnt = 0;
+    cnt++;
+    ptr_CallBack_100us();
+    if (cnt == 10)
+    {
+        ptr_CallBack_1ms();
+        cnt = 0;
+    }
 }
-void pa_set1MsCallback(void (*callback)(void))
+//设置1ms的回调函数
+void pa_setTimerCallback(void (*CallBack_100us)(void), void (*CallBack_1ms)(void))
 {
+    ptr_CallBack_1ms = CallBack_1ms;
+    ptr_CallBack_100us = CallBack_100us;
     Timer_init();
-    callback_1ms = callback;
     Timer_Handle handle;
     Timer_Params params;
     Timer_Params_init(&params);
-    params.periodUnits = Timer_PERIOD_HZ;
-    params.period = 1000;
+    params.periodUnits = Timer_PERIOD_US;
+    params.period = 100; //100us
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
-    params.timerCallback = timerCallback;
+    params.timerCallback = timer100usCallback;
     handle = Timer_open(CONFIG_TIMER_0, &params);
     if (handle == NULL)
     {
@@ -92,6 +102,20 @@ void pa_printf(const char *format, ...)
     //     free(temp);
     // }
     // return len;
+}
+
+void pa_Debug(const char *data)
+{
+    // uint8_t *cntPtr = (uint8_t *)data;
+    // int len = 0;
+    // while (*cntPtr)
+    // {
+    //     len++;
+    //     cntPtr++;
+    // }
+    // printf("data");
+    // while (CDC_Transmit_FS((uint8_t *)data, len))
+    //     ;
 }
 
 #endif

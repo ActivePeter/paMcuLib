@@ -69,8 +69,8 @@ extern "C"
 }
 #endif
 
-#include "../pa_HardwareSPI/pa_HardwareSPI.h"
-#include "../pa_HardwareIIC/pa_HardwareIIC.h"
+#include "pa_CommonLib/src/drv/pa_HardwareSPI/pa_HardwareSPI.h"
+#include "pa_CommonLib/src/drv/pa_HardwareIIC/pa_HardwareIIC.h"
 
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();

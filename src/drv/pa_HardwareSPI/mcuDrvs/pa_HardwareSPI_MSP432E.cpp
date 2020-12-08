@@ -1,7 +1,6 @@
-extern "C"
-{
+
 #include "../pa_HardwareSPI.h"
-}
+
 #ifdef MSP432E
 //![Simple SPI Config]
 /* SPI Master Configuration Parameter */
@@ -37,8 +36,8 @@ void pa_spiInit()
             ;
     }
 }
-unsigned char data1[1];
 // #include <ti/devices/msp432p4xx/driverlib/eusci.h>
+
 void pa_spiTransmit(unsigned char *data, unsigned int len)
 {
     /* Initialize master SPI transaction structure */
@@ -62,6 +61,13 @@ void pa_spiTransmit(unsigned char *data, unsigned int len)
     // }
 }
 void pa_spiTransmitInSpecialSpeed(unsigned char *data, unsigned int len, pa_SpiSpeed speed)
+{
+}
+
+void pa_spiReceiveInSpecialSpeed(unsigned char *transData, unsigned char *recData, unsigned int len, pa_SpiSpeed speed)
+{
+}
+void pa_spiReceive(unsigned char *transData, unsigned char *recData, unsigned int len)
 {
 }
 #endif

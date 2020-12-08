@@ -1,7 +1,6 @@
-extern "C"
-{
+
 #include "../pa_HardwareIIC.h"
-}
+
 #ifdef MSP432E
     void pa_IIC_init(){
         
