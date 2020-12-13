@@ -65,6 +65,7 @@
 #include "ti_drivers_config.h"
 #include "client_cbs.h"
 
+#include "../pa_Mqtt/pa_Mqtt.h"
 //*****************************************************************************
 //                          LOCAL DEFINES
 //*****************************************************************************
@@ -93,8 +94,8 @@
 #define WILL_RETAIN false
 
 /* Defining Broker IP address and port Number                                 */
-#define SERVER_ADDRESS "test.mosquitto.org"
-#define SERVER_IP_ADDRESS "192.168.178.67"
+#define SERVER_ADDRESS "192.168.199.145"
+// #define SERVER_IP_ADDRESS "192.168.178.67"
 #define PORT_NUMBER 1883
 #define SECURED_PORT_NUMBER 8883
 #define LOOPBACK_PORT 1882
@@ -245,7 +246,7 @@ MQTTClient_ConnParams Mqtt_ClientCtx =
 #else
 MQTTClient_ConnParams Mqtt_ClientCtx =
     {
-        MQTTCLIENT_NETCONN_URL,
+        MQTTCLIENT_NETCONN_IP4,
         SERVER_ADDRESS,
         PORT_NUMBER, 0, 0, 0,
         NULL};
@@ -314,9 +315,9 @@ void pushButtonInterruptHandler0(uint_least8_t index)
     queueElement.msgPtr = NULL;
 
     /* write message indicating publish message                              */
-    if (MQTT_SendMsgToQueue(&queueElement))
     {
-        Display_printf(display, 0, 0, "\n\n\rQueue is full\n\r");
+        if (MQTT_SendMsgToQueue(&queueElement))
+            Display_printf(display, 0, 0, "\n\n\rQueue is full\n\r");
     }
 }
 
@@ -506,7 +507,18 @@ void *MqttClient(void *arg0)
         }
     }
 }
-
+void pa_Mqtt_publish(char *topic, uint16_t topicLen, char *data, uint16_t dataLen)
+{
+    // MQTTClient_publish(gMqttClient, topic,
+    //                    topicLen, (char *)publish_data,
+    //                    strlen((char *)publish_data), MQTT_QOS_2 | ((RETAIN_ENABLE) ? MQTT_PUBLISH_RETAIN : 0));
+    MQTTClient_publish(gMqttClient,
+                       topic,
+                       topicLen,
+                       data,
+                       dataLen,
+                       MQTT_QOS_2 | ((RETAIN_ENABLE) ? MQTT_PUBLISH_RETAIN : 0));
+}
 //*****************************************************************************
 //
 //! This function connect the MQTT device to an AP.
@@ -960,70 +972,73 @@ int32_t DisplayAppBanner(char *appName, char *appVersion)
     return (ret);
 }
 
-// void *mainThread(void *arg0)
-// {
+void *mainThread(void *arg0)
+{
 
-//     uint32_t count = 0;
-//     int32_t retc = 0;
+    uint32_t count = 0;
+    int32_t retc = 0;
 
-//     GPIO_init();
+    // GPIO_init();
+    // main_select();
+    fdOpenSession(TaskSelf());
 
-//     fdOpenSession(TaskSelf());
+    /* Output device information to the UART terminal */
+    retc = DisplayAppBanner(APPLICATION_NAME, APPLICATION_VERSION);
+    if (retc < 0)
+    {
+        /* Handle Error */
+        Display_printf(display, 0, 0, "\n DisplayAppBanner failed");
+        while (1)
+            ;
+    }
 
-//     /* Output device information to the UART terminal */
-//     retc = DisplayAppBanner(APPLICATION_NAME, APPLICATION_VERSION);
-//     if (retc < 0)
-//     {
-//         /* Handle Error */
-//         Display_printf(display, 0, 0, "\n DisplayAppBanner failed");
-//         while(1);
-//     }
+#ifdef SECURE_CLIENT
+    extern uint8_t externalCAPem[];
+    extern uint16_t externalCAPemLen;
 
-// #ifdef SECURE_CLIENT
-//     extern uint8_t externalCAPem[];
-//     extern uint16_t externalCAPemLen;
+    retc = SlNetIf_loadSecObj(SLNETIF_SEC_OBJ_TYPE_CERTIFICATE,
+                              Mqtt_Client_secure_files[0], strlen(Mqtt_Client_secure_files[0]),
+                              externalCAPem, externalCAPemLen, SLNETIF_ID_2);
+    if (retc < 0)
+    {
+        Display_printf(display, 0, 0, "failed to load security object");
+        while (1)
+            ;
+    }
+#endif
 
-//     retc = SlNetIf_loadSecObj(SLNETIF_SEC_OBJ_TYPE_CERTIFICATE,
-//             Mqtt_Client_secure_files[0], strlen(Mqtt_Client_secure_files[0]),
-//             externalCAPem, externalCAPemLen, SLNETIF_ID_2);
-//     if (retc < 0) {
-//         Display_printf(display, 0, 0, "failed to load security object");
-//         while(1);
-//     }
-// #endif
+    while (1)
+    {
 
-//     while (1)
-//     {
+        gResetApplication = false;
+        topic[0] = SUBSCRIPTION_TOPIC0;
+        topic[1] = SUBSCRIPTION_TOPIC1;
+        gInitState = 0;
 
-//         gResetApplication = false;
-//         topic[0] = SUBSCRIPTION_TOPIC0;
-//         topic[1] = SUBSCRIPTION_TOPIC1;
-//         gInitState = 0;
+        /* Connect to AP                                                      */
+        gApConnectionState = Mqtt_IF_Connect();
 
-//         /* Connect to AP                                                      */
-//         gApConnectionState = Mqtt_IF_Connect();
+        gInitState |= MQTT_INIT_STATE;
+        /* Run MQTT Main Thread (it will open the Client and Server)          */
+        Mqtt_start();
 
-//         gInitState |= MQTT_INIT_STATE;
-//         /* Run MQTT Main Thread (it will open the Client and Server)          */
-//         Mqtt_start();
+        /* Wait for init to be completed!!!                                   */
+        while (gInitState != 0)
+        {
+            Display_printf(display, 0, 0, ".");
+            sleep(1);
+        }
+        Display_printf(display, 0, 0, ".");
+        main_select();
+        while (gResetApplication == false)
+            ;
 
-//         /* Wait for init to be completed!!!                                   */
-//         while (gInitState != 0)
-//         {
-//             Display_printf(display, 0, 0, ".");
-//             sleep(1);
-//         }
-//         Display_printf(display, 0, 0, ".");
+        Display_printf(display, 0, 0,
+                       "TO Complete - Closing all threads and resources");
 
-//         while (gResetApplication == false);
+        /* Stop the MQTT Process                                              */
+        Mqtt_Stop();
 
-//         Display_printf(display, 0, 0,
-//                 "TO Complete - Closing all threads and resources");
-
-//         /* Stop the MQTT Process                                              */
-//         Mqtt_Stop();
-
-//         Display_printf(display, 0, 0, "reopen MQTT # %d  ", ++count);
-
-//     }
-// }
+        Display_printf(display, 0, 0, "reopen MQTT # %d  ", ++count);
+    }
+}

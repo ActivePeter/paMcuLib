@@ -15,6 +15,7 @@ namespace pa_UsedDevice
 {
     extern pa_ILI9341 &ili9341;
     extern pa_touchScreen &touch;
+
 } // namespace pa_UsedDevice
 
 #endif // __PA_USEDDEVICE_H__

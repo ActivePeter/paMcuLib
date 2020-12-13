@@ -29,7 +29,7 @@ void pa_spiInit()
     spiParams.dataSize = 8;
     spiParams.mode = SPI_Mode::SPI_MASTER;
     spiParams.transferMode = SPI_TransferMode::SPI_MODE_BLOCKING;
-    masterSpi = SPI_open(CONFIG_SPI_MASTER, &spiParams);
+    masterSpi = SPI_open(CONFIG_SPI_0, &spiParams);
     if (masterSpi == NULL)
     {
         while (1)

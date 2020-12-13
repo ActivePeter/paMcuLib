@@ -2,7 +2,7 @@
 #ifdef _SpecificMcuApp_MSP432E_MQTT_demo_Test
 
 #include "pa_CommonLib/src/service/graphic/lvgl/lvgl.h"
-
+#include "pa_CommonLib/src/util/pa_DataProcessor/pa_DataProcessor.h"
 extern "C"
 {
 #include "stdio.h"
@@ -201,7 +201,7 @@ namespace GUI
     {
         {
             char strbuf[40];
-            snprintf(strbuf, 40, "Encoder:\n  %d %d\n  %d %d", E1, E1_d, E2, E2_d);
+            pa_snprintf(strbuf, 40, "Encoder:\n  %d %d\n  %d %d", E1, E1_d, E2, E2_d);
             lv_label_set_text(encoderLabelValue, strbuf);
         }
     }

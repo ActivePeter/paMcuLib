@@ -50,8 +50,11 @@ extern "C"
 #endif
 
 #ifdef MSP432E
+/* MQTT Library includes                                                      */
+#include <ti/net/mqtt/mqttclient.h>
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/SPI.h>
+#include <ti/drivers/I2C.h>
 #include <ti/drivers/Timer.h>
 // #include <ti/display/Display.h>
 /* Driver configuration */
