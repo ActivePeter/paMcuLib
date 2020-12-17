@@ -1,3 +1,5 @@
+#include "pa_Defines.h"
+#ifdef APP_USE_MSP432E_MQTT
 /*
  * Copyright (c) 2016-2018, Texas Instruments Incorporated
  * All rights reserved.
@@ -51,43 +53,43 @@ extern "C"
 //*****************************************************************************
 // Macros
 //*****************************************************************************
-#define MAX_CONNECTION              1
+#define MAX_CONNECTION 1
 
 #define PUBLISH_PUSH_BUTTON_PRESSED 1
-#define MSG_RECV_BY_CLIENT          11
-#define LOCAL_CLIENT_DISCONNECTION  12 /* Client disconnected from remote broker       */
-#define DISC_PUSH_BUTTON_PRESSED    14
-#define THREAD_TERMINATE_REQ        15
+#define MSG_RECV_BY_CLIENT 11
+#define LOCAL_CLIENT_DISCONNECTION 12 /* Client disconnected from remote broker       */
+#define DISC_PUSH_BUTTON_PRESSED 14
+#define THREAD_TERMINATE_REQ 15
 
-//*****************************************************************************
-// typedef enum/struct/union
-//*****************************************************************************
-struct publishMsgHeader
-{
-    uint32_t        topicLen;
-    uint32_t        payLen;
-    bool            retain;
-    bool            dup;
-    unsigned char   qos;
-};
+    //*****************************************************************************
+    // typedef enum/struct/union
+    //*****************************************************************************
+    struct publishMsgHeader
+    {
+        uint32_t topicLen;
+        uint32_t payLen;
+        bool retain;
+        bool dup;
+        unsigned char qos;
+    };
 
-struct client_info
-{
-    void *ctx;
-};
+    struct client_info
+    {
+        void *ctx;
+    };
 
-struct msgQueue
-{
-    int32_t     event;
-    void        *msgPtr;
-    int32_t     topLen;
-};
+    struct msgQueue
+    {
+        int32_t event;
+        void *msgPtr;
+        int32_t topLen;
+    };
 
-//******************************************************************************
-// APIs
-//******************************************************************************
+    //******************************************************************************
+    // APIs
+    //******************************************************************************
 
-extern void MqttClientCallback(int32_t event , void * metaData , uint32_t metaDateLen , void *data , uint32_t dataLen);
+    extern void MqttClientCallback(int32_t event, void *metaData, uint32_t metaDateLen, void *data, uint32_t dataLen);
 //*****************************************************************************
 //
 // Mark the end of the C bindings section for C++ compilers.
@@ -98,3 +100,4 @@ extern void MqttClientCallback(int32_t event , void * metaData , uint32_t metaDa
 #endif
 
 #endif // __SERVER_CLIENT_CBS_H__
+#endif

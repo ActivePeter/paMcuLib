@@ -1,0 +1,166 @@
+#include "../SSD1963.h"
+#ifdef DISPLAY_USE_SSD1963
+#ifdef STM32_H7
+
+#define SSD1963_RST_GPIO_Pin GPIO_PIN_3
+#define SSD1963_RST_GPIO_Port GPIOE
+
+#define SSD1963_WR_GPIO_PIN GPIO_PIN_4
+#define SSD1963_WR_GPIO_Port GPIOE
+
+#define SSD1963_RD_GPIO_Pin GPIO_PIN_6
+#define SSD1963_RD_GPIO_Port GPIOB
+
+#define SSD1963_DC_GPIO_Pin GPIO_PIN_7
+#define SSD1963_DC_GPIO_Port GPIOB
+
+#define SSD1963_CS_GPIO_Pin GPIO_PIN_7
+#define SSD1963_CS_GPIO_Port GPIOB
+
+#define SSD1963_D0_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D0_GPIO_Port GPIOB
+
+#define SSD1963_D1_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D1_GPIO_Port GPIOB
+
+#define SSD1963_D2_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D2_GPIO_Port GPIOB
+
+#define SSD1963_D3_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D3_GPIO_Port GPIOB
+
+#define SSD1963_D4_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D4_GPIO_Port GPIOB
+
+#define SSD1963_D5_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D5_GPIO_Port GPIOB
+
+#define SSD1963_D6_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D6_GPIO_Port GPIOB
+
+#define SSD1963_D7_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D7_GPIO_Port GPIOB
+
+#define SSD1963_D8_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D8_GPIO_Port GPIOB
+
+#define SSD1963_D9_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D9_GPIO_Port GPIOB
+
+#define SSD1963_D10_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D10_GPIO_Port GPIOB
+
+#define SSD1963_D11_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D11_GPIO_Port GPIOB
+
+#define SSD1963_D12_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D12_GPIO_Port GPIOB
+
+#define SSD1963_D13_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D13_GPIO_Port GPIOB
+
+#define SSD1963_D14_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D14_GPIO_Port GPIOB
+
+#define SSD1963_D15_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D15_GPIO_Port GPIOB
+
+#define SSD1963_D16_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D16_GPIO_Port GPIOB
+
+#define SSD1963_D17_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D17_GPIO_Port GPIOB
+
+#define SSD1963_D18_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D18_GPIO_Port GPIOB
+
+#define SSD1963_D19_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D19_GPIO_Port GPIOB
+
+#define SSD1963_D20_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D20_GPIO_Port GPIOB
+
+#define SSD1963_D21_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D21_GPIO_Port GPIOB
+
+#define SSD1963_D22_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D22_GPIO_Port GPIOB
+
+#define SSD1963_D23_GPIO_Pin GPIO_PIN_7
+#define SSD1963_D23_GPIO_Port GPIOB
+
+void SSD1963::initHardWare(void)
+{
+}
+
+void SSD1963::setRST(char state)
+{
+    HAL_GPIO_WritePin(
+        SSD1963_RST_GPIO_Port,
+        SSD1963_RST_GPIO_Pin,
+        state);
+}
+
+void SSD1963::setRD(char state)
+{
+    HAL_GPIO_WritePin(
+        SSD1963_RD_GPIO_Port,
+        SSD1963_RD_GPIO_Pin,
+        state);
+}
+
+void SSD1963::setWR(char state)
+{
+    HAL_GPIO_WritePin(
+        SSD1963_WR_GPIO_Port,
+        SSD1963_WR_GPIO_Pin,
+        state);
+}
+
+void SSD1963::setDC(char state)
+{
+    HAL_GPIO_WritePin(
+        SSD1963_DC_GPIO_Port,
+        SSD1963_DC_GPIO_Pin,
+        state);
+}
+
+void SSD1963::setCS(char state)
+{
+    HAL_GPIO_WritePin(
+        SSD1963_CS_GPIO_Port,
+        SSD1963_CS_GPIO_Pin,
+        state);
+}
+
+void SSD1963::update8080data(uint32_t data)
+{
+    HAL_GPIO_WritePin(SSD1963_D0_GPIO_Port, SSD1963_D0_GPIO_Pin, (x >> 0 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D1_GPIO_Port, SSD1963_D1_GPIO_Pin, (x >> 1 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D2_GPIO_Port, SSD1963_D2_GPIO_Pin, (x >> 2 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D3_GPIO_Port, SSD1963_D3_GPIO_Pin, (x >> 3 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D4_GPIO_Port, SSD1963_D4_GPIO_Pin, (x >> 4 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D5_GPIO_Port, SSD1963_D5_GPIO_Pin, (x >> 5 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D6_GPIO_Port, SSD1963_D6_GPIO_Pin, (x >> 6 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D7_GPIO_Port, SSD1963_D7_GPIO_Pin, (x >> 7 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D8_GPIO_Port, SSD1963_D8_GPIO_Pin, (x >> 8 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D9_GPIO_Port, SSD1963_D9_GPIO_Pin, (x >> 9 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D10_GPIO_Port, SSD1963_D10_GPIO_Pin, (x >> 10 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D11_GPIO_Port, SSD1963_D11_GPIO_Pin, (x >> 11 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D12_GPIO_Port, SSD1963_D12_GPIO_Pin, (x >> 12 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D13_GPIO_Port, SSD1963_D13_GPIO_Pin, (x >> 13 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D14_GPIO_Port, SSD1963_D14_GPIO_Pin, (x >> 14 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D15_GPIO_Port, SSD1963_D15_GPIO_Pin, (x >> 15 & 0x0001));
+#ifdef SSD1963_SELECT_24BIT
+    HAL_GPIO_WritePin(SSD1963_D16_GPIO_Port, SSD1963_D16_GPIO_Pin, (x >> 16 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D17_GPIO_Port, SSD1963_D17_GPIO_Pin, (x >> 17 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D18_GPIO_Port, SSD1963_D18_GPIO_Pin, (x >> 18 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D19_GPIO_Port, SSD1963_D19_GPIO_Pin, (x >> 19 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D20_GPIO_Port, SSD1963_D20_GPIO_Pin, (x >> 20 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D21_GPIO_Port, SSD1963_D21_GPIO_Pin, (x >> 21 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D22_GPIO_Port, SSD1963_D22_GPIO_Pin, (x >> 22 & 0x0001));
+    HAL_GPIO_WritePin(SSD1963_D22_GPIO_Port, SSD1963_D23_GPIO_Pin, (x >> 23 & 0x0001));
+#endif
+}
+#endif
+#endif

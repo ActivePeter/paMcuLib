@@ -1,3 +1,6 @@
+#include "pa_Defines.h"
+#ifdef APP_USE_MSP432E_MQTT
+
 /*
  * Copyright (c) 2016-2019, Texas Instruments Incorporated
  * All rights reserved.
@@ -1042,3 +1045,5 @@ void *mainThread(void *arg0)
         Display_printf(display, 0, 0, "reopen MQTT # %d  ", ++count);
     }
 }
+
+#endif

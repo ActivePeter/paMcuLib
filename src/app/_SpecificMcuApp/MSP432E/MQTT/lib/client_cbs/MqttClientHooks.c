@@ -1,3 +1,6 @@
+#include "pa_Defines.h"
+#ifdef APP_USE_MSP432E_MQTT
+
 /*
  * Copyright (c) 2018-2019, Texas Instruments Incorporated
  * All rights reserved.
@@ -52,7 +55,7 @@
 #include <ti/drivers/emac/EMACMSP432E4.h>
 
 #define MAINTHREADSTACK 2048
-#define IFPRI  4   /* Ethernet interface priority */
+#define IFPRI 4 /* Ethernet interface priority */
 
 /* Prototypes */
 extern void *mainThread(void *arg0);
@@ -61,10 +64,10 @@ extern Display_Handle display;
 
 /* Certificate Authority certificate used to verify the server connection */
 uint8_t externalCAPem[] =
-  "-----BEGIN CERTIFICATE-----\r\n"
-  "(...certificate line 1...)\r\n"
-  "(...certificate line 2...)\r\n"
-  "-----END CERTIFICATE-----";
+    "-----BEGIN CERTIFICATE-----\r\n"
+    "(...certificate line 1...)\r\n"
+    "(...certificate line 2...)\r\n"
+    "-----END CERTIFICATE-----";
 
 uint16_t externalCAPemLen = sizeof(externalCAPem);
 
@@ -74,68 +77,78 @@ uint16_t externalCAPemLen = sizeof(externalCAPem);
  */
 void netIPAddrHook(uint32_t IPAddr, unsigned int IfIdx, unsigned int fAdd)
 {
-    pthread_t           thread;
-    pthread_attr_t      attrs;
-    struct sched_param  priParam;
-    int                 retc;
-    int                 detachState;
-    uint32_t            hostByteAddr;
+    pthread_t thread;
+    pthread_attr_t attrs;
+    struct sched_param priParam;
+    int retc;
+    int detachState;
+    uint32_t hostByteAddr;
     static bool createTask = true;
     int32_t status = 0;
 
-    if (fAdd) {
+    if (fAdd)
+    {
         Display_printf(display, 0, 0, "Network Added: ");
     }
-    else {
+    else
+    {
         Display_printf(display, 0, 0, "Network Removed: ");
     }
 
     /* print the IP address that was added/removed */
     hostByteAddr = NDK_ntohl(IPAddr);
     Display_printf(display, 0, 0, "If-%d:%d.%d.%d.%d\n", IfIdx,
-            (uint8_t)(hostByteAddr>>24)&0xFF, (uint8_t)(hostByteAddr>>16)&0xFF,
-            (uint8_t)(hostByteAddr>>8)&0xFF, (uint8_t)hostByteAddr&0xFF);
+                   (uint8_t)(hostByteAddr >> 24) & 0xFF, (uint8_t)(hostByteAddr >> 16) & 0xFF,
+                   (uint8_t)(hostByteAddr >> 8) & 0xFF, (uint8_t)hostByteAddr & 0xFF);
 
     /* initialize SlNet interface(s) */
     status = ti_net_SlNet_initConfig();
     if (status < 0)
     {
         Display_printf(display, 0, 0, "Failed to initialize SlNet interface(s)"
-                       "- status (%d)\n", status);
+                                      "- status (%d)\n",
+                       status);
         exit(1);
     }
 
-    if (fAdd && createTask) {
+    if (fAdd && createTask)
+    {
         /*
          *  Create the Task that runs the application.
          */
 
-         /* Set priority and stack size attributes */
+        /* Set priority and stack size attributes */
         pthread_attr_init(&attrs);
         priParam.sched_priority = 1;
 
         detachState = PTHREAD_CREATE_DETACHED;
         retc = pthread_attr_setdetachstate(&attrs, detachState);
-        if (retc != 0) {
+        if (retc != 0)
+        {
             Display_printf(display, 0, 0,
-                    "mqttClientHooks: IPAddrHook: pthread_attr_setdetachstate() failed\n");
-            while (1);
+                           "mqttClientHooks: IPAddrHook: pthread_attr_setdetachstate() failed\n");
+            while (1)
+                ;
         }
 
         pthread_attr_setschedparam(&attrs, &priParam);
 
         retc |= pthread_attr_setstacksize(&attrs, MAINTHREADSTACK);
-        if (retc != 0) {
+        if (retc != 0)
+        {
             Display_printf(display, 0, 0,
-                    "mqttClientHooks: pthread_attr_setstacksize() failed\n");
-            while (1);
+                           "mqttClientHooks: pthread_attr_setstacksize() failed\n");
+            while (1)
+                ;
         }
 
         retc = pthread_create(&thread, &attrs, mainThread, 0);
-        if (retc != 0) {
+        if (retc != 0)
+        {
             Display_printf(display, 0, 0,
-                    "mqttClientHooks: pthread_create() failed\n");
-            while (1);
+                           "mqttClientHooks: pthread_create() failed\n");
+            while (1)
+                ;
         }
 
         createTask = false;
@@ -151,11 +164,11 @@ void serviceReportHook(uint32_t item, uint32_t status, uint32_t report, void *h)
     static char *taskName[] = {"Telnet", "HTTP", "NAT", "DHCPS", "DHCPC", "DNS"};
     static char *reportStr[] = {"", "Running", "Updated", "Complete", "Fault"};
     static char *statusStr[] =
-        {"Disabled", "Waiting", "IPTerm", "Failed","Enabled"};
+        {"Disabled", "Waiting", "IPTerm", "Failed", "Enabled"};
 
     Display_printf(display, 0, 0, "Service Status: %-9s: %-9s: %-9s: %03d\n",
-            taskName[item - 1], statusStr[status], reportStr[report / 256],
-            report & 0xFF);
+                   taskName[item - 1], statusStr[status], reportStr[report / 256],
+                   report & 0xFF);
 }
 
 /*
@@ -165,3 +178,4 @@ void serviceReportHook(uint32_t item, uint32_t status, uint32_t report, void *h)
 void netOpenHook()
 {
 }
+#endif

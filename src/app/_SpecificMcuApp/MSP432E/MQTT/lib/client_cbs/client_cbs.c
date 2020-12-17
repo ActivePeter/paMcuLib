@@ -1,3 +1,5 @@
+#include "pa_Defines.h"
+#ifdef APP_USE_MSP432E_MQTT
 /*
  * Copyright (c) 2016-2018, Texas Instruments Incorporated
  * All rights reserved.
@@ -54,9 +56,9 @@ extern Display_Handle display;
 //*****************************************************************************
 //                          LOCAL DEFINES
 //*****************************************************************************
-#define OS_WAIT_FOREVER         (0xFFFFFFFF)
-#define OS_NO_WAIT              (0)
-#define OS_OK                   (0)
+#define OS_WAIT_FOREVER (0xFFFFFFFF)
+#define OS_NO_WAIT (0)
+#define OS_OK (0)
 
 #define MQTTClientCbs_ConnackRC(data) (data & 0xff) /**< CONNACK: Return Code (LSB) */
 
@@ -78,7 +80,6 @@ extern int32_t MQTT_SendMsgToQueue(struct msgQueue *queueElement);
 //                      CLIENT CALLBACKS
 //****************************************************************************
 
-
 //*****************************************************************************
 //
 //! Callback in case of various event (for clients connection with remote
@@ -95,142 +96,142 @@ extern int32_t MQTT_SendMsgToQueue(struct msgQueue *queueElement);
 //! return none
 //
 //*****************************************************************************
-void MqttClientCallback(int32_t event , void * metaData , uint32_t metaDateLen , void *data , uint32_t dataLen)
+void MqttClientCallback(int32_t event, void *metaData, uint32_t metaDateLen, void *data, uint32_t dataLen)
 {
     int32_t i = 0;
 
-    switch((MQTTClient_EventCB)event)
+    switch ((MQTTClient_EventCB)event)
     {
-        case MQTTClient_OPERATION_CB_EVENT:
+    case MQTTClient_OPERATION_CB_EVENT:
+    {
+        switch (((MQTTClient_OperationMetaDataCB *)metaData)->messageType)
         {
-            switch (((MQTTClient_OperationMetaDataCB*)metaData)->messageType)
+        case MQTTCLIENT_OPERATION_CONNACK:
+        {
+            uint16_t *ConnACK = (uint16_t *)data;
+            Display_printf(display, 0, 0, "CONNACK:");
+            /* Check if Conn Ack return value is Success (0) or       */
+            /* Error - Negative value                                 */
+            if (0 == (MQTTClientCbs_ConnackRC(*ConnACK)))
             {
-                case MQTTCLIENT_OPERATION_CONNACK:
-                {
-                    uint16_t *ConnACK = (uint16_t*) data;
-                    Display_printf(display, 0, 0, "CONNACK:");
-                    /* Check if Conn Ack return value is Success (0) or       */
-                    /* Error - Negative value                                 */
-                    if ( 0 == (MQTTClientCbs_ConnackRC(*ConnACK)) )
-                    {
-                        Display_printf(display, 0, 0, "Connection Success");
-                    }
-                    else
-                    {
-                        Display_printf(display, 0, 0,
-                                "Connection Error: %d", *ConnACK);
-                    }
-                    break;
-                }
-
-                case MQTTCLIENT_OPERATION_EVT_PUBACK:
-                {
-                    char *PubAck = (char *) data;
-                    Display_printf(display, 0, 0, "PubAck:");
-                    Display_printf(display, 0, 0, "%s", PubAck);
-                    break;
-                }
-
-                case MQTTCLIENT_OPERATION_SUBACK:
-                {
-                    Display_printf(display, 0, 0, "Sub Ack:");
-                    Display_printf(display, 0, 0, "Granted QoS Levels are:");
-                    for (i = 0; i < dataLen; i++)
-                    {
-                        Display_printf(display, 0, 0, "%s :QoS %d", topic[i],
-                                ((unsigned char*) data)[i]);
-                    }
-                    break;
-                }
-
-                case MQTTCLIENT_OPERATION_UNSUBACK:
-                {
-                    char *UnSub = (char *) data;
-                    Display_printf(display, 0, 0, "UnSub Ack ");
-                    Display_printf(display, 0, 0, "%s", UnSub);
-                    break;
-                }
-
-                default:
-                    break;
+                Display_printf(display, 0, 0, "Connection Success");
+            }
+            else
+            {
+                Display_printf(display, 0, 0,
+                               "Connection Error: %d", *ConnACK);
             }
             break;
         }
-        case MQTTClient_RECV_CB_EVENT:
+
+        case MQTTCLIENT_OPERATION_EVT_PUBACK:
         {
-            MQTTClient_RecvMetaDataCB *recvMetaData =  (MQTTClient_RecvMetaDataCB *)metaData;
-            uint32_t bufSizeReqd = 0;
-            uint32_t topicOffset;
-            uint32_t payloadOffset;
+            char *PubAck = (char *)data;
+            Display_printf(display, 0, 0, "PubAck:");
+            Display_printf(display, 0, 0, "%s", PubAck);
+            break;
+        }
 
-            struct publishMsgHeader msgHead;
-
-            char *pubBuff = NULL;
-            struct msgQueue queueElem;
-
-            topicOffset = sizeof(struct publishMsgHeader);
-            payloadOffset = sizeof(struct publishMsgHeader) + recvMetaData->topLen + 1;
-
-            bufSizeReqd += sizeof(struct publishMsgHeader);
-            bufSizeReqd += recvMetaData->topLen + 1;
-            bufSizeReqd += dataLen + 1;
-            pubBuff = (char *) malloc(bufSizeReqd);
-
-            if (pubBuff == NULL)
+        case MQTTCLIENT_OPERATION_SUBACK:
+        {
+            Display_printf(display, 0, 0, "Sub Ack:");
+            Display_printf(display, 0, 0, "Granted QoS Levels are:");
+            for (i = 0; i < dataLen; i++)
             {
-                Display_printf(display, 0, 0, "malloc failed: recv_cb");
-                return;
-            }
-
-            msgHead.topicLen = recvMetaData->topLen;
-            msgHead.payLen = dataLen;
-            msgHead.retain = recvMetaData->retain;
-            msgHead.dup = recvMetaData->dup;
-            msgHead.qos = recvMetaData->qos;
-            memcpy((void*) pubBuff, &msgHead, sizeof(struct publishMsgHeader));
-
-            /* copying the topic name into the buffer                         */
-            memcpy((void*) (pubBuff + topicOffset), (const void*)recvMetaData->topic, recvMetaData->topLen);
-            memset((void*) (pubBuff + topicOffset + recvMetaData->topLen), '\0', 1);
-
-            /* copying the payload into the buffer                            */
-            memcpy((void*) (pubBuff + payloadOffset), (const void*) data, dataLen);
-            memset((void*) (pubBuff + payloadOffset + dataLen), '\0', 1);
-
-            Display_printf(display, 0, 0, "\n\rMsg Recvd. by client");
-            Display_printf(display, 0, 0, "TOPIC: %s", pubBuff + topicOffset);
-            Display_printf(display, 0, 0, "PAYLOAD: %s",
-                    pubBuff + payloadOffset);
-            Display_printf(display, 0, 0, "QOS: %d", recvMetaData->qos);
-
-            if (recvMetaData->retain)
-            {
-                Display_printf(display, 0, 0, "Retained");
-            }
-
-            if (recvMetaData->dup)
-            {
-                Display_printf(display, 0, 0, "Duplicate");
-            }
-
-            /* filling the queue element details                              */
-            queueElem.event  = MSG_RECV_BY_CLIENT;
-            queueElem.msgPtr = pubBuff;
-            queueElem.topLen = recvMetaData->topLen;
-
-            /* signal to the main task                                        */
-            if (MQTT_SendMsgToQueue(&queueElem))
-            {
-                Display_printf(display, 0, 0, "\n\n\rQueue is full\n\r");
+                Display_printf(display, 0, 0, "%s :QoS %d", topic[i],
+                               ((unsigned char *)data)[i]);
             }
             break;
         }
-        case MQTTClient_DISCONNECT_CB_EVENT:
+
+        case MQTTCLIENT_OPERATION_UNSUBACK:
         {
-            gResetApplication = true;
-            Display_printf(display, 0, 0, "BRIDGE DISCONNECTION");
+            char *UnSub = (char *)data;
+            Display_printf(display, 0, 0, "UnSub Ack ");
+            Display_printf(display, 0, 0, "%s", UnSub);
             break;
         }
+
+        default:
+            break;
+        }
+        break;
+    }
+    case MQTTClient_RECV_CB_EVENT:
+    {
+        MQTTClient_RecvMetaDataCB *recvMetaData = (MQTTClient_RecvMetaDataCB *)metaData;
+        uint32_t bufSizeReqd = 0;
+        uint32_t topicOffset;
+        uint32_t payloadOffset;
+
+        struct publishMsgHeader msgHead;
+
+        char *pubBuff = NULL;
+        struct msgQueue queueElem;
+
+        topicOffset = sizeof(struct publishMsgHeader);
+        payloadOffset = sizeof(struct publishMsgHeader) + recvMetaData->topLen + 1;
+
+        bufSizeReqd += sizeof(struct publishMsgHeader);
+        bufSizeReqd += recvMetaData->topLen + 1;
+        bufSizeReqd += dataLen + 1;
+        pubBuff = (char *)malloc(bufSizeReqd);
+
+        if (pubBuff == NULL)
+        {
+            Display_printf(display, 0, 0, "malloc failed: recv_cb");
+            return;
+        }
+
+        msgHead.topicLen = recvMetaData->topLen;
+        msgHead.payLen = dataLen;
+        msgHead.retain = recvMetaData->retain;
+        msgHead.dup = recvMetaData->dup;
+        msgHead.qos = recvMetaData->qos;
+        memcpy((void *)pubBuff, &msgHead, sizeof(struct publishMsgHeader));
+
+        /* copying the topic name into the buffer                         */
+        memcpy((void *)(pubBuff + topicOffset), (const void *)recvMetaData->topic, recvMetaData->topLen);
+        memset((void *)(pubBuff + topicOffset + recvMetaData->topLen), '\0', 1);
+
+        /* copying the payload into the buffer                            */
+        memcpy((void *)(pubBuff + payloadOffset), (const void *)data, dataLen);
+        memset((void *)(pubBuff + payloadOffset + dataLen), '\0', 1);
+
+        Display_printf(display, 0, 0, "\n\rMsg Recvd. by client");
+        Display_printf(display, 0, 0, "TOPIC: %s", pubBuff + topicOffset);
+        Display_printf(display, 0, 0, "PAYLOAD: %s",
+                       pubBuff + payloadOffset);
+        Display_printf(display, 0, 0, "QOS: %d", recvMetaData->qos);
+
+        if (recvMetaData->retain)
+        {
+            Display_printf(display, 0, 0, "Retained");
+        }
+
+        if (recvMetaData->dup)
+        {
+            Display_printf(display, 0, 0, "Duplicate");
+        }
+
+        /* filling the queue element details                              */
+        queueElem.event = MSG_RECV_BY_CLIENT;
+        queueElem.msgPtr = pubBuff;
+        queueElem.topLen = recvMetaData->topLen;
+
+        /* signal to the main task                                        */
+        if (MQTT_SendMsgToQueue(&queueElem))
+        {
+            Display_printf(display, 0, 0, "\n\n\rQueue is full\n\r");
+        }
+        break;
+    }
+    case MQTTClient_DISCONNECT_CB_EVENT:
+    {
+        gResetApplication = true;
+        Display_printf(display, 0, 0, "BRIDGE DISCONNECTION");
+        break;
+    }
     }
 }
 
@@ -240,3 +241,4 @@ void MqttClientCallback(int32_t event , void * metaData , uint32_t metaDateLen ,
 //! @}
 //
 //*****************************************************************************
+#endif
