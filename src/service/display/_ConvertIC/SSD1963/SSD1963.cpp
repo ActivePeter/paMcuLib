@@ -2,7 +2,8 @@
 #ifdef DISPLAY_USE_SSD1963
 
 SSD1963 SSD1963::instance;
-void SSD1963::init(uint16_t screenW, uint16_t screenH, RgbConfig rgbConf)
+void SSD1963::init(uint16_t screenW, uint16_t screenH, RgbConfig rgbConf,
+                   ScreenDataType screenDataType)
 {
     init_hardWare();
     setCS(0);
@@ -89,8 +90,22 @@ void SSD1963::init(uint16_t screenW, uint16_t screenH, RgbConfig rgbConf)
 
     //	write_cmd(0x0021);
 
-    write_cmd(0x00F0);  //set_pixel_data_interface
-    write_data(0x0003); //0x03:16-bit(565 format);0x04:18bit;0x05:24bit
+    write_cmd(0x00F0); //set_pixel_data_interface
+    switch (screenDataType)
+    {
+    case ScreenDataType_565:
+        write_data(0x0003); //0x03:16-bit(565 format);0x04:18bit;0x05:24bit
+        break;
+    case ScreenDataType_666:
+        write_data(0x0004); //0x03:16-bit(565 format);0x04:18bit;0x05:24bit
+        break;
+    case ScreenDataType_888:
+        write_data(0x0005); //0x03:16-bit(565 format);0x04:18bit;0x05:24bit
+        break;
+    default:
+        break;
+    }
+
     pa_delayMs(5);
 
     // ClearAll();
