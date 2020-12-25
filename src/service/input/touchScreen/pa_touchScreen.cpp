@@ -72,14 +72,14 @@ uint8_t pa_touchScreen::isPressed()
 uint8_t
 pa_touchScreen::readRaw(uint16_t Coordinates[2])
 {
-	uint16_t rawx, rawy = 0;
+	uint16_t rawx = 0, rawy = 0;
 	uint32_t calculating_x = 0, calculating_y = 0;
-
+                        
 	uint32_t samples = config.SampleCount;
 	uint32_t counted_samples = 0;
 	if (!isPressed())
 	{
-		Coordinates[0] = 0;
+		Coordinates[0] = 0;                           
 		Coordinates[1] = 0;
 		return 0;
 	}
