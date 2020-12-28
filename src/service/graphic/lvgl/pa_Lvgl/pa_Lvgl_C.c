@@ -16,11 +16,11 @@ bool pa_Lvgl_touchpad_read_C(lv_indev_t *indev, lv_indev_data_t *data)
 void pa_Lvgl_init_C()
 {
     static lv_disp_buf_t disp_buf;
-    static lv_color_t buf[LV_HOR_RES_MAX * LV_VER_RES_MAX / 10]; /*Declare a buffer for 1/10 screen size*/
-    static lv_indev_drv_t indev_drv;                             /*Descriptor of a input device driver*/
-    static lv_disp_drv_t disp_drv;                               /*Descriptor of a display driver*/
+    static lv_color_t buf[LV_HOR_RES_MAX * LV_VER_RES_MAX]; /*Declare a buffer for 1/10 screen size*/
+    static lv_indev_drv_t indev_drv;                        /*Descriptor of a input device driver*/
+    static lv_disp_drv_t disp_drv;                          /*Descriptor of a display driver*/
 
-    lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * LV_VER_RES_MAX / 10); /*Initialize the display buffer*/
+    lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * LV_VER_RES_MAX); /*Initialize the display buffer*/
 
     lv_disp_drv_init(&disp_drv);              /*Basic initialization*/
     disp_drv.flush_cb = pa_Lvgl_disp_flush_C; /*Set your driver function*/
