@@ -1,7 +1,8 @@
-#include "pa_Defines.h"
+#include "all_config.h"
 
 #ifdef DISPLAY_USE_ST7789
-extern "C"{
+extern "C"
+{
 #include "../lcd_drv.h"
 }
 
@@ -20,34 +21,46 @@ extern "C"{
 #define LCD_BLK_Port GPIO_PORT_P4
 #define LCD_BLK_Pin GPIO_PIN1
 
-void LCD_GPIO_Init(void){
-	GPIO_setAsOutputPin(LCD_RES_Port,LCD_RES_Pin);
-	GPIO_setAsOutputPin(LCD_DC_Port,LCD_DC_Pin);
-	GPIO_setAsOutputPin(LCD_BLK_Port,LCD_BLK_Pin);
+void LCD_GPIO_Init(void)
+{
+	GPIO_setAsOutputPin(LCD_RES_Port, LCD_RES_Pin);
+	GPIO_setAsOutputPin(LCD_DC_Port, LCD_DC_Pin);
+	GPIO_setAsOutputPin(LCD_BLK_Port, LCD_BLK_Pin);
 }
 
-void LCD_setRes(unsigned char state){
-	if(state){
-		GPIO_setOutputHighOnPin(LCD_RES_Port,LCD_RES_Pin);
-	}else{
-		GPIO_setOutputLowOnPin(LCD_RES_Port,LCD_RES_Pin);
+void LCD_setRes(unsigned char state)
+{
+	if (state)
+	{
+		GPIO_setOutputHighOnPin(LCD_RES_Port, LCD_RES_Pin);
 	}
-
-}
-
-void LCD_setDC(unsigned char state){
-	if(state){
-		GPIO_setOutputHighOnPin(LCD_DC_Port,LCD_DC_Pin);
-	}else{
-		GPIO_setOutputLowOnPin(LCD_DC_Port,LCD_DC_Pin);
+	else
+	{
+		GPIO_setOutputLowOnPin(LCD_RES_Port, LCD_RES_Pin);
 	}
 }
 
-void LCD_setBLK(unsigned char state){
-	if(state){
-		GPIO_setOutputHighOnPin(LCD_BLK_Port,LCD_BLK_Pin);
-	}else{
-		GPIO_setOutputLowOnPin(LCD_BLK_Port,LCD_BLK_Pin);
+void LCD_setDC(unsigned char state)
+{
+	if (state)
+	{
+		GPIO_setOutputHighOnPin(LCD_DC_Port, LCD_DC_Pin);
+	}
+	else
+	{
+		GPIO_setOutputLowOnPin(LCD_DC_Port, LCD_DC_Pin);
+	}
+}
+
+void LCD_setBLK(unsigned char state)
+{
+	if (state)
+	{
+		GPIO_setOutputHighOnPin(LCD_BLK_Port, LCD_BLK_Pin);
+	}
+	else
+	{
+		GPIO_setOutputLowOnPin(LCD_BLK_Port, LCD_BLK_Pin);
 	}
 }
 

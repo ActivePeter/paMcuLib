@@ -1,4 +1,4 @@
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
 class RgbConfig
 {
 public:

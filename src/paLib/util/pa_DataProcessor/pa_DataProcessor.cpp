@@ -2,7 +2,7 @@ extern "C"
 {
 #include "stdarg.h"
 }
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
 #include "pa_DataProcessor.h"
 static const char *const g_pcHex = "0123456789abcdef";
 

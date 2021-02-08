@@ -1,4 +1,4 @@
-#include "pa_Defines.h"
+#include "all_config.h"
 #ifdef DISPLAY_USE_ST7789
 
 #ifndef __LCD_drv_H

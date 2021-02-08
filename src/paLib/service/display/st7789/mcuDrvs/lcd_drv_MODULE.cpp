@@ -1,7 +1,8 @@
-#include "pa_Defines.h"
+#include "all_config.h"
 
 #ifdef DISPLAY_USE_ST7789
-extern "C"{
+extern "C"
+{
 #include "../lcd_drv.h"
 }
 
@@ -9,18 +10,21 @@ extern "C"{
 //SCL=SCLK
 //SDA=MOSI
 
-
 #ifdef MODULE
-void LCD_GPIO_Init(void){
+void LCD_GPIO_Init(void)
+{
 }
 
-void LCD_setRes(unsigned char state){
+void LCD_setRes(unsigned char state)
+{
 }
 
-void LCD_setDC(unsigned char state){
+void LCD_setDC(unsigned char state)
+{
 }
 
-void LCD_setBLK(unsigned char state){
+void LCD_setBLK(unsigned char state)
+{
 }
 
 #endif

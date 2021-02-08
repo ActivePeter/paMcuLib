@@ -1,6 +1,6 @@
 #ifndef __PA_MATH_H__
 #define __PA_MATH_H__
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
 extern "C"
 {
 #include "math.h"

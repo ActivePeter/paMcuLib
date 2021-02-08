@@ -2,7 +2,7 @@
 #define __PA_PWMCONTROL_H__
 extern "C"
 {
-#include "../pa_CommonDrv/pa_CommonDrv.h"
+#include "../pa_BaseDrv/pa_BaseDrv.h"
 }
 namespace pa_PWM
 {

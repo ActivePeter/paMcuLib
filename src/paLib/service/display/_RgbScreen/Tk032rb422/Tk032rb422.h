@@ -1,6 +1,6 @@
 #ifndef __TK032RB422_H__
 #define __TK032RB422_H__
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
 
 #ifdef DISPLAY_USE_Tk032rb422
 //一个3。2寸 480*800 带电容触摸 的屏幕 淘宝搜索tiky
