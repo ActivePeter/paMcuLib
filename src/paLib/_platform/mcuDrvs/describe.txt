@@ -1,0 +1,3 @@
+mcu_stm32_h7|0
+freertos|1
+rtthread|0

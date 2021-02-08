@@ -1,8 +1,8 @@
 #ifndef __R61408_H__
 #define __R61408_H__
-#include "pa_CommonLib/src/drv/pa_CommonDrv/pa_CommonDrv.h"
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
 #include "../RgbConfig.h"
-#ifdef DISPLAY_USE_R61408
+#if DISPLAY_USE_R61408
 //一个3。2寸 480*800 带电容触摸 的屏幕 淘宝搜索tiky
 class R61408
 {

@@ -1,5 +1,5 @@
 #include "R61408.h"
-#ifdef DISPLAY_USE_R61408
+#if DISPLAY_USE_R61408
 
 R61408 R61408::instance;
 void R61408::SPI_writeByte(unsigned char byte)

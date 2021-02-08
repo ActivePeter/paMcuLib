@@ -2,7 +2,7 @@
 #define _pa_IIC_H
 
 #include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
-
+#if drv_iic
 typedef struct
 {
      unsigned short delay;
@@ -24,4 +24,5 @@ void pa_IIC_writeLen(unsigned char addr, unsigned char headByte, unsigned char l
      * @param data_t   数据体指针
      */
 void pa_IIC_readLen(unsigned char addr, unsigned char headByte, unsigned char length, unsigned char *data_t, pa_IICSettingStruct pa_IICSettingStruct);
+#endif
 #endif

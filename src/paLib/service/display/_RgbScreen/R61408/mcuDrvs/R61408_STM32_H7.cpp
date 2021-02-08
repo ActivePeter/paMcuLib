@@ -1,5 +1,5 @@
 #include "../R61408.h"
-#ifdef DISPLAY_USE_R61408
+#if DISPLAY_USE_R61408
 #ifdef STM32_H7
 
 #define R61408_SPI_CS_Pin GPIO_PIN_2

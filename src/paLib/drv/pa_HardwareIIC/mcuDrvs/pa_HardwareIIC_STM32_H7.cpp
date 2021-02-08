@@ -5,6 +5,8 @@
 extern I2C_HandleTypeDef hi2c1;
 void pa_IIC_init()
 {
+
+    // HAL_GPIO_Init(g)
 }
 void pa_IIC_writeLen(unsigned char addr, unsigned char reg, unsigned char length, unsigned char *data_t, pa_IICSettingStruct pa_IICSettingStruct)
 {
