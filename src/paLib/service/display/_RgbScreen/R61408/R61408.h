@@ -1,14 +1,15 @@
 #ifndef __R61408_H__
 #define __R61408_H__
 #include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
-#include "../RgbConfig.h"
+#include "../RgbConfig.hpp"
 #if DISPLAY_USE_R61408
 //一个3。2寸 480*800 带电容触摸 的屏幕 淘宝搜索tiky
 class R61408
 {
 public:
-    static R61408 instance;
+    static R61408 *getInstance();
     void LCD_init(void);
+
     void Graphic_ColorBox(uint16_t xStart, uint16_t yStart, uint16_t xLong, uint16_t yLong, uint32_t Color);
     RgbConfig getRGBConfig();
 

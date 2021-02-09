@@ -1,9 +1,10 @@
 #ifndef __SSD1963_H__
 #define __SSD1963_H__
 #include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
+
+#if DISPLAY_USE_SSD1963
 #include "paLib/service/display/ScreenRelated.h"
-#include "paLib/service/display/_RgbScreen/RgbConfig.h"
-#ifdef DISPLAY_USE_SSD1963
+#include "paLib/service/display/_RgbScreen/RgbConfig.hpp"
 //一个3。2寸 480*800 带电容触摸 的屏幕 淘宝搜索tiky
 class SSD1963
 {

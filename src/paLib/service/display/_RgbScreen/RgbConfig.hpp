@@ -1,4 +1,9 @@
+#ifndef __RGBCONFIG_Hpp__
+#define __RGBCONFIG_Hpp__
+
 #include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
+#if UseRgbScreen
+
 class RgbConfig
 {
 public:
@@ -25,3 +30,5 @@ public:
     uint16_t HFP; //HSYNC前的无效像素
     uint16_t VFP; //VSYNC前的无效行数
 };
+#endif
+#endif // __RGBCONFIG_H__

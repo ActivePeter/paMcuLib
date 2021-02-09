@@ -1,5 +1,5 @@
 #include "SSD1963.h"
-#ifdef DISPLAY_USE_SSD1963
+#if DISPLAY_USE_SSD1963
 
 SSD1963 SSD1963::instance;
 void SSD1963::init(uint16_t screenW, uint16_t screenH, RgbConfig rgbConf,

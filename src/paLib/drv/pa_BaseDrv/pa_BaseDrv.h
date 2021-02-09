@@ -1,13 +1,14 @@
+#ifdef __cplusplus
 #ifndef __pa_CommonDrv_h__
 #define __pa_CommonDrv_h__
 #include "all_config.h"
 #include "nativeInterface.h"
 // #include pa_MEM_CUSTOM_INCLUDE l    .
 //【必须】系统配置一个100us定时器来调用
-#ifdef __cplusplus
+
 extern "C"
 {
-#endif
+
     //让c调用的函数
     void pa_CallBack_100us();
 #ifdef __cplusplus
@@ -16,6 +17,7 @@ extern "C"
 #include "paLib/drv/pa_HardwareSPI/pa_HardwareSPI.h"
 #include "paLib/drv/pa_HardwareIIC/pa_HardwareIIC.h"
 #include "paLib/drv/pa_Gpio/pa_Gpio.h"
+#include <paLib/drv/pa_Ltdc/pa_Ltdc.hpp>
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
 void pa_delayMs(unsigned int ms);
@@ -48,4 +50,5 @@ typedef enum
     direction_decrease = 0,
 } Direction;
 
+#endif
 #endif

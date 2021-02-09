@@ -11,6 +11,7 @@ extern "C"
 #include "stdarg.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "string.h"
 
 #if mcu_stm32_h7
 #include "stm32h7xx_hal.h"

@@ -1,7 +1,11 @@
 #include "R61408.h"
 #if DISPLAY_USE_R61408
+R61408 *R61408::getInstance()
+{
+    static R61408 r61408;
+    return &r61408;
+}
 
-R61408 R61408::instance;
 void R61408::SPI_writeByte(unsigned char byte)
 {
     unsigned char n;
@@ -346,12 +350,19 @@ void R61408::Graphic_ColorBox(uint16_t xStart, uint16_t yStart, uint16_t xLong, 
 
 RgbConfig R61408::getRGBConfig()
 {
+    // return RgbConfig(
+    //     40,
+    //     32,
+    //     10,
+    //     1,
+    //     48,
+    //     13);
     return RgbConfig(
+        40,
         10,
-        12,
-        10,
+        5,
         1,
-        150,
+        50,
         10);
 }
 #endif

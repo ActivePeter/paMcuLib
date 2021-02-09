@@ -1,5 +1,5 @@
-#include "RgbConfig.h"
-
+#include "RgbConfig.hpp"
+#if UseRgbScreen
 RgbConfig::RgbConfig(uint16_t HBP1, uint16_t VBP1,
                      uint16_t HSW1, uint16_t VSW1,
                      uint16_t HFP1, uint16_t VFP1)
@@ -11,3 +11,4 @@ RgbConfig::RgbConfig(uint16_t HBP1, uint16_t VBP1,
     this->HFP = HFP1;
     this->VFP = VFP1;
 }
+#endif

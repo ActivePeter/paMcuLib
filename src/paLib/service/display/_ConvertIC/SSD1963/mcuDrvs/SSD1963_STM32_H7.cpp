@@ -1,5 +1,5 @@
 #include "../SSD1963.h"
-#ifdef DISPLAY_USE_SSD1963
+#if DISPLAY_USE_SSD1963
 #ifdef STM32_H7
 
 #define SSD1963_RST_GPIO_Pin GPIO_PIN_3
