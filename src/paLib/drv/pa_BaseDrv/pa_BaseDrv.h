@@ -8,7 +8,7 @@ void pa_CallBack_100us();
 
 #include "paLib/drv/pa_HardwareSPI/pa_HardwareSPI.h"
 #include "paLib/drv/pa_HardwareIIC/pa_HardwareIIC.h"
-
+#include "paLib/drv/pa_Gpio/pa_Gpio.h"
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
 void pa_delayMs(unsigned int ms);
