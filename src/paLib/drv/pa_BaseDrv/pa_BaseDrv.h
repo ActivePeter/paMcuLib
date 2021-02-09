@@ -4,8 +4,15 @@
 #include "nativeInterface.h"
 // #include pa_MEM_CUSTOM_INCLUDE l    .
 //【必须】系统配置一个100us定时器来调用
-void pa_CallBack_100us();
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    //让c调用的函数
+    void pa_CallBack_100us();
+#ifdef __cplusplus
+}
+#endif
 #include "paLib/drv/pa_HardwareSPI/pa_HardwareSPI.h"
 #include "paLib/drv/pa_HardwareIIC/pa_HardwareIIC.h"
 #include "paLib/drv/pa_Gpio/pa_Gpio.h"

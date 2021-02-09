@@ -1,3 +1,6 @@
+#ifndef __NATIVEINTERFACE_H__
+#define __NATIVEINTERFACE_H__
+
 #include "_all_config.h"
 #ifdef __cplusplus
 extern "C"
@@ -19,3 +22,5 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
+
+#endif // __NATIVEINTERFACE_H__

@@ -1,11 +1,7 @@
-#include "pa_Defines.h"
-
 #ifndef __pa_Ads1112_H__
 #define __pa_Ads1112_H__
-extern "C" {
-#include "../../../drv/pa_CommonDrv/pa_CommonDrv.h"
-
-}
+#include "paLib/drv/pa_BaseDrv/pa_BaseDrv.h"
+#if use_Ads1112
 
 class pa_Ads1112
 {
@@ -21,8 +17,8 @@ public:
 	static const unsigned char F = 2;
 
 	//模式
-	static const unsigned char MODE_UNIPOLAR = 0;//单端
-	static const unsigned char MODE_BIPOLAR = 1;//差分
+	static const unsigned char MODE_UNIPOLAR = 0; //单端
+	static const unsigned char MODE_BIPOLAR = 1;  //差分
 
 	static const unsigned char CHANNEL_0 = 0;
 	static const unsigned char CHANNEL_1 = 1;
@@ -36,15 +32,15 @@ public:
 	/*void setKeypadCallback(void (*keypadCallback)(unsigned char x, unsigned char y));*/
 private:
 	static const unsigned char BIT_ST_DRDY = 7; //data ready
-	static const unsigned char BIT_INP1 = 6; //input channel select
-	static const unsigned char BIT_INP0 = 5; //input channel select
-	static const unsigned char BIT_SC = 4; //conversion mode (single/continuous)
-	static const unsigned char BIT_DR1 = 3; //data rate
-	static const unsigned char BIT_DR0 = 2; //data rate
-	static const unsigned char BIT_PGA1 = 1; //gain
-	static const unsigned char BIT_PGA0 = 0; //gain
+	static const unsigned char BIT_INP1 = 6;	//input channel select
+	static const unsigned char BIT_INP0 = 5;	//input channel select
+	static const unsigned char BIT_SC = 4;		//conversion mode (single/continuous)
+	static const unsigned char BIT_DR1 = 3;		//data rate
+	static const unsigned char BIT_DR0 = 2;		//data rate
+	static const unsigned char BIT_PGA1 = 1;	//gain
+	static const unsigned char BIT_PGA0 = 0;	//gain
 
 	char I2C_ADDRESS;
 };
-
+#endif
 #endif
