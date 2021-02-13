@@ -18,6 +18,7 @@ extern "C"
 #include "paLib/drv/pa_HardwareIIC/pa_HardwareIIC.h"
 #include "paLib/drv/pa_Gpio/pa_Gpio.h"
 #include <paLib/drv/pa_Ltdc/pa_Ltdc.hpp>
+#include "paLib/drv/pa_SDRAM/pa_SDRAM.h"
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
 void pa_delayMs(unsigned int ms);

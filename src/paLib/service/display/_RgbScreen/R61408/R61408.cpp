@@ -352,17 +352,24 @@ RgbConfig R61408::getRGBConfig()
 {
     // return RgbConfig(
     //     40,
-    //     32,
-    //     10,
+    //     21,
+    //     18,
     //     1,
     //     48,
     //     13);
+    // return RgbConfig(
+    //     88,
+    //     32,
+    //     10,
+    //     1,
+    //     40,
+    //     13);
     return RgbConfig(
-        40,
+        80,
         10,
-        5,
+        80,
         1,
-        50,
+        100,
         10);
 }
 #endif
