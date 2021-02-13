@@ -1,5 +1,5 @@
 #include "all_config.h"
-#ifdef GRAPHIC_USE_LVGL
+#if GRAPHIC_USE_LVGL
 //全局宏//////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef __PA_LVGL_H__
 #define __PA_LVGL_H__
@@ -9,7 +9,7 @@ extern "C"
 {
 #endif
 
-#include "pa_CommonLib/src/service/graphic/lvgl/lvgl.h"
+#include "paLib/service/graphic/lvgl/lvgl.h"
     extern uint16_t Global_Touch_X;
     extern uint16_t Global_Touch_Y;
     void pa_Lvgl_init();

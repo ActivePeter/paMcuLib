@@ -15,7 +15,7 @@
 #define SDRAM_MODEREG_OPERATING_MODE_STANDARD ((uint16_t)0x0000)
 #define SDRAM_MODEREG_WRITEBURST_MODE_PROGRAMMED ((uint16_t)0x0000)
 #define SDRAM_MODEREG_WRITEBURST_MODE_SINGLE ((uint16_t)0x0200)
-
+#define TM_SDRAM_Write8(address, value) (*(uint8_t *)(0xC0000000 + (address)) = (value))
 namespace SDRAM
 {
     namespace drv

@@ -1,10 +1,14 @@
 
 #include "pa_Lvgl.h"
-#ifdef GRAPHIC_USE_LVGL
+#if GRAPHIC_USE_LVGL
 //全局宏//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#include "pa_CommonLib/src/service/display/ili9341/pa_ILI9341.h"
-#include "pa_CommonLib/src/service/input/touchScreen/pa_touchScreen.h"
+#if DISPLAY_USE_ILI9341
+#include "paLib/service/display/ili9341/pa_ILI9341.h"
+#include "paLib/service/input/touchScreen/pa_touchScreen.h"
+#endif
+#if UseRgbScreen
+#include "paLib/drv/pa_SDRAM/pa_SDRAM.h"
+#endif
 extern "C"
 {
 
@@ -37,7 +41,20 @@ extern "C"
 
 void pa_Lvgl_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
-#ifdef DISPLAY_USE_ILI9341
+    int width = area->x2 - area->x1;
+#if UseRgbScreen
+    for (int y = area->y1; y <= area->y2; y++)
+    {
+        for (int x = area->x1; x <= area->x2; x++)
+        {
+            TM_SDRAM_Write8(width * x + y, color_p->ch.blue);
+            TM_SDRAM_Write8(width * x + y, color_p->ch.green);
+            TM_SDRAM_Write8(width * x + y, color_p->ch.red);
+            color_p++;
+        }
+    }
+#endif
+#if DISPLAY_USE_ILI9341
     pa_ILI9341::instance.setAddress(area->x1, area->y1, area->x2, area->y2);
     int32_t x, y;
     pa_ILI9341::instance.setDC(1);

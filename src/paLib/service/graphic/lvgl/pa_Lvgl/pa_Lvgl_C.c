@@ -1,8 +1,8 @@
 
 #include "pa_Lvgl.h"
-#ifdef GRAPHIC_USE_LVGL
+#if GRAPHIC_USE_LVGL
 //全局宏//////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "pa_CommonLib/src/service/graphic/lvgl/lvgl.h"
+#include "paLib/service/graphic/lvgl/lvgl.h"
 void pa_Lvgl_disp_flush_C(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
     pa_Lvgl_disp_flush(disp, area, color_p);
