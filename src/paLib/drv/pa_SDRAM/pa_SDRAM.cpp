@@ -2,6 +2,7 @@
 #if drv_sdram
 namespace SDRAM
 {
+    unsigned char testValue[480 * 800 * 3] __attribute__((section(".RAM_Array")));
     using namespace drv;
     void init()
     {
@@ -18,11 +19,14 @@ namespace SDRAM
                         SDRAM_MODEREG_OPERATING_MODE_STANDARD | //设置操作模式：标准
                         SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;   //设置突发写模式：单点访问
         sendCommand(FMC_SDRAM_CMD_LOAD_MODE, 1, 1, temp);       //步骤7：装载模式寄存器的值
+
         setRate();
+        pa_delayMs(1);
+        // testValue[0] = 1;
+        memset(testValue, 0, sizeof(testValue));
     }
     char testk = 1;
 
-    unsigned char testValue[480 * 800 * 3] __attribute__((section(".RAM_Array")));
     void test()
     {
         // static
@@ -32,36 +36,36 @@ namespace SDRAM
         {
             if (testk == 0)
             {
-                //                testValue[i] = 0xff;
-                //                testValue[i + 1] = 0x00;
-                //                testValue[i + 2] = 0x00;
-                TM_SDRAM_Write8(i, 0xff);
-                TM_SDRAM_Write8(i + 1, 0x00);
-                TM_SDRAM_Write8(i + 2, 0x00);
+                testValue[i] = 0xff;
+                testValue[i + 1] = 0x00;
+                testValue[i + 2] = 0x00;
+                // TM_SDRAM_Write8(i, 0xff);
+                // TM_SDRAM_Write8(i + 1, 0x00);
+                // TM_SDRAM_Write8(i + 2, 0x00);
                 // *(testValue + i) = 0xff;
                 // *(testValue + i + 1) = 0x00;
                 // *(testValue + i + 2) = 0x00;
             }
             else if (testk == 1)
             {
-                TM_SDRAM_Write8(i, 0x00);
-                TM_SDRAM_Write8(i + 1, 0xff);
-                TM_SDRAM_Write8(i + 2, 0x00);
-                //                testValue[i] = 0x00;
-                //                testValue[i + 1] = 0xff;
-                //                testValue[i + 2] = 0x00;
+                // TM_SDRAM_Write8(i, 0x00);
+                // TM_SDRAM_Write8(i + 1, 0xff);
+                // TM_SDRAM_Write8(i + 2, 0x00);
+                testValue[i] = 0x00;
+                testValue[i + 1] = 0xff;
+                testValue[i + 2] = 0x00;
                 // *(testValue + i) = 0x00;
                 // *(testValue + i + 1) = 0xff;
                 // *(testValue + i + 2) = 0x00;
             }
             else
             {
-                TM_SDRAM_Write8(i, 0x00);
-                TM_SDRAM_Write8(i + 1, 0x00);
-                TM_SDRAM_Write8(i + 2, 0xff);
-                //                testValue[i] = 0x00;
-                //                testValue[i + 1] = 0x00;
-                //                testValue[i + 2] = 0xff;
+                // TM_SDRAM_Write8(i, 0x00);
+                // TM_SDRAM_Write8(i + 1, 0x00);
+                // TM_SDRAM_Write8(i + 2, 0xff);
+                testValue[i] = 0x00;
+                testValue[i + 1] = 0x00;
+                testValue[i + 2] = 0xff;
                 // *(testValue + i) = 0x00;
                 // *(testValue + i + 1) = 0x00;
                 // *(testValue + i + 2) = 0xff;

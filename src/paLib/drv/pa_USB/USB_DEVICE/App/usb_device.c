@@ -22,9 +22,9 @@
 /* Includes ------------------------------------------------------------------*/
 
 #include "usb_device.h"
-#include "usbd_core.h"
+#include "paLib/drv/pa_USB/STM32_USB_Device_Library/Core/usbd_core.h"
 #include "usbd_desc.h"
-#include "usbd_cdc.h"
+#include "paLib/drv/pa_USB/STM32_USB_Device_Library/Class/CDC/usbd_cdc.h"
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN Includes */
