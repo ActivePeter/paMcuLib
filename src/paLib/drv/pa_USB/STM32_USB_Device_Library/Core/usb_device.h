@@ -27,7 +27,9 @@
 extern "C"
 {
 #endif
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx.h"
 #include "stm32h7xx_hal.h"
@@ -96,7 +98,7 @@ extern "C"
   /**
   * @}
   */
-
+#endif
 #ifdef __cplusplus
 }
 #endif

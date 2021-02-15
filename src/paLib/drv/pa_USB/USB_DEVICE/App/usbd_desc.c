@@ -18,7 +18,9 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "paLib/drv/pa_USB/STM32_USB_Device_Library/Core/usbd_core.h"
 #include "usbd_desc.h"
@@ -382,5 +384,5 @@ static void IntToUnicode(uint32_t value, uint8_t *pbuf, uint8_t len)
 /**
   * @}
   */
-
+#endif
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

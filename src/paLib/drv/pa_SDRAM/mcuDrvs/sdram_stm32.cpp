@@ -29,14 +29,23 @@ namespace SDRAM
             if (HAL_SDRAM_SendCommand(&hsdram1, &Command, 0x1000) == HAL_OK)
                 return 1;
             else
-                return 0;
+            {
+                while (1)
+                {
+                }
+            }
         }
 
         void setRate()
         {
             //SDRAM刷新周期是64ms，行数是8192行，时钟频率是180MHz/2=90MHz
             //所有COUNT = (64ms/8192)/(1/90us)-20 = 64000*90/8192-20 = 683
-            HAL_SDRAM_ProgramRefreshRate(&hsdram1, 683); //步骤8：设置刷新速率
+            if (HAL_SDRAM_ProgramRefreshRate(&hsdram1, 683) != HAL_OK)
+            {
+                while (1)
+                {
+                }
+            } //步骤8：设置刷新速率
         }
 
     } // namespace drv

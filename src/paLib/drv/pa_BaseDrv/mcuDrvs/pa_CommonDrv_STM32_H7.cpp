@@ -35,7 +35,7 @@ void pa_CallBack_100us()
 void pa_delayMs(unsigned int ms)
 {
     osDelay(ms);
-    //    HAL_Delay(ms);
+    // HAL_Delay(ms);
 }
 
 void pa_delayUs(unsigned int us)
@@ -46,28 +46,6 @@ void pa_delayUs(unsigned int us)
 uint64_t pa_millis()
 {
     return pa_millis_cnt;
-}
-
-void pa_printf(const char *format, ...) //需要修改内存管理
-{
-}
-
-void pa_Debug(const char *data)
-{
-    uint8_t *cntPtr = (uint8_t *)data;
-    int len = 0;
-    while (*cntPtr)
-    {
-        len++;
-        cntPtr++;
-    }
-    // while (CDC_Transmit_FS((uint8_t *)data, len))
-    //     ;
-}
-void pa_Debug_len(const char *data, int len)
-{
-    // while (CDC_Transmit_FS((uint8_t *)data, len))
-    //     ;
 }
 
 #endif

@@ -47,9 +47,9 @@ void pa_Lvgl_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *
     {
         for (int x = area->x1; x <= area->x2; x++)
         {
-            TM_SDRAM_Write8(width * x + y, color_p->ch.blue);
-            TM_SDRAM_Write8(width * x + y, color_p->ch.green);
-            TM_SDRAM_Write8(width * x + y, color_p->ch.red);
+            TM_SDRAM_Write8(480 * 3 * x + y * 3 + 2, color_p->ch.blue);
+            TM_SDRAM_Write8(480 * 3 * x + y * 3 + 1, color_p->ch.green);
+            TM_SDRAM_Write8(480 * 3 * x + y * 3 + 0, color_p->ch.red);
             color_p++;
         }
     }

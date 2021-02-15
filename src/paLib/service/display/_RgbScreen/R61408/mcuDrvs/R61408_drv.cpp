@@ -7,10 +7,10 @@ void R61408::initHardWare(void)
     SPI_CS(1);
     LCD_setReset(1);
     SPI_CS(1);
-    // Gpio_setMode(R61408_SPI_DCLK, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
-    // Gpio_setMode(R61408_SPI_DCLK, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
-    // Gpio_setMode(R61408_SPI_DCLK, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
-    // Gpio_setMode(R61408_SPI_DCLK, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
+    Gpio_setMode(R61408_SPI_DCLK, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
+    Gpio_setMode(R61408_SPI_SDA, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
+    Gpio_setMode(R61408_SPI_CS, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
+    Gpio_setMode(R61408_RST, GpioMode::GpioMode_Output_PP, GpioSpeed_Medium);
 }
 
 inline void R61408::SPI_DCLK(int state)

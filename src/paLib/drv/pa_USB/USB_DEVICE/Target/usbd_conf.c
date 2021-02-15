@@ -18,7 +18,9 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx.h"
 #include "stm32h7xx_hal.h"
@@ -639,5 +641,5 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status)
   }
   return usb_status;
 }
-
+#endif
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

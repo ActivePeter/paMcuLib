@@ -4,6 +4,7 @@
 void Gpio_setMode(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GpioMode mode, GpioSpeed speed)
 {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Pin = GPIO_Pin;
     // GPIO_InitStruct.Pin = stepperMs1_Pin | stepperMs2_Pin | stepperMs3_Pin;
     switch (mode)
     {

@@ -19,6 +19,7 @@ extern "C"
 #include "paLib/drv/pa_Gpio/pa_Gpio.h"
 #include <paLib/drv/pa_Ltdc/pa_Ltdc.hpp>
 #include "paLib/drv/pa_SDRAM/pa_SDRAM.h"
+#include "paLib/drv/pa_Output/pa_Output.h"
 //common Funcs（通用函数）/////////////////////////////////////////////
 void pa_CommonInit();
 void pa_delayMs(unsigned int ms);
@@ -26,10 +27,6 @@ void pa_setTimerCallback(void (*CallBack_100us)(void), void (*CallBack_1ms)(void
 void pa_delayUs(unsigned int us);
 
 uint64_t pa_millis();
-
-void pa_printf(const char *format, ...);
-void pa_Debug(const char *data);
-void pa_Debug_len(const char *data, int len);
 
 /////////////////////////////////////////////////////////
 typedef enum

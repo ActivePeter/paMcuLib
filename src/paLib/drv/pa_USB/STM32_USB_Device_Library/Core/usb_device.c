@@ -20,12 +20,14 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include "all_config.h"
 
+#if using_stm32h7_usb
 #include "usb_device.h"
 #include "paLib/drv/pa_USB/STM32_USB_Device_Library/Core/usbd_core.h"
-#include "usbd_desc.h"
+#include "../../USB_DEVICE/App/usbd_desc.h"
 #include "paLib/drv/pa_USB/STM32_USB_Device_Library/Class/CDC/usbd_cdc.h"
-#include "usbd_cdc_if.h"
+#include "../Class/CDC/usbd_cdc_if.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -99,5 +101,5 @@ void MX_USB_DEVICE_Init(void)
 /**
   * @}
   */
-
+#endif
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

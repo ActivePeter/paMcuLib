@@ -1,8 +1,9 @@
 #include "pa_SDRAM.h"
 #if drv_sdram
+unsigned char testValue[480 * 800 * 3] __attribute__((section(".RAM_Array")));
 namespace SDRAM
 {
-    unsigned char testValue[480 * 800 * 3] __attribute__((section(".RAM_Array")));
+
     using namespace drv;
     void init()
     {
@@ -36,36 +37,36 @@ namespace SDRAM
         {
             if (testk == 0)
             {
-                testValue[i] = 0xff;
-                testValue[i + 1] = 0x00;
-                testValue[i + 2] = 0x00;
-                // TM_SDRAM_Write8(i, 0xff);
-                // TM_SDRAM_Write8(i + 1, 0x00);
-                // TM_SDRAM_Write8(i + 2, 0x00);
+                // testValue[i] = 0xff;
+                // testValue[i + 1] = 0x00;
+                // testValue[i + 2] = 0x00;
+                TM_SDRAM_Write8(i, 0xff);
+                TM_SDRAM_Write8(i + 1, 0x00);
+                TM_SDRAM_Write8(i + 2, 0x00);
                 // *(testValue + i) = 0xff;
                 // *(testValue + i + 1) = 0x00;
                 // *(testValue + i + 2) = 0x00;
             }
             else if (testk == 1)
             {
-                // TM_SDRAM_Write8(i, 0x00);
-                // TM_SDRAM_Write8(i + 1, 0xff);
-                // TM_SDRAM_Write8(i + 2, 0x00);
-                testValue[i] = 0x00;
-                testValue[i + 1] = 0xff;
-                testValue[i + 2] = 0x00;
+                TM_SDRAM_Write8(i, 0x00);
+                TM_SDRAM_Write8(i + 1, 0xff);
+                TM_SDRAM_Write8(i + 2, 0x00);
+                // testValue[i] = 0x00;
+                // testValue[i + 1] = 0xff;
+                // testValue[i + 2] = 0x00;
                 // *(testValue + i) = 0x00;
                 // *(testValue + i + 1) = 0xff;
                 // *(testValue + i + 2) = 0x00;
             }
             else
             {
-                // TM_SDRAM_Write8(i, 0x00);
-                // TM_SDRAM_Write8(i + 1, 0x00);
-                // TM_SDRAM_Write8(i + 2, 0xff);
-                testValue[i] = 0x00;
-                testValue[i + 1] = 0x00;
-                testValue[i + 2] = 0xff;
+                TM_SDRAM_Write8(i, 0x00);
+                TM_SDRAM_Write8(i + 1, 0x00);
+                TM_SDRAM_Write8(i + 2, 0xff);
+                // testValue[i] = 0x00;
+                // testValue[i + 1] = 0x00;
+                // testValue[i + 2] = 0xff;
                 // *(testValue + i) = 0x00;
                 // *(testValue + i + 1) = 0x00;
                 // *(testValue + i + 2) = 0xff;

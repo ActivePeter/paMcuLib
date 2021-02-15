@@ -26,7 +26,9 @@
 extern "C"
 {
 #endif
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "paLib/drv/pa_USB/STM32_USB_Device_Library/Core/usbd_def.h"
 
@@ -136,7 +138,7 @@ extern "C"
   /**
   * @}
   */
-
+#endif
 #ifdef __cplusplus
 }
 #endif

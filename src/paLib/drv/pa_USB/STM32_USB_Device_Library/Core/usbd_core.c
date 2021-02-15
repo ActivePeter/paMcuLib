@@ -16,14 +16,15 @@
   *
   ******************************************************************************
   */
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 
 /** @addtogroup STM32_USBD_DEVICE_LIBRARY
 * @{
 */
-
 
 /** @defgroup USBD_CORE
 * @brief usbd core module
@@ -38,7 +39,6 @@
 * @}
 */
 
-
 /** @defgroup USBD_CORE_Private_Defines
 * @{
 */
@@ -47,7 +47,6 @@
 * @}
 */
 
-
 /** @defgroup USBD_CORE_Private_Macros
 * @{
 */
@@ -55,7 +54,6 @@
 /**
 * @}
 */
-
 
 /** @defgroup USBD_CORE_Private_FunctionPrototypes
 * @{
@@ -72,7 +70,6 @@
 /**
 * @}
 */
-
 
 /** @defgroup USBD_CORE_Private_Functions
 * @{
@@ -190,10 +187,9 @@ USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDe
   /* Get Device Configuration Descriptor */
 #ifdef USE_USB_FS
   pdev->pConfDesc = (void *)pdev->pClass->GetFSConfigDescriptor(&len);
-#else /* USE_USB_HS */
+#else  /* USE_USB_HS */
   pdev->pConfDesc = (void *)pdev->pClass->GetHSConfigDescriptor(&len);
 #endif /* USE_USB_FS */
-
 
   return USBD_OK;
 }
@@ -243,7 +239,7 @@ USBD_StatusTypeDef USBD_Stop(USBD_HandleTypeDef *pdev)
 * @param  pdev: device instance
 * @retval status
 */
-USBD_StatusTypeDef USBD_RunTestMode(USBD_HandleTypeDef  *pdev)
+USBD_StatusTypeDef USBD_RunTestMode(USBD_HandleTypeDef *pdev)
 {
   /* Prevent unused argument compilation warning */
   UNUSED(pdev);
@@ -290,7 +286,6 @@ USBD_StatusTypeDef USBD_ClrClassConfig(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   return USBD_OK;
 }
 
-
 /**
 * @brief  USBD_SetupStage
 *         Handle the setup stage
@@ -309,21 +304,21 @@ USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
 
   switch (pdev->request.bmRequest & 0x1FU)
   {
-    case USB_REQ_RECIPIENT_DEVICE:
-      ret = USBD_StdDevReq(pdev, &pdev->request);
-      break;
+  case USB_REQ_RECIPIENT_DEVICE:
+    ret = USBD_StdDevReq(pdev, &pdev->request);
+    break;
 
-    case USB_REQ_RECIPIENT_INTERFACE:
-      ret = USBD_StdItfReq(pdev, &pdev->request);
-      break;
+  case USB_REQ_RECIPIENT_INTERFACE:
+    ret = USBD_StdItfReq(pdev, &pdev->request);
+    break;
 
-    case USB_REQ_RECIPIENT_ENDPOINT:
-      ret = USBD_StdEPReq(pdev, &pdev->request);
-      break;
+  case USB_REQ_RECIPIENT_ENDPOINT:
+    ret = USBD_StdEPReq(pdev, &pdev->request);
+    break;
 
-    default:
-      ret = USBD_LL_StallEP(pdev, (pdev->request.bmRequest & 0x80U));
-      break;
+  default:
+    ret = USBD_LL_StallEP(pdev, (pdev->request.bmRequest & 0x80U));
+    break;
   }
 
   return ret;
@@ -423,7 +418,7 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
         (void)USBD_CtlContinueSendData(pdev, pdata, pep->rem_length);
 
         /* Prepare endpoint for premature end of transfer */
-       (void)USBD_LL_PrepareReceive(pdev, 0U, NULL, 0U);
+        (void)USBD_LL_PrepareReceive(pdev, 0U, NULL, 0U);
       }
       else
       {
@@ -506,7 +501,7 @@ USBD_StatusTypeDef USBD_LL_Reset(USBD_HandleTypeDef *pdev)
     pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
   }
 
-    /* Open EP0 OUT */
+  /* Open EP0 OUT */
   (void)USBD_LL_OpenEP(pdev, 0x00U, USBD_EP_TYPE_CTRL, USB_MAX_EP0_SIZE);
   pdev->ep_out[0x00U & 0xFU].is_used = 1U;
 
@@ -655,11 +650,9 @@ USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef *pdev)
 * @}
 */
 
-
 /**
 * @}
 */
-
 
 /**
 * @}
@@ -667,3 +660,4 @@ USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef *pdev)
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
+#endif

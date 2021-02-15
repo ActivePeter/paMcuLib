@@ -16,14 +16,15 @@
   *
   ******************************************************************************
   */
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ioreq.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */
-
 
 /** @defgroup USBD_IOREQ
   * @brief control I/O requests module
@@ -37,7 +38,6 @@
   * @}
   */
 
-
 /** @defgroup USBD_IOREQ_Private_Defines
   * @{
   */
@@ -46,14 +46,12 @@
   * @}
   */
 
-
 /** @defgroup USBD_IOREQ_Private_Macros
   * @{
   */
 /**
   * @}
   */
-
 
 /** @defgroup USBD_IOREQ_Private_Variables
   * @{
@@ -63,14 +61,12 @@
   * @}
   */
 
-
 /** @defgroup USBD_IOREQ_Private_FunctionPrototypes
   * @{
   */
 /**
   * @}
   */
-
 
 /** @defgroup USBD_IOREQ_Private_Functions
   * @{
@@ -198,16 +194,14 @@ uint32_t USBD_GetRxCount(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 {
   return USBD_LL_GetRxDataSize(pdev, ep_addr);
 }
-
+#endif
 /**
   * @}
   */
 
-
 /**
   * @}
   */
-
 
 /**
   * @}

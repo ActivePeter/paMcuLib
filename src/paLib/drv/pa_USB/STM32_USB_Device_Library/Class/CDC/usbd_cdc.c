@@ -54,7 +54,9 @@
 - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
 - "stm32xxxxx_{eval}{discovery}_io.c"
 EndBSPDependencies */
+#include "all_config.h"
 
+#if using_stm32h7_usb
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc.h"
 #include "../../Core/usbd_ctlreq.h"
@@ -438,7 +440,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_OtherSpeedCfgDesc[USB_CDC_CONFIG_DESC_SIZ]
 /** @defgroup USBD_CDC_Private_Functions
   * @{
   */
-
+USBD_CDC_HandleTypeDef cdcHandle_fuck_static;
 /**
   * @brief  USBD_CDC_Init
   *         Initialize the CDC interface
@@ -446,12 +448,13 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_OtherSpeedCfgDesc[USB_CDC_CONFIG_DESC_SIZ]
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
+static uint8_t
+USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   UNUSED(cfgidx);
   USBD_CDC_HandleTypeDef *hcdc;
 
-  hcdc = USBD_malloc(sizeof(USBD_CDC_HandleTypeDef));
+  hcdc = &cdcHandle_fuck_static; //USBD_malloc(sizeof(USBD_CDC_HandleTypeDef));
 
   if (hcdc == NULL)
   {
@@ -918,3 +921,4 @@ uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev)
   */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif
