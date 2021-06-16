@@ -1,4 +1,0 @@
-using_GT911
-GT911_int_gpio
-GT911_rst_gpio
-GT911_iic_id

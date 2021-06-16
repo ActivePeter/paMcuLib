@@ -1,6 +1,0 @@
-[submodule "src/paLib/service/display/ssd1306"]
-	path = src/paLib/service/display/ssd1306
-	url = https://github.com/pa-CommonLib-parts/ssd1306_pa_CommonLib.git
-[submodule "src/paLib/service/input/pa_Keypad"]
-	path = src/paLib/service/input/pa_Keypad
-	url = https://github.com/pa-CommonLib-parts/Keypad_pa_CommonLib.git

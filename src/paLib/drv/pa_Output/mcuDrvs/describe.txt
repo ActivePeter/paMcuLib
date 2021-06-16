@@ -1,3 +1,0 @@
-output_use
-output_use_cdc
-output_use_serial
