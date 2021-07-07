@@ -11,7 +11,7 @@
 
 ```json
 {
-    "root_folder": "./components/",
+    "root_folder": "./this should be changed according to your project structure/",
     "get_latest_templete_here": "https://github.com/ActivePeter/paMcuLib/blob/master/latest_module.md",
     "submodules_structure": {
         "paLibSubs": [
