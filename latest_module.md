@@ -12,6 +12,7 @@
 ```json
 {
     "root_folder": "./components/",
+    "get_latest_templete_here": "https://github.com/ActivePeter/paMcuLib/blob/master/latest_module.md",
     "submodules_structure": {
         "paLibSubs": [
             {
