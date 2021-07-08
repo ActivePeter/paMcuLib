@@ -12,62 +12,22 @@
 
    拷贝 通用库的结构信息，root_folder可以根据喜好来修改，
 
-   ```json
-   {
-       "root_folder": "./components/",
-       "submodules_structure": {
-           "paLibSubs": [
-               {
-                   "used": 1,
-                   "git": "https://github.com/paMcuLib/paMcuLibCoreHead.git",
-                   "rename": "paCoreHead"
-               },
-               {
-                   "used": 1,
-                   "git": "https://github.com/ActivePeter/paMcuLibCore_Esp32.git",
-                   "rename": "paCoreSrc"
-               },
-               {
-                   "used": 1,
-                   "git": "https://github.com/ActivePeter/paMcuLib_Base.git",
-                   "rename": "paBase"
-               }
-           ],
-           "paLibSubs/paMods/display": [
-               {
-                   "used": 0,
-                   "rename": "SSD1306",
-                   "git": "https://github.com/paMcuLib/ssd1306_paMcuLib.git"
-               },
-               {
-                   "used": 1,
-                   "rename": "ILI9341",
-                   "git": "https://github.com/paMcuLib/ili9341_paMcuLib.git"
-               }
-           ],
-           "paLibSubs/paMods/input": [
-               {
-                   "used": 1,
-                   "rename": "xpt2046",
-                   "git": "https://github.com/paMcuLib/xpt2046_paMcuLib.git"
-               }
-           ]
-       }
-   }
-   ```
-
+   ### [Get latest json templete from here](./latest_module.md) 
+   
+   ### [在这里可以获取到最新的模板](./latest_module.md)
+   
    需要将paCoreSrc那一项的链接改为对应的平台，如果还没有适配过，你需要在paMcuLib或自己的仓库中创建一个对应平台的仓库
-
+   
    格式： paMcuLibCore_XXXX.git
-
+   
    #### 目前已有：
-
+   
    stm32 esp32
-
+   
    [paMcuLib/paMcuLibCore_stm32 (github.com)](https://github.com/paMcuLib/paMcuLibCore_stm32)
-
+   
    [paMcuLib/paMcuLibCore_Esp32: esp32 impelemention of paMcuLibCore (github.com)](https://github.com/paMcuLib/paMcuLibCore_Esp32)
-
+   
 5. ## 使用submodule helper加载一系列子模块
 
 6. ## 找到项目的入口文件，创建c++入口程序
