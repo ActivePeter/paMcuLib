@@ -21,9 +21,7 @@
 - ## Supported mcus（当前支持的平台
 
   - esp32 stm32
-  - demos
-    - [paMcuLib/paMcuLib_esp32_idf_cmake_demo](https://github.com/paMcuLib/paMcuLib_esp32_idf_cmake_demo)
-    - [paMcuLib/paMcuLib_stm32f103c8t6_cubeide_demo ](https://github.com/paMcuLib/paMcuLib_stm32f103c8t6_cubeide_demo)
+  - [demos](./start.md)
 
 - ## Adapted devices of mcu（当前适配的常用硬件设施
 
@@ -90,3 +88,9 @@
 - ## Start Using
 
   ## [大致的使用流程](./start.md)
+  
+  you can also direcly start project with demos
+  
+  你也可以用demo来进行项目的开始
+  
+  [demos](./start.md)
