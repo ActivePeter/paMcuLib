@@ -21,7 +21,7 @@
 - ## Supported mcus（当前支持的平台
 
   - esp32 stm32
-  - [demos](./start.md)
+  - [demos](./demo.md)
 
 - ## Adapted devices of mcu（当前适配的常用硬件设施
 
@@ -93,4 +93,4 @@
   
   你也可以用demo来进行项目的开始
   
-  [demos](./start.md)
+  [demos](./demo.md)
