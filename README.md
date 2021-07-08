@@ -21,6 +21,17 @@
 - ## Supported mcus（当前支持的平台
 
   - esp32 stm32
+
+    - tested
+
+      stm32f103c8t6
+
+      ![image-20210708112213864](https://hanbaoaaa.xyz/tuchuang/images/2021/07/07/image-20210708112213864.png)
+
+      esp32 s2
+
+      ![image-20210708112244383](https://hanbaoaaa.xyz/tuchuang/images/2021/07/07/image-20210708112244383.png)
+
   - [demos](./demo.md)
 
 - ## Adapted devices of mcu（当前适配的常用硬件设施
