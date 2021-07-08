@@ -18,24 +18,19 @@
             {
                 "used": 1,
                 "git": "https://hub.fastgit.org/paMcuLib/paMcuLibCoreHead.git",
-                "rename": "paCoreHead"
+                "rename": "paCoreInc"
             },
             {
                 "used": 1,
-                "git": "https://hub.fastgit.org/paMcuLib/paMcuLibCore_Esp32.git",
+                "git": "https://hub.fastgit.org/paMcuLib/paMcuLibCore_stm32.git",
                 "rename": "paCoreSrc"
-            },
-            {
-                "used": 1,
-                "git": "https://hub.fastgit.org/ActivePeter/paMcuLib_Base.git",
-                "rename": "paBase"
             }
         ],
         "paLibSubs/paMods/display": [
             {
                 "used": 1,
-                "rename": "SSD1306",
-                "git": "https://hub.fastgit.org/paMcuLib/ssd1306_paMcuLib.git"
+                "rename": "u8g2",
+                "git": "https://hub.fastgit.org/paMcuLib/u8g2_paMcuLib.git"
             },
             {
                 "used": 1,

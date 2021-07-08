@@ -42,7 +42,9 @@
 
   - ***paLibSubs/paMods/display* 显示**
 
-    ssd1306（iic
+    u8g2 （ssd1306_iic
+
+    ​	![image-20210709020725466](https://hanbaoaaa.xyz/tuchuang/images/2021/07/08/image-20210709020725466.png)
 
     ili9341（spi
 
