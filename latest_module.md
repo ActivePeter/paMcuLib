@@ -30,12 +30,28 @@
             {
                 "used": 1,
                 "rename": "u8g2",
+                "device_supported": [
+                    "SSD1306"
+                ],
                 "git": "https://hub.fastgit.org/paMcuLib/u8g2_paMcuLib.git"
             },
             {
                 "used": 1,
                 "rename": "ILI9341",
                 "git": "https://hub.fastgit.org/paMcuLib/ili9341_paMcuLib.git"
+            },
+            {
+                "used": 1,
+                "rename": "lvgl",
+                "notice": [
+                    "1.remember to check the config with extension: Macro Define Helper",
+                    "2.should be used with rgb screen",
+                    "3.f103c8t6 has not enough rom space"
+                ],
+                "device_supported": [
+                    "ILI9341"
+                ],
+                "git": "https://hub.fastgit.org/paMcuLib/lvgl_paMcuLib.git"
             }
         ],
         "paLibSubs/paMods/input": [
