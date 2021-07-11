@@ -42,11 +42,15 @@
 
   - ***paLibSubs/paMods/display* 显示**
 
-    u8g2 （ssd1306_iic
+    - u8g2 （ssd1306_iic
 
-    ​	![image-20210709020725466](https://hanbaoaaa.xyz/tuchuang/images/2021/07/08/image-20210709020725466.png)
+      ![image-20210709020725466](https://hanbaoaaa.xyz/tuchuang/images/2021/07/08/image-20210709020725466.png)
 
-    ili9341（spi
+    - ili9341（spi
+
+    - lvgl (need enough rom and ram
+
+      ![Video_20210711_112137_745](https://hanbaoaaa.xyz/tuchuang/images/2021/07/10/Video_20210711_112137_745.gif)
 
   - ***paLibSubs/paMods/input* 输入**
 
