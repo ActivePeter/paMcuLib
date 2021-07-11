@@ -50,7 +50,7 @@
 
     - lvgl (need enough rom and ram
 
-      ![Video_20210711_112137_745](https://hanbaoaaa.xyz/tuchuang/images/2021/07/10/Video_20210711_112137_745bc817f3412fec51c.gif)
+      ![Video_20210711_112137_745](./lvgl.gif)
 
   - ***paLibSubs/paMods/input* 输入**
 
